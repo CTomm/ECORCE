@@ -30,7 +30,7 @@
 https://css-tricks.com/building-a-simple-quiz/
  -->
 		
-<form action="insert.php" method="POST" id="___">
+<form action="/handle_data" method="POST" id="___">
 
 
 <!-- Slideshow container -->
@@ -365,40 +365,12 @@ https://css-tricks.com/building-a-simple-quiz/
     <br>
 
 
-
-<!--
-function verif() {
-if (document.formulaire.nom.value == "") {
-alert("Veuillez saisir votre nom") ;
-return ; }
-
-if (document.formulaire.prenom.value == "") {
-alert("Veuillez saisir votre prénom") ;
-return ; }
-}
-//-->
-
-<?
-if($_POST['Q1'] == "" OR $_POST['Q2'] == "")
-{
-  echo "Vous n'avez pas renseigné tout les champs , cliquez sur précédent pour y remédier";
-}
-else
-{
-  echo "Merci de vous être enregistré"
-}
-?>
-
-
-
-
     Commentaire / Remarque: <br>
         <textarea rows="5" cols="50">
         </textarea>  <br>
 
 
 </form>
-
 
 <html>
 

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, render_template
 import psycopg2
 
 app = Flask(__name__)
@@ -23,3 +23,20 @@ def user():
             from user84
             """)
 	return cursor.fetchone()[0]
+
+
+@app.route('/handle_data', methods=['POST'])
+def handle_data():
+    poulet = request.form['Q3_poulet']
+    #Récupérer toutes les valeurs du questionnaire
+    #Calculer les émissions totales
+    #Envoyer le résultat à psql
+    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
+    cursor = conn.cursor()
+    cursor.execute("""
+            update utilisateur set conso = 4000
+            where id = """ + poulet
+            )
+    conn.commit()
+    #conn.close()
+    return render_template("wait.html")
