@@ -1,0 +1,11 @@
+body {
+	background-color: azure;
+}
+h1{
+	font-size:25px;
+	color:#2F4F4F;
+}
+#map{
+	width:100%;
+	height:500px;
+}
