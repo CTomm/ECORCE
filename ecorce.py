@@ -18,10 +18,8 @@ def user():
 	cursor.execute("""
             select json_build_object(
                 'type', 'FeatureCollection',
-                'features', json_agg(ST_AsGeoJSON(utilisateur.*)::json)
+                'features', json_agg(ST_AsGeoJSON(user84.*)::json)
             ) as geojson
-            from utilisateur
+            from user84
             """)
-	user = cursor.fetchone()
-	return str(user)
-
+	return cursor.fetchone()[0]
