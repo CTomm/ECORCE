@@ -17,6 +17,8 @@ var OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
 
 var provider = new OpenStreetMapProvider();
 
+var point = []
+
 var searchControl = new GeoSearchControl({
   provider: provider,
   style: 'bar|button',
@@ -30,5 +32,10 @@ var searchControl = new GeoSearchControl({
   position: 'topright',
   animateZoom: true,
 });
+
+point = searchControl.resultList.results;
+
+// Il faut ajouter if exists pour results ici
+console.log(point);
 
 map.addControl(searchControl);
