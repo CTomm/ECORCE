@@ -63,18 +63,29 @@ def handle_data():
     else:
         leg = 267.98408
 
-    
-
     #ENERGIE
+    if request.form['Q8'] == "A":
+        elect = 696*int(request.form['Q9'])
+    else:
+        elect = 0
+
+
     elect = 696 #VAR
     fioul = 275 #VAR
     bois = 13 #VAR
     gaz = 230  #VAR
 
     #TRANSPORTS
+    
+    tc_s = 184.6*int(request.form['Q12'])
+    voit_s = 9560.2*int(request.form['Q13']) #Multiplier passager
+    train = 7*int(request.form['Q14'])
+    voit_annee = 85.5*int(request.form['Q15']) #Multiplier passager
+    car = 58.5*int(request.form['Q16'])
+    avion = 144.6*int(request.form['Q17'])
 
-    voit_s = 9560.2
-    return str(lait)
+    emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+ elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
+    return str(emissions)
 
 
 
