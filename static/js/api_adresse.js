@@ -17,7 +17,7 @@ var OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
 
 var provider = new OpenStreetMapProvider();
 
-var point = []
+var point = [];
 
 var searchControl = new GeoSearchControl({
   provider: provider,
@@ -33,9 +33,20 @@ var searchControl = new GeoSearchControl({
   animateZoom: true,
 });
 
-point = searchControl.resultList.results;
+point = searchControl.markers
 
-// Il faut ajouter if exists pour results ici
-console.log(point);
+var x;
+var y;
+
+map.on("click",function(){
+ if (typeof point !== 'undefined') {
+      console.log(point.results[0]),
+      x = point.results[0].x,
+      y = point.results[0].y,
+      console.log("Coordonnées " + " " + x + " " + y)
+    } else {
+      console.log ("coucou")
+    }
+});
 
 map.addControl(searchControl);
