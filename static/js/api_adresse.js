@@ -33,20 +33,38 @@ var searchControl = new GeoSearchControl({
   animateZoom: true,
 });
 
-point = searchControl.markers
+marqueur = L.layerGroup().addTo(map);
 
-var x;
-var y;
-
-map.on("click",function(){
- if (typeof point !== 'undefined') {
-      console.log(point.results[0]),
-      x = point.results[0].x,
-      y = point.results[0].y,
-      console.log("Coordonnées " + " " + x + " " + y)
-    } else {
-      console.log ("coucou")
+function placeMarker(){
+   if (typeof searchControl._map._lastCenter !== 'null' & typeof searchControl.resultList.results !== 'undefined') {
+      x = searchControl._map._lastCenter.lat;
+      y = searchControl._map._lastCenter.lng;
+      searchControl.markers.remove();
+      marqueur.clearLayers();
+      marqueur.addLayer(L.marker([x, y]));
+      console.log(searchControl)
     }
+}
+
+map.on("zoomend",function(){
+  placeMarker()
 });
+
+map.on("moveend",function(){
+  placeMarker()
+});
+
+map.on("click", function(ev){
+  x = searchControl._map._lastCenter.lat;
+  y = searchControl._map._lastCenter.lng;
+  searchControl.markers.remove();
+  marqueur.clearLayers();
+  marqueur.addLayer(L.marker(ev.latlng));
+});
+
+function validate(){
+  //do something
+};
+
 
 map.addControl(searchControl);
