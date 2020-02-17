@@ -65,15 +65,19 @@ def handle_data():
 
     #ENERGIE
     if request.form['Q8'] == "A":
-        elect = 696*int(request.form['Q9'])
+        if request.form['Q9_electrique'] != None:
+            elect = 696*int(request.form['Q9_electrique'])
+        if request.form['Q9_gaz'] != None:
+            gaz = 230*int(request.form['Q9_gaz'])
+        if request.form['Q9_fioul'] != None:
+            fioul = 275*int(request.form['Q9_fioul'])
+        if request.form['Q9_bois'] != None:
+            bois = 13*int(request.form['Q9_bois'])
     else:
         elect = 0
-
-
-    elect = 696 #VAR
-    fioul = 275 #VAR
-    bois = 13 #VAR
-    gaz = 230  #VAR
+        gaz = 0
+        fioul = 0
+        bois = 0
 
     #TRANSPORTS
     
@@ -84,7 +88,7 @@ def handle_data():
     car = 58.5*int(request.form['Q16'])
     avion = 144.6*int(request.form['Q17'])
 
-    emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+ elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
+    emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     return str(emissions)
 
 
