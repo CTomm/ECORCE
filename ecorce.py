@@ -46,20 +46,24 @@ def handle_data():
 
     #FIXE
     alimfixe = 282.72608
-    if request.form['Q2'] == 'A'
-        leg = 44.82296
-    leg = 267.98408
 
-    #VARIABLE
+    #VARIABLE  
+    poulet = 28.34551491*int(request.form['Q3_poulet'])
+    porc = 34.90253149*int(request.form['Q3_porc'])
+    agneau = 334.2929584*int(request.form['Q3_agneau'])
+    boeuf = 235.1966514*int(request.form['Q3_boeuf'])
+    poisson = 22.78607013*int(request.form['Q4'])
+    oeufs = 11.10564*int(request.form['Q5'])
+    fromage = 356.72*int(request.form['Q6'])
     lait = 52.53948708*int(request.form['Q7'])
 
-    oeufs = 11.10564 #VAR
-    poisson = 22.78607013 #VAR
-    poulet = 28.34551491 #VAR
-    porc = 34.90253149 #VAR
-    agneau = 334.2929584 #VAR
-    boeuf = 235.1966514 #VAR
-    fromage = 356.72 #VAR
+    #Légumes de saison ou pas
+    if request.form['Q7b'] == 'A':
+        leg = 44.82296
+    else:
+        leg = 267.98408
+
+    
 
     #ENERGIE
     elect = 696 #VAR
