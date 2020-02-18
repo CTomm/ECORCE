@@ -2,10 +2,6 @@ from flask import Flask, request, render_template, jsonify, session
 import psycopg2
 
 app = Flask(__name__)
-<<<<<<< HEAD
-=======
-Session(app)
->>>>>>> 26da9dd7952373932bb8c4ddb8db3d6a748f2b65
 app.secret_key = "ecorce2020"
 
 @app.route('/<path:path>')
@@ -23,7 +19,6 @@ def sendresultat():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute("""
-<<<<<<< HEAD
         with parc as (select st_transform(geom, 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+"""))
         select json_build_object(
         'type', 'FeatureCollection',
@@ -54,22 +49,6 @@ def sendposition():
     conn.commit()
     conn.close()
     return render_template("wait.html")
-
-=======
-            select json_build_object(
-                'type', 'FeatureCollection',
-                'features', json_agg(ST_AsGeoJSON(utilisateur.*)::json)
-            ) as geojson
-            from utilisateur
-            """)
-    test = cursor.fetchone()[0]
-    return jsonify(test)
-
-@app.route('/myvalue')
-def test():
-    my_var = session.get('emissions', None)
-    return str(my_var)
->>>>>>> 26da9dd7952373932bb8c4ddb8db3d6a748f2b65
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
