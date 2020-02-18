@@ -7,7 +7,7 @@ var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 var osmAttrib='Map data © OpenStreetMap contributors';
 
 // source de la carte
-//var osm = new L.TileLayer(osmUrl,{attribution:osmAttrib}).addTo(map);
+var osm = new L.TileLayer(osmUrl,{attribution:osmAttrib}).addTo(map);
 
 // afficher des images tuiles, ajout à la carte 
 map.setView([45.7,4.7],8);
