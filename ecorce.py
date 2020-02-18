@@ -1,10 +1,8 @@
 from flask import Flask, request, render_template, jsonify, session
-#import Session
 import psycopg2
 
 app = Flask(__name__)
-#Session(app)
-#app.secret_key = "ecorce2020"
+app.secret_key = "ecorce2020"
 
 @app.route('/<path:path>')
 def send_file(path):
@@ -14,19 +12,28 @@ def send_file(path):
 def hello2():
     return "<h1 style='color:blue'>Welcome to ECORCE</h1>"
 
-@app.route("/test")
-def user():
-    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="postgres")
+@app.route("/sendresultat")
+def sendresultat():
+    position = session.get('position', 'not set')
+    emission = session.get('emissions', 'not set')
+    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute("""
-            create materialized view select * from get_parcproche()
-            """)
-    test = cursor.fetchone()[0]
-    return jsonify(test)
+        with parc as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+"""))
+        select json_build_object(
+        'type', 'FeatureCollection',
+        'features', json_agg(ST_AsGeoJSON(parc.*)::json)
+        ) as geojson
+        from parc;
+        """)
+    resultat = str(cursor.fetchone()[0])
+    conn.close()
+    return resultat
 
 @app.route('/sendposition', methods=['POST'])
 def sendposition():
     position = request.form['position']
+    session['position'] = position
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute("""
@@ -86,17 +93,8 @@ def handle_data():
     avion = 144.6*int(request.form['Q17'])
 
     emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
-    #session['emissions'] = emissionn
-
-    #Envoi de la requete
-    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="postgres")
-    cursor = conn.cursor()
-    cursor.execute("""
-            create  view parcproche as select * from get_parctri()
-            """)
-    conn.commit()
-    conn.close()
-    #return render_template("wait.html")
+    session['emissions'] = emissions
+    return render_template("wait.html")
 
 
 #A enlever quand on va sur la VM

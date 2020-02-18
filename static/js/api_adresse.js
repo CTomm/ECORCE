@@ -1,7 +1,7 @@
 var map = L.map('map');
 
 // objet map initialisé
-var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 
 // url pour récupérer les images du fond de carte
 var osmAttrib='Map data © OpenStreetMap contributors';
@@ -17,8 +17,6 @@ var OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
 
 var provider = new OpenStreetMapProvider();
 
-var point = [];
-
 var searchControl = new GeoSearchControl({
   provider: provider,
   style: 'bar|button',
@@ -29,8 +27,7 @@ var searchControl = new GeoSearchControl({
     draggable: false
   },
   keepResult: true,
-  position: 'topright',
-  animateZoom: true,
+  position: 'topright'
 });
 
 marqueur = L.layerGroup().addTo(map);
