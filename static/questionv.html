@@ -46,21 +46,21 @@ https://css-tricks.com/building-a-simple-quiz/
     <div class="questions-content">
 
 
-        <h3>1A. Combien de fruits et légumes consommez vous par jour ?</h3>
+        <h3>1A. Quelles quantités de légumes consommez vous par jour ?</h3>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-A" value="A" />
-                <label for="Q1-A">Entre 5et 8 </label>
+                <input type="radio" name="Q1a" id="Q1-A" value="45" />
+                <label for="Q1-A">Entre 30 et 60 </label>
             </div>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-B" value="B" />
-                <label for="Q1-B">Entre 8 et 12</label>
+                <input type="radio" name="Q1a" id="Q1-B" value="75" />
+                <label for="Q1-B">Entre 60 et 90</label>
             </div>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-C" value="C" />
-                <label for="Q1-C">Entre 12 et 15</label>
+                <input type="radio" name="Q1a" id="Q1-C" value="115" />
+                <label for="Q1-C">Entre 90 et 120 </label>
             </div>
         
 
@@ -68,17 +68,17 @@ https://css-tricks.com/building-a-simple-quiz/
         <h3>1B. Quelle quantité de légumineuses consommez vous par jour ?</h3>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-A" value="A" />
+                <input type="radio" name="Q1a" id="Q1-A" value="45" />
                 <label for="Q1-A">Entre 30 et 60 gr</label>
             </div>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-B" value="B" />
+                <input type="radio" name="Q1a" id="Q1-B" value="75" />
                 <label for="Q1-B">Entre 60 et 90 gr</label>
             </div>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-C" value="C" />
+                <input type="radio" name="Q1a" id="Q1-C" value="115" />
                 <label for="Q1-C">Entre 90 et 120 gr</label>
             </div>
 
@@ -86,17 +86,17 @@ https://css-tricks.com/building-a-simple-quiz/
         <h3>1C. Quelle quantité de céréales consommez vous par jour ?</h3>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-A" value="A" />
+                <input type="radio" name="Q1a" id="Q1-A" value="45" />
                 <label for="Q1-A">Entre 30 et 60 gr </label>
             </div>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-B" value="B" />
+                <input type="radio" name="Q1a" id="Q1-B" value="75" />
                 <label for="Q1-B">Entre 60 et 90 gr</label>
             </div>
         
             <div>
-                <input type="radio" name="Q1a" id="Q1-C" value="C" />
+                <input type="radio" name="Q1a" id="Q1-C" value="115" />
                 <label for="Q1-C">Entre 90 et 120 gr</label>
             </div>
 
@@ -126,41 +126,41 @@ https://css-tricks.com/building-a-simple-quiz/
     
     <div id ="domaines"> Energie </div>
     <div class="questions-content">
-        <h3>8. Connaissez-vous votre consommation énergétique ( électricité et chauffage ) ? </h3>
+        <h3>8. Connaissez-vous votre consommation d'énergie domestique (chauffage, électroménager, éclairage, ...) ? </h3>
         
             <div>
-                <input type="radio" name="Q8" id="Q8-A" value="A" />
-                <label for="Q8-A">Oui : Suite du questionnaire </label>
+                <input type="radio" name="Q8" id="Q8-A" value="A" required/>
+                <label for="Q8-A">Oui : Veuillez répondre à la question suivante </label>
             </div>
 
             <div>
-                <input type="radio" name="Q8" id="Q8-B" value="B" />
-                <label for="Q8-B"> Non : l’estimation ne prendra pas en compte votre consommation énergétique (Ne pas besion de repondre aux questions 9-11) </label>
+                <input type="radio" name="Q8" id="Q8-B" value="B" required/>
+                <label for="Q8-B"> Non : l’estimation ne prendra pas en compte votre consommation énergétique (Merci de ne pas répondre à question 9)</label> <br>
             </div>
 
 
-        <h3>9. Quel type d'énergie utilisez-vous pour le chauffage?</h3>
+        
+        <h3>9. Quelle quantité d'énergie domestique (chauffage, électroménager, éclairage, ...) utilisez-vous ?</h3>
         
             <div>
-                <input type="text" name="Q9_electrique" id="Q9-A" placeholder="kWm/mois" />
-                <label for="Q9-A">consommation énergétique par mois </label>
+                <input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="9999999999" value="0">
+                <label for="Q9-A">consommation électrique par mois (en kWm/mois) </label>
             </div>
         
             <div>
-                <input type="text" name="Q9_gaz" id="Q9-B" placeholder="kWm/mois" />
-                <label for="Q9-A">consommation de gaz / propane par mois</label>
+                <input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="9999999999" value="0">
+                <label for="Q9-A">consommation de gaz / propane par mois (en kWm/mois)</label>
             </div>
 
             <div>
-                <input type="text" name="Q9_fioul" id="Q9-C" placeholder="litres/an" />
-                <label for="Q9-A">consommation de fioul par an </label>
+                <input type="number" id="Q9-C" name="Q9_fioul" step=1 min="0" max="9999999999" value="0">
+                <label for="Q9-A">consommation de fioul par an (L/an)</label>
             </div>            
 
             <div>
-                <input type="text" name="Q9_bois" id="Q9-D" placeholder="kg/an" />
-                <label for="Q9-A">consommation de bois par an </label>
+                <input type="number" id="Q9-D" name="Q9_bois" step=1 min="0" max="9999999999" value="0">
+                <label for="Q9-A">consommation de bois par an (kg/an)</label>
             </div>  <br>
-
 
 
     </div>
@@ -180,49 +180,56 @@ https://css-tricks.com/building-a-simple-quiz/
         <h3>12. Combien de kilomètre réalisez-vous par semaine en transports en communs ? </h3>
         
             <div>
-            <input type="text" name="Q12" id="Q12-A" placeholder="km/semaine" />
-            <label for="Q12-A">en transports en communs </label>
-                </div>
+                <input type="number" id="Q12-A" name="Q12" step=1 min="0" max="9999999999" value="0">
+                <label for="Q12-A">en transports en communs </label>
+            </div>
 
-        <h3>13. Combien de kilomètre réalisez-vous en voiture par semaine ? En moyenne nombre de passagers ? </h3>
+        <h3>13. Combien de kilomètre réalisez-vous en voiture par semaine (trajets quotidien) ? </h3>
         
             <div>
-            <input type="text" name="Q13" id="Q13-A" placeholder="km/semaine" />
-            <label for="Q13-A">en voiture </label>
-                </div>
+                <input type="number" id="Q13-A" name="Q13" step=1 min="0" max="9999999999" value="0">
+                <label for="Q13-A">en voiture </label>
+            </div>
 
         <h3>Distance parcourue en transports sur des trajets nationaux ou internationaux annuels </h3>
 
         <h3>14. Combien de kilomètre réalisez-vous par an, en transport en commun ferroviaires ? </h3>
         
             <div>
-            <input type="text" name="Q14" id="Q14-A" placeholder="km/an" />
-            <label for="Q14-A">en transport en commun ferroviaires </label>
-                </div>
+                <input type="number" id="Q14-A" name="Q14" step=1 min="0" max="9999999999" value="0">
+                <label for="Q14-A">en transport en commun ferroviaires </label>
+            </div>
        
-        <h3>15. Combien de kilomètres réalisez-vous en voiture ? En moyenne nombre de passagers ? </h3>
+        <h3>15. Combien de kilomètres réalisez-vous en voiture (hors trajets quotidien) ?</h3>
         
             <div>
-            <input type="text" name="Q15" id="Q15-A" placeholder="km/an" />
-            <label for="Q15-A">en voiture </label>
-                </div>
+                <input type="number" id="Q15-A" name="Q15" step=1 min="0" max="9999999999" value="0">
+                <label for="Q15-A">en voiture </label>
+            </div>
 
         <h3>16. Combien de kilomètres faites-vous en autocar ? </h3>
         
             <div>
-            <input type="text" name="Q16" id="Q16-A" placeholder="km/an" />
-            <label for="Q16-A">en autocar </label>
-                </div>
+                <input type="number" id="Q16-A" name="Q16" step=1 min="0" max="9999999999" value="0">
+                <label for="Q16-A">en autocar </label>
+            </div>
 
         <h3>17. Combien de kilomètres faites-vous en avion ? </h3>
         
             <div>
-            <input type="text" name="Q17" id="Q17-A" placeholder="km/an" />
-            <label for="Q17-A">en avion </label>
-                </div> <br>
+                <input type="number" id="Q17-A" name="Q17" step=1 min="0" max="9999999999" value="0">
+                <label for="Q17-A">en avion </label>
+            </div> <br>
 
 
     </div>
+
+    <input type="submit" value="Soumettre le questionnaire" id ="button_input1" 
+    onclick="return confirm('Êtes-vous sûr de votre choix ?')"
+    />
+    <input id ="button_input2" type="reset" > 
+    <br>
+
   </div>
 
   <!-- Next and previous buttons -->
@@ -239,15 +246,6 @@ https://css-tricks.com/building-a-simple-quiz/
 </div>
 
 
-
-
-
-    <input type="submit" value="Submit Quiz" id ="button_input1" />
-    <input id ="button_input2" type="reset" > 
-    <br>
-
-
-
     Commentaire / Remarque: <br>
         <textarea rows="5" cols="50">
         </textarea>  <br>
@@ -255,10 +253,5 @@ https://css-tricks.com/building-a-simple-quiz/
 
 </form>
 
-
 <html>
-
-
-
-
 
