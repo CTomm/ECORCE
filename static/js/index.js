@@ -22,16 +22,5 @@ $.when(parc).done(function() {
     map.setView([45.75, 4.8], 11);
     var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib}).addTo(map);
     var mydata = parc.responseJSON;
-    var mymapdata = L.geoJSON(mydata, {
-    	pointToLayer : function(feature, latlng) {
-            return L.circleMarker(latlng, {
-                radius : 8,
-                fillColor : "#ff7800",
-                color : "#000",
-                weight : 1,
-                opacity : 1,
-                fillOpacity : 0.8
-            })
-        }
-     }).addTo(map);
+    var mymapdata = L.geoJSON(mydata).addTo(map);
 });

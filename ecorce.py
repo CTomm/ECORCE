@@ -19,16 +19,23 @@ def sendresultat():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute("""
-        with parc as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+"""))
+        with parc as (select st_transform(geom, 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+"""))
         select json_build_object(
         'type', 'FeatureCollection',
         'features', json_agg(ST_AsGeoJSON(parc.*)::json)
         ) as geojson
         from parc;
         """)
-    resultat = str(cursor.fetchone()[0])
+    resultat = cursor.fetchone()[0]
     conn.close()
-    return resultat
+    return jsonify(resultat)
+    # cursor.execute("""
+    # create view parcproche as select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+""")
+    # """)
+    # conn.commit()
+    # conn.close()
+    # return 'go to qgis'
+
 
 @app.route('/sendposition', methods=['POST'])
 def sendposition():
@@ -85,16 +92,17 @@ def handle_data():
 
     #TRANSPORTS
     
-    tc_s = 184.6*int(request.form['Q12'])
-    voit_s = 9560.2*int(request.form['Q13']) #Multiplier passager
-    train = 7*int(request.form['Q14'])
-    voit_annee = 85.5*int(request.form['Q15']) #Multiplier passager
-    car = 58.5*int(request.form['Q16'])
-    avion = 144.6*int(request.form['Q17'])
+    tc_s = 0.1846*int(request.form['Q12'])
+    voit_s = 9.5602*int(request.form['Q13']) #Multiplier passager
+    train = 0.007*int(request.form['Q14'])
+    voit_annee = 0.0855*int(request.form['Q15']) #Multiplier passager
+    car = 0.0585*int(request.form['Q16'])
+    avion = 0.1446*int(request.form['Q17'])
 
     emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emissions
-    return render_template("wait.html")
+    return str(emissions)
+    #return render_template("wait.html")
 
 
 #A enlever quand on va sur la VM
