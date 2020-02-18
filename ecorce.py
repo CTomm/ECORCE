@@ -2,6 +2,10 @@ from flask import Flask, request, render_template, jsonify, session
 import psycopg2
 
 app = Flask(__name__)
+<<<<<<< HEAD
+=======
+Session(app)
+>>>>>>> 26da9dd7952373932bb8c4ddb8db3d6a748f2b65
 app.secret_key = "ecorce2020"
 
 @app.route('/<path:path>')
@@ -19,6 +23,7 @@ def sendresultat():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute("""
+<<<<<<< HEAD
         with parc as (select st_transform(geom, 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+"""))
         select json_build_object(
         'type', 'FeatureCollection',
@@ -50,9 +55,39 @@ def sendposition():
     conn.close()
     return render_template("wait.html")
 
+=======
+            select json_build_object(
+                'type', 'FeatureCollection',
+                'features', json_agg(ST_AsGeoJSON(utilisateur.*)::json)
+            ) as geojson
+            from utilisateur
+            """)
+    test = cursor.fetchone()[0]
+    return jsonify(test)
+
+@app.route('/myvalue')
+def test():
+    my_var = session.get('emissions', None)
+    return str(my_var)
+>>>>>>> 26da9dd7952373932bb8c4ddb8db3d6a748f2b65
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
+    #poulet = request.form['Q3_poulet']
+    #Récupérer toutes les valeurs du questionnaire
+    #Calculer les émissions totales
+    #Envoyer le résultat à psql
+    # conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="postgres")
+    # cursor = conn.cursor()
+    # cursor.execute("""
+    #         update utilisateur set conso = 4000
+    #         where id = 3"""
+    #         )
+    # conn.commit()
+    # conn.close()
+    #return render_template("wait.html")
+
+
     #ALIMENTATION
 
     #FIXE
@@ -101,9 +136,8 @@ def handle_data():
 
     emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emissions
-    return str(emissions)
-    #return render_template("wait.html")
+    return render_template("wait.html")
 
 
 #A enlever quand on va sur la VM
-#app.run(host='0.0.0.0', port='5000')
+app.run(host='0.0.0.0', port='5000')

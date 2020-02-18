@@ -15,19 +15,38 @@
 	 	<link rel="stylesheet" href="../static/style/api_adresse.css"/>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script>
 
+		<style>
+			body{background-image: url("ICON_ECROCE.png");
+				background-repeat:no-repeat;
+				background-size:cover;
+			}
+		</style>
+
 	 </head>
 	 <body>
+
+	 	<h2 STYLE="font 40pt monaco"> ECORCE </h2>
 	 	<h1>Recherche de l'adresse de l'utilisateur </h1>
 
 	 	<div id='map'> </div>
 
 	 	<br> <br>
-	 	<a href="https://www.openstreetmap.org"> OpenStreetMap </a>
+
 	 	<form action="/sendposition" method="POST" id="___">
 	 		<textarea name=position id=pos></textarea>
 		    <input type="submit" value="Valider ma position" id ="button_input1"/>
     	</form>
+
+    <button id="button_commemcer" onclick="window.location.href='questionchoix.html';"> Commencer la questionnaire</button>
+
 	 </body>
 
+
+	 
+
+
+
+
+   	<script src="../static/js/communes_UuLySE.js"></script>
 	 <script src ="../static/js/api_adresse.js"> </script>
  </html>
