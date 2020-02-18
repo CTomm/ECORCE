@@ -2,10 +2,28 @@ body {
 	background-color: azure;
 }
 h1{
-	font-size:25px;
-	color:#2F4F4F;
+margin-left: 40px;
+font-family: "Apple Chancery", Times, serif;
+font-size: 20px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #7D7461;
+font-weight: 400;
+text-decoration: underline;
+font-style: italic;
+font-variant: normal;
+text-transform: none;
 }
+
+
+h2{
+	font-size:40px;
+	color : #A8C7BB;
+
+}
+
 #map{
-	width:100%;
+	margin-left: 40px;
+	width:90%;
 	height:500px;
 }
