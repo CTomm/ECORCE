@@ -10,7 +10,23 @@ var osmAttrib='Map data © OpenStreetMap contributors';
 var osm = new L.TileLayer(osmUrl,{attribution:osmAttrib}).addTo(map);
 
 // afficher des images tuiles, ajout à la carte 
-map.setView([45.7,4.7],8);
+map.setView([45.7,4.7],9);
+
+
+var commune= L.geoJSON(commune, {       
+  style:style}  
+).addTo(map);
+
+function style(feature) {
+    return {
+        weight: 2,
+        opacity: 1,
+        color: 'white',
+        dashArray: '3',
+        fillOpacity: 0.5
+    };
+}
+
 
 var GeoSearchControl = window.GeoSearch.GeoSearchControl;
 var OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
