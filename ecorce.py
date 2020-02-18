@@ -1,7 +1,10 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, jsonify, session
+#import Session
 import psycopg2
 
 app = Flask(__name__)
+Session(app)
+app.secret_key = "ecorce2020"
 
 @app.route('/<path:path>')
 def send_file(path):
@@ -13,32 +16,37 @@ def hello2():
 
 @app.route("/test")
 def user():
-	conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
-	cursor = conn.cursor()
-	cursor.execute("""
+    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="postgres")
+    cursor = conn.cursor()
+    cursor.execute("""
             select json_build_object(
                 'type', 'FeatureCollection',
-                'features', json_agg(ST_AsGeoJSON(user84.*)::json)
+                'features', json_agg(ST_AsGeoJSON(utilisateur.*)::json)
             ) as geojson
-            from user84
+            from utilisateur
             """)
-	return cursor.fetchone()[0]
+    test = cursor.fetchone()[0]
+    return jsonify(test)
 
+@app.route('/myvalue')
+def test():
+    my_var = session.get('emissions', None)
+    return str(my_var)
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
-    poulet = request.form['Q3_poulet']
+    #poulet = request.form['Q3_poulet']
     #Récupérer toutes les valeurs du questionnaire
     #Calculer les émissions totales
     #Envoyer le résultat à psql
-    # conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
+    # conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="postgres")
     # cursor = conn.cursor()
     # cursor.execute("""
     #         update utilisateur set conso = 4000
-    #         where id = """ + poulet
+    #         where id = 3"""
     #         )
     # conn.commit()
-    #conn.close()
+    # conn.close()
     #return render_template("wait.html")
 
 
@@ -48,13 +56,13 @@ def handle_data():
     alimfixe = 282.72608
 
     #VARIABLE  
-    poulet = 28.34551491*int(request.form['Q3_poulet'])
-    porc = 34.90253149*int(request.form['Q3_porc'])
-    agneau = 334.2929584*int(request.form['Q3_agneau'])
-    boeuf = 235.1966514*int(request.form['Q3_boeuf'])
-    poisson = 22.78607013*int(request.form['Q4'])
+    poulet = 28.34551491*float(request.form['Q3_poulet'])
+    porc = 34.90253149*float(request.form['Q3_porc'])
+    agneau = 334.2929584*float(request.form['Q3_agneau'])
+    boeuf = 235.1966514*float(request.form['Q3_boeuf'])
+    poisson = 22.78607013*float(request.form['Q4'])
     oeufs = 11.10564*int(request.form['Q5'])
-    fromage = 356.72*int(request.form['Q6'])
+    fromage = 356.72*float(request.form['Q6'])
     lait = 52.53948708*int(request.form['Q7'])
 
     #Légumes de saison ou pas
@@ -89,9 +97,10 @@ def handle_data():
     avion = 144.6*int(request.form['Q17'])
 
     emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
-    return str(emissions)
+    session['emissions'] = emissions
+    return render_template("wait.html")
 
 
 
-
+#A enlever quand on va sur la VM
 app.run(host='0.0.0.0', port='5000')
