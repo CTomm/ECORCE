@@ -7,7 +7,7 @@ var osmUrl='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 var osmAttrib='Map data © OpenStreetMap contributors';
 
 // source de la carte
-var osm = new L.TileLayer(osmUrl,{attribution:osmAttrib}).addTo(map);
+//var osm = new L.TileLayer(osmUrl,{attribution:osmAttrib}).addTo(map);
 
 // afficher des images tuiles, ajout à la carte 
 map.setView([45.7,4.7],8);
@@ -34,6 +34,7 @@ var searchControl = new GeoSearchControl({
 });
 
 marqueur = L.layerGroup().addTo(map);
+position = document.getElementById('pos');
 
 function placeMarker(){
    if (typeof searchControl._map._lastCenter !== 'null' & typeof searchControl.resultList.results !== 'undefined') {
@@ -42,7 +43,7 @@ function placeMarker(){
       searchControl.markers.remove();
       marqueur.clearLayers();
       marqueur.addLayer(L.marker([x, y]));
-      console.log(searchControl)
+      position.value = String(y)+' '+String(x);
     }
 }
 
@@ -55,16 +56,12 @@ map.on("moveend",function(){
 });
 
 map.on("click", function(ev){
-  x = searchControl._map._lastCenter.lat;
-  y = searchControl._map._lastCenter.lng;
   searchControl.markers.remove();
   marqueur.clearLayers();
   marqueur.addLayer(L.marker(ev.latlng));
+  console.log(ev.latlng);
+  position.value = String(ev.latlng.lng) + ' ' + String(ev.latlng.lat);
 });
-
-function validate(){
-  //do something
-};
 
 
 map.addControl(searchControl);

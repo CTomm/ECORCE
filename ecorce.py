@@ -3,8 +3,8 @@ from flask import Flask, request, render_template, jsonify, session
 import psycopg2
 
 app = Flask(__name__)
-Session(app)
-app.secret_key = "ecorce2020"
+#Session(app)
+#app.secret_key = "ecorce2020"
 
 @app.route('/<path:path>')
 def send_file(path):
@@ -19,37 +19,26 @@ def user():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="postgres")
     cursor = conn.cursor()
     cursor.execute("""
-            select json_build_object(
-                'type', 'FeatureCollection',
-                'features', json_agg(ST_AsGeoJSON(utilisateur.*)::json)
-            ) as geojson
-            from utilisateur
+            create materialized view select * from get_parcproche()
             """)
     test = cursor.fetchone()[0]
     return jsonify(test)
 
-@app.route('/myvalue')
-def test():
-    my_var = session.get('emissions', None)
-    return str(my_var)
+@app.route('/sendposition', methods=['POST'])
+def sendposition():
+    position = request.form['position']
+    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
+    cursor = conn.cursor()
+    cursor.execute("""
+            create materialized view parctri as select * from get_parctri(st_transform(st_geomfromtext('POINT("""+position+""")', 4326), 2154));
+            """)
+    conn.commit()
+    conn.close()
+    return render_template("wait.html")
+
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
-    #poulet = request.form['Q3_poulet']
-    #Récupérer toutes les valeurs du questionnaire
-    #Calculer les émissions totales
-    #Envoyer le résultat à psql
-    # conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="postgres")
-    # cursor = conn.cursor()
-    # cursor.execute("""
-    #         update utilisateur set conso = 4000
-    #         where id = 3"""
-    #         )
-    # conn.commit()
-    # conn.close()
-    #return render_template("wait.html")
-
-
     #ALIMENTATION
 
     #FIXE
@@ -97,10 +86,18 @@ def handle_data():
     avion = 144.6*int(request.form['Q17'])
 
     emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
-    session['emissions'] = emissions
-    return render_template("wait.html")
+    #session['emissions'] = emissionn
 
+    #Envoi de la requete
+    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="postgres")
+    cursor = conn.cursor()
+    cursor.execute("""
+            create  view parcproche as select * from get_parctri()
+            """)
+    conn.commit()
+    conn.close()
+    #return render_template("wait.html")
 
 
 #A enlever quand on va sur la VM
-app.run(host='0.0.0.0', port='5000')
+#app.run(host='0.0.0.0', port='5000')

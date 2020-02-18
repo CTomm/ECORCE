@@ -23,7 +23,10 @@
 
 	 	<br> <br>
 	 	<a href="https://www.openstreetmap.org"> OpenStreetMap </a>
-	 	<button onclick="validate()">Valider mon adresse</button>
+	 	<form action="/sendposition" method="POST" id="___">
+	 		<textarea name=position id=pos></textarea>
+		    <input type="submit" value="Valider ma position" id ="button_input1"/>
+    	</form>
 	 </body>
 
 	 <script src ="../static/js/api_adresse.js"> </script>
