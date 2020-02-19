@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template, jsonify, session
 import psycopg2
 
-app = Flask(__name__)
+app = Flask(__name__,  template_folder='static')
 app.secret_key = "ecorce2020"
 
 @app.route('/<path:path>')
@@ -48,7 +48,7 @@ def sendposition():
             """)
     conn.commit()
     conn.close()
-    return render_template("wait.html")
+    return render_template("questionchoix.html")
 
 @app.route('/handle_data', methods=['POST'])
 def handle_data():
