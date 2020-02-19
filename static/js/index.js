@@ -8,7 +8,7 @@ map.setView([45.75, 4.8], 11);
 var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib}).addTo(map);
 
 var parc = $.ajax({
-  url:"http://127.0.0.1/sendresultat",
+  url:"http://127.0.0.1:8080/sendresultat",
   dataType: "json",
   responseType: "json",
   success: console.log("user successfully loaded."),
