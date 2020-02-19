@@ -48,8 +48,9 @@ https://css-tricks.com/building-a-simple-quiz/
         
         <h3>3. Quelle(s) viande(s) et en quelle quantité consommez vous 
             chaque semaine ?</h3>
-            <br>
+            <br><br>
             De poulet :
+
 
             <SELECT name="Q3_poulet" size="1" value="">
                 <OPTION value="0.1">Moins de 200gr
@@ -59,7 +60,7 @@ https://css-tricks.com/building-a-simple-quiz/
                 <OPTION value="0.9">Entre 800 et 1 000 gr
             </SELECT>
 
-            <br>
+            <br><br>
             De porc :
 
             <SELECT name="Q3_porc" size="1">
@@ -70,7 +71,7 @@ https://css-tricks.com/building-a-simple-quiz/
                 <OPTION value="0.9">Entre 800 et 1 000 gr
             </SELECT>
 
-            <br>
+            <br><br>
             D'agneau :
 
             <SELECT name="Q3_agneau" size="1">
@@ -81,7 +82,7 @@ https://css-tricks.com/building-a-simple-quiz/
                 <OPTION value="0.9">Entre 800 et 1 000 gr
             </SELECT>
 
-            <br>
+            <br><br>
             De boeuf :
 
             <SELECT name="Q3_boeuf" size="1">
@@ -97,13 +98,13 @@ https://css-tricks.com/building-a-simple-quiz/
         <h3>4. À quelle fréquence consommez-vous du poisson par semaine ?</h3>
         
             <div>
-                <input type="radio" name="Q4" id="Q4-A" value="14" required/>
-                <label for="Q4-A">Tous les midis et tous les soirs </label>
+                <input type="radio" name="Q4" id="Q4-A" value="0" required/>
+                <label for="Q4-A">Je ne consomme pas de poisson</label>
             </div>
         
             <div>
-                <input type="radio" name="Q4" id="Q4-B" value="7" required/>
-                <label for="Q4-B">Une fois par jour </label>
+                <input type="radio" name="Q4" id="Q4-B" value="1.5" required/>
+                <label for="Q4-B">1 ou 2 fois par semaine</label>
             </div>
         
             <div>
@@ -112,76 +113,75 @@ https://css-tricks.com/building-a-simple-quiz/
             </div>
         
             <div>
-                <input type="radio" name="Q4" id="Q4-D" value="1.5" required/>
-                <label for="Q4-D">1 ou 2 fois par semaine </label>
+                <input type="radio" name="Q4" id="Q4-D" value="7" required/>
+                <label for="Q4-D">Une fois par jour</label>
             </div>
 
             <div>
-                <input type="radio" name="Q4" id="Q4-E" value="0" required/>
-                <label for="Q4-E">Je ne consomme pas de poisson </label>
+                <input type="radio" name="Q4" id="Q4-E" value="14" required/>
+                <label for="Q4-E">Tous les midis et tous les soirs</label>
             </div>
      
         <h3>5. Combien d’oeufs consommez vous par semaine ?</h3>
         
             <div>
-                <input type="radio" name="Q5" id="Q5-A" value="12" required/>
-                <label for="Q5-A">Environ 12 œufs </label>
+                <input type="radio" name="Q5" id="Q5-A" value="0" required/>
+                <label for="Q5-A">Je ne consomme pas d’oeuf</label>
             </div>
 
             <div>
-                <input type="radio" name="Q5" id="Q5-B" value="6" required/>
-                <label for="Q5-B">Environ 6 œufs </label>
+                <input type="radio" name="Q5" id="Q5-B" value="3" required/>
+                <label for="Q5-B">Environ 3 oeufs</label>
             </div>
 
             <div>
-                <input type="radio" name="Q5" id="Q5-C" value="3" required/>
-                <label for="Q5-C">Environ 3 oeufs </label>
+                <input type="radio" name="Q5" id="Q5-C" value="6" required/>
+                <label for="Q5-C">Environ 6 oeufs</label>
             </div>
 
             <div>
-                <input type="radio" name="Q5" id="Q5-D" value="0" required/>
-                <label for="Q5-D">Je ne consomme pas d’oeuf </label>
+                <input type="radio" name="Q5" id="Q5-D" value="12" required/>
+                <label for="Q5-D">Environ 12 oeufs</label>
             </div>
 
         <h3>6. Quelle quantité de fromage consommez vous par semaine ?</h3>
-        
+
             <div>
-                <input type="radio" name="Q6" id="Q6-A" value="0.05" required/>
+                <input type="radio" name="Q6" id="Q6-A" value="0" required/>
+                <label for="Q6-E">Je ne consomme pas de fromage </label>
+            </div>
+
+            <div>
+                <input type="radio" name="Q6" id="Q6-B" value="0.05" required/>
                 <label for="Q6-A">Moins de 50gr </label>
             </div>
 
             <div>
-                <input type="radio" name="Q6" id="Q6-B" value="0.075" required/>
+                <input type="radio" name="Q6" id="Q6-C" value="0.075" required/>
                 <label for="Q6-B">Entre 50 et 100gr </label>
             </div>
 
             <div>
-                <input type="radio" name="Q6" id="Q6-C" value="0.125" required/>
+                <input type="radio" name="Q6" id="Q6-D" value="0.125" required/>
                 <label for="Q6-C">Entre 100 et 150gr </label>
             </div>
 
             <div>
-                <input type="radio" name="Q6" id="Q6-D" value="0.2" required/>
+                <input type="radio" name="Q6" id="Q6-E" value="0.2" required/>
                 <label for="Q6-D">Plus de 150gr </label>
             </div>
-
-            <div>
-                <input type="radio" name="Q6" id="Q6-E" value="0" required/>
-                <label for="Q6-E">Je ne consomme pas de fromage </label>
-            </div>
-
                 
 
         <h3>7. Combien de fois par semaine consommez vous des produits laitiers (hors fromage) ? </h3>
         
             <div>
-                <input type="radio" name="Q7" id="Q7-A" value="14" required/>
-                <label for="Q7-A">Tous les midis et tous les soirs </label>
+                <input type="radio" name="Q7" id="Q7-A" value="0" required/>
+                <label for="Q7-A">Je ne consomme pas de produits laitiers (hors fromage)</label>
             </div>
 
             <div>
-                <input type="radio" name="Q7" id="Q7-B" value="7" required/>
-                <label for="Q7-B">Une fois par jour </label>
+                <input type="radio" name="Q7" id="Q7-B" value="2" required/>
+                <label for="Q7-B">1 ou 3 fois par semaine</label>
             </div>
 
             <div>
@@ -190,13 +190,13 @@ https://css-tricks.com/building-a-simple-quiz/
             </div>
 
             <div>
-                <input type="radio" name="Q7" id="Q7-D" value="2" required/>
-                <label for="Q7-D">1 ou 3 fois par semaine </label>
+                <input type="radio" name="Q7" id="Q7-D" value="7" required/>
+                <label for="Q7-D">Une fois par jour</label>
             </div>
 
             <div>
-                <input type="radio" name="Q7" id="Q7-E" value="0" required/>
-                <label for="Q7-E">Je ne consomme pas de produits laitiers (hors fromage) </label>
+                <input type="radio" name="Q7" id="Q7-E" value="14" required/>
+                <label for="Q7-E">Tous les midis et tous les soirs</label>
             </div>
 
 
@@ -243,12 +243,12 @@ https://css-tricks.com/building-a-simple-quiz/
         
             <div>
                 <input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="9999999999" value="0">
-                <label for="Q9-A">consommation électrique par mois (en kWm/mois) </label>
+                <label for="Q9-A">consommation électrique par mois (en kWm/mois)</label>
             </div>
         
             <div>
                 <input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="9999999999" value="0">
-                <label for="Q9-A">consommation de gaz / propane par mois (en kWm/mois)</label>
+                <label for="Q9-A">consommation de gaz / propane par an (en kWm/an)</label>
             </div>
 
             <div>
@@ -276,50 +276,49 @@ https://css-tricks.com/building-a-simple-quiz/
 
         <h3>Distance parcourue en transports sur des trajets urbains/périurbains journaliers </h3>
 
-        <h3>12. Combien de kilomètre réalisez-vous par semaine en transports en communs ? </h3>
+        <h3>12. Combien de kilomètres réalisez-vous par semaine en transports en communs ? </h3>
         
             <div>
                 <input type="number" id="Q12-A" name="Q12" step=1 min="0" max="9999999999" value="0">
-                <label for="Q12-A">en transports en communs </label>
+                <label for="Q12-A">kilomètres par semaine  </label>
             </div>
 
-        <h3>13. Combien de kilomètre réalisez-vous en voiture par semaine (trajets quotidien) ? </h3>
+        <h3>13. Combien de kilomètres réalisez-vous en voiture par semaine (trajets quotidien) ? </h3>
         
             <div>
                 <input type="number" id="Q13-A" name="Q13" step=1 min="0" max="9999999999" value="0">
-                <label for="Q13-A">en voiture </label>
+                <label for="Q13-A">kilomètres par semaine</label>
             </div>
 
         <h3>Distance parcourue en transports sur des trajets nationaux ou internationaux annuels </h3>
 
-        <h3>14. Combien de kilomètre réalisez-vous par an, en transport en commun ferroviaires ? </h3>
+        <h3>14. Combien de kilomètre réalisez-vous par an, en transport en commun ferroviaire ? </h3>
         
             <div>
                 <input type="number" id="Q14-A" name="Q14" step=1 min="0" max="9999999999" value="0">
-                <label for="Q14-A">en transport en commun ferroviaires </label>
+                <label for="Q14-A">kilomètres par an</label>
             </div>
        
         <h3>15. Combien de kilomètres réalisez-vous en voiture (hors trajets quotidien) ?</h3>
         
             <div>
                 <input type="number" id="Q15-A" name="Q15" step=1 min="0" max="9999999999" value="0">
-                <label for="Q15-A">en voiture </label>
+                <label for="Q15-A">kilomètres par an</label>
             </div>
 
         <h3>16. Combien de kilomètres faites-vous en autocar ? </h3>
         
             <div>
                 <input type="number" id="Q16-A" name="Q16" step=1 min="0" max="9999999999" value="0">
-                <label for="Q16-A">en autocar </label>
+                <label for="Q16-A">kilomètres par an</label>
             </div>
 
         <h3>17. Combien de kilomètres faites-vous en avion ? </h3>
         
             <div>
                 <input type="number" id="Q17-A" name="Q17" step=1 min="0" max="9999999999" value="0">
-                <label for="Q17-A">en avion </label>
+                <label for="Q17-A">kilomètres par an</label>
             </div> <br>
-
 
     </div>
 
@@ -343,11 +342,6 @@ https://css-tricks.com/building-a-simple-quiz/
   <span class="dot" onclick="currentSlide(2)"></span>
   <span class="dot" onclick="currentSlide(3)"></span>
 </div>
-
-
-    Commentaire / Remarque: <br>
-        <textarea rows="5" cols="50">
-        </textarea>  <br>
 
 
 </form>
