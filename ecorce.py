@@ -81,13 +81,13 @@ def omni():
     #ENERGIE
     if request.form['Q8'] == "A":
         if request.form['Q9_electrique'] != None:
-            elect = 696*int(request.form['Q9_electrique'])
+            elect = 0.696*int(request.form['Q9_electrique'])
         if request.form['Q9_gaz'] != None:
-            gaz = 230*int(request.form['Q9_gaz'])
+            gaz = 0.230*int(request.form['Q9_gaz'])
         if request.form['Q9_fioul'] != None:
-            fioul = 275*int(request.form['Q9_fioul'])
+            fioul = 0.275*int(request.form['Q9_fioul'])
         if request.form['Q9_bois'] != None:
-            bois = 13*int(request.form['Q9_bois'])
+            bois = 0.013*int(request.form['Q9_bois'])
     else:
         elect = 0
         gaz = 0
@@ -126,13 +126,13 @@ def vege():
     #ENERGIE
     if request.form['Q8'] == "A":
         if request.form['Q9_electrique'] != None:
-            elect = 696*int(request.form['Q9_electrique'])
+            elect = 0.696*int(request.form['Q9_electrique'])
         if request.form['Q9_gaz'] != None:
-            gaz = 230*int(request.form['Q9_gaz'])
+            gaz = 0.230*int(request.form['Q9_gaz'])
         if request.form['Q9_fioul'] != None:
-            fioul = 275*int(request.form['Q9_fioul'])
+            fioul = 0.275*int(request.form['Q9_fioul'])
         if request.form['Q9_bois'] != None:
-            bois = 13*int(request.form['Q9_bois'])
+            bois = 0.013*int(request.form['Q9_bois'])
     else:
         elect = 0
         gaz = 0
@@ -156,26 +156,26 @@ def vege():
 def vegan():
 
     #Alimentation
-    leg = 0.17108*int(request.form['Q1a'])
-    legumineuse = 0.24024*int(request.form['Q6'])
-    lait = 52.53948708*int(request.form['Q7'])
+    legumineuse = 0.24024*int(request.form['Q1b'])
+    cere = 0.58058*int(request.form['Q1c'])
+
 
     #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
-        leg = 44.82296
+        leg = 0.17108*int(request.form['Q1a'])
     else:
-        leg = 267.98408
+        leg = 1.02284*int(request.form['Q1a'])
 
     #ENERGIE
     if request.form['Q8'] == "A":
         if request.form['Q9_electrique'] != None:
-            elect = 696*int(request.form['Q9_electrique'])
+            elect = 0.696*int(request.form['Q9_electrique'])
         if request.form['Q9_gaz'] != None:
-            gaz = 230*int(request.form['Q9_gaz'])
+            gaz = 0.230*int(request.form['Q9_gaz'])
         if request.form['Q9_fioul'] != None:
-            fioul = 275*int(request.form['Q9_fioul'])
+            fioul = 0.275*int(request.form['Q9_fioul'])
         if request.form['Q9_bois'] != None:
-            bois = 13*int(request.form['Q9_bois'])
+            bois = 0.013*int(request.form['Q9_bois'])
     else:
         elect = 0
         gaz = 0
@@ -191,7 +191,7 @@ def vegan():
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
 
-    emissions = alimfixe+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
+    emissions = leg+legumineuse+cere+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emissions
     return render_template("index.html")
 # #A enlever quand on va sur la VM
