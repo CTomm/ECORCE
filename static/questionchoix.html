@@ -33,7 +33,7 @@ https://css-tricks.com/building-a-simple-quiz/
  -->
 		
 
-
+<form action="/choice" method="POST" id="___">
 
 <!-- Slideshow container -->
 <div class="slideshow-container">
@@ -47,19 +47,18 @@ https://css-tricks.com/building-a-simple-quiz/
         <h3>1. Suivez vous l’un des régimes alimentaires suivant ?</h3>
 
             <div>
-                <button onclick="window.location.href='questionv.html';"> Végan </button>
+                <input type="radio" name="Q0" id="Q0-A"required value="V" />
+                <label for="Q0-A">Végan </label>
             </div>
 
             <div>
-                <button onclick="window.location.href='questionvege.html';"> Végétarien </button>
-            </div>
-
-            <div>
-                <button onclick="window.location.href='question.html';"> Sans lactose </button>
+                <input type="radio" name="Q0" id="Q0-B"required value="Veg"/>
+                <label for="Q0-B">Végétarien </label>
             </div>
             
             <div>
-                <button onclick="window.location.href='question.html';"> Aucun </button>
+                <input type="radio" name="Q0" id="Q0-C"required value="A"/>
+                <label for="Q0-C">Aucun régime spécifique </label>
             </div> <br>
 
 
@@ -67,6 +66,12 @@ https://css-tricks.com/building-a-simple-quiz/
   </div>
 
 
+</div>
+
+  <input type="submit" value="Suite du questionnaire" id ="button_input1" />
+  <br>
+
+</div>
 
   <!-- Next and previous buttons -->
   <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -81,7 +86,7 @@ https://css-tricks.com/building-a-simple-quiz/
   <span class="dot" onclick="currentSlide(3)"></span>
 </div>
 
-
+</form>
 
 
 
