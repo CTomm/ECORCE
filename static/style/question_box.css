@@ -97,3 +97,42 @@
   from {opacity: .4}
   to {opacity: 1}
 }
+
+#bulleinfo {
+	width : 16px;
+	height : 16px;
+}
+ 
+.infobulle { 
+  text-decoration:none; 
+  position:relative; 
+}
+
+.infobulle span {
+  float : left;
+  display:none; 
+  -moz-border-radius:2px; 
+  -webkit-border-radius:2px; 
+  border-radius:2px; 
+  color: #2A2E2D; 
+  background-color: #EEEEEE; 
+  font-family:"Gill Sans", sans-serif;
+  font-size:11px;
+  text-align: left;
+  z-index: 500;
+} 
+
+.infobulle:hover span 
+{ 
+  display:inline; 
+  float: right;
+  top:30px; 
+  left:20px; 
+  z-index:1000;
+  white-space: nowrap;
+  border:1px solid #57715A; 
+  margin-top:5px; 
+  margin-left:5px; 
+  overflow:hidden; 
+  padding:10px; 
+}
