@@ -40,17 +40,34 @@ https://css-tricks.com/building-a-simple-quiz/
   <!-- Alimentaire -->
   <div class="mySlides fade">
     <div class="numbertext">1 / 3</div>
-    <div id ="domaines"> Alimentation </div>
+    <div id ="domaines"> Alimentation 
+        <a class="infobulle" >
+			<img id="bulleinfo" src="image/bulleinfo.png" /> 
+			<span>
+				<img src="image/graph_alim.png" height="400" width="610"/>
+				<br/>
+				<br/>
+				<br/>
+				Première nécessité pour l’homme, les denrées alimentaires impactent les émissions de gaz à effet de serre à chaque étape <br> de la chaîne de production, du champ à la fourchette.
+				<br>Les activités agricoles et alimentaires françaises seraient responsables de 24 % des émissions. Les deux tiers sont dues <br> à la production agricole, 19 % au transport et la part restante provient de la grande distribution et la gestion des déchets.
+			</span> 
+		</a>
+    </div>
+    
     <div class="questions-content">
-
-
-
         
         <h3>3. Quelle(s) viande(s) et en quelle quantité consommez vous 
-            chaque semaine ?</h3>
+            chaque semaine ?
+        </h3>
+            <a class="infobulle"> 
+				<img id="bulleinfo" src="image/bulleinfo.png" /> 
+				<span>
+					La moyenne de consommation de viande, dont volailles,<br> des français est d’environ <strong>1,75 kilogrammes </strong> par semaine. 
+					<br/>La part de l’élevage représente 44 % des émissions de<br> production d’entres elles sont du méthane issu de la <br>fermentation enthérique. La richesse de l’alimentation <br>carnée est donc un paramètre déterminant sur <br>notre impact carbone. 
+				</span> 
+			</a>
             <br><br>
             De poulet :
-
 
             <SELECT name="Q3_poulet" size="1" value="">
                 <OPTION value="0.1">Moins de 200gr
@@ -96,7 +113,13 @@ https://css-tricks.com/building-a-simple-quiz/
 
 
         <h3>4. À quelle fréquence consommez-vous du poisson par semaine ?</h3>
-        
+            <a class="infobulle"> 
+				<img id="bulleinfo" src="image/bulleinfo.png" /> 
+				<span>
+					La moyenne de consommation de poisson des français est d’environ <strong>de 474 grammes  par semaine</strong>. 
+				</span> 
+			</a>
+            <br>
             <div>
                 <input type="radio" name="Q4" id="Q4-A" value="0" required/>
                 <label for="Q4-A">Je ne consomme pas de poisson</label>
@@ -123,6 +146,12 @@ https://css-tricks.com/building-a-simple-quiz/
             </div>
      
         <h3>5. Combien d’oeufs consommez vous par semaine ?</h3>
+            <a class="infobulle"> 
+				<img id="bulleinfo" src="image/bulleinfo.png" /> 
+				<span>
+					La moyenne de consommation d'oeufs des français est d’environ <strong>3 par semaine</strong>. 
+				</span> 
+			</a>
         
             <div>
                 <input type="radio" name="Q5" id="Q5-A" value="0" required/>
@@ -145,7 +174,13 @@ https://css-tricks.com/building-a-simple-quiz/
             </div>
 
         <h3>6. Quelle quantité de fromage consommez vous par semaine ?</h3>
-
+            <a class="infobulle"> 
+				<img id="bulleinfo" src="image/bulleinfo.png" /> 
+				<span>
+					La moyenne de consommation de fromage des français est d’environ <strong>535 grammes par semaine</strong>. 
+				</span> 
+			</a>
+			
             <div>
                 <input type="radio" name="Q6" id="Q6-A" value="0" required/>
                 <label for="Q6-E">Je ne consomme pas de fromage </label>
@@ -173,7 +208,13 @@ https://css-tricks.com/building-a-simple-quiz/
                 
 
         <h3>7. Combien de fois par semaine consommez vous des produits laitiers (hors fromage) ? </h3>
-        
+            <a class="infobulle"> 
+				<img id="bulleinfo" src="image/bulleinfo.png" /> 
+				<span>
+					La moyenne de consommation de produits laitiers des français est d’environ <strong>10 par semaine</strong>. 
+				</span> 
+			</a>
+			
             <div>
                 <input type="radio" name="Q7" id="Q7-A" value="0" required/>
                 <label for="Q7-A">Je ne consomme pas de produits laitiers (hors fromage)</label>
@@ -223,10 +264,21 @@ https://css-tricks.com/building-a-simple-quiz/
   <div class="mySlides fade">
     <div class="numbertext">2 / 3</div>
     
-    <div id ="domaines"> Energie </div>
+    <div id ="domaines"> Energie
+        <a class="infobulle"> 
+			<img id="bulleinfo" src="image/bulleinfo.png" /> 
+			<span><img src="image/graph_energie.png" height="352" width="470"/> <br>
+			L'impact de la production de l'énergie sur les émissions de CO² a largement dimininué depuis <br>40 ans en France, avec le développement des énergies renouvelables et la recherche de<br>  l'efficacité énergétique. <br> Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet <br> 1,3 Gigatonne CO² par an. </span> 
+		</a>
+	</div>
+	
     <div class="questions-content">
-        <h3>8. Connaissez-vous votre consommation d'énergie domestique (chauffage, électroménager, éclairage, ...) ? </h3>
-        
+        <h3>8. Connaissez-vous votre consommation d'énergie domestique ? </h3>
+        <a class="infobulle"> 
+    		<img id="bulleinfo" src="image/bulleinfo.png" /> 
+			<span>L'énergie domestique correspond à toute l'énergie consommée dans votre foyer.<br> Elle englobe le chauffage, le chauffage de l'eau, la cuisson et l'électroménager par exemple.</span> 
+    	</a>
+    	
             <div>
                 <input type="radio" name="Q8" id="Q8-A" value="A" required/>
                 <label for="Q8-A">Oui : Veuillez répondre à la question suivante </label>
@@ -239,8 +291,8 @@ https://css-tricks.com/building-a-simple-quiz/
 
 
         
-        <h3>9. Quelle quantité d'énergie domestique (chauffage, électroménager, éclairage, ...) utilisez-vous ?</h3>
-        
+        <h3>9. Quelle quantité d'énergie domestique utilisez-vous ?</h3>
+    	
             <div>
                 <input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="9999999999" value="0">
                 <label for="Q9-A">consommation électrique par mois (en kWm/mois)</label>
@@ -249,7 +301,11 @@ https://css-tricks.com/building-a-simple-quiz/
             <div>
                 <input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="9999999999" value="0">
                 <label for="Q9-A">consommation de gaz / propane par an (en kWm/an)</label>
-            </div>
+				<a class="infobulle"> 
+					<img id="bulleinfo" src="image/bulleinfo.png" /> 
+					<span>Une bouteille de gaz pesant 10kg produit environ 140 KWh d'énergie.</span> 
+				</a>
+			</div>
 
             <div>
                 <input type="number" id="Q9-C" name="Q9_fioul" step=1 min="0" max="9999999999" value="0">
@@ -271,8 +327,18 @@ https://css-tricks.com/building-a-simple-quiz/
   <div class="mySlides fade">
     <div class="numbertext">3 / 3</div>
     
-    <div id ="domaines"> Transport </div>
+    <div id ="domaines"> Transport
+        <a class="infobulle"> 
+			<img id="bulleinfo" src="image/bulleinfo.png" /> 
+			<span> <img src="image/graph_transp.png" height="300" width="740" /></span> 
+		</a>
+	</div>
+    
     <div class="questions-content">
+    
+    <br/>
+	<label>Pour répondre à cette partie du questionnaire, vous pouvez vous aider de ce <a href="https://fr.distance.to/" target="_blank"> calculateur kilométrique </a>.</label>
+	<br/>
 
         <h3>Distance parcourue en transports sur des trajets urbains/périurbains journaliers </h3>
 

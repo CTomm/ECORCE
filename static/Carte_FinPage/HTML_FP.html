@@ -1,0 +1,117 @@
+<html>
+	<head>
+			<meta charset="utf-8">
+			<title>ECORCE_resultat</title>
+
+			
+			<link rel="stylesheet" href="leaflet/leaflet.css"/>
+			<script src= "leaflet/leaflet.js" ></script>
+			<link rel="stylesheet" href="style_FP.css"/>
+			<link rel="stylesheet" href="question_box_FP.css"/>
+	    <script src= "question_box.js" ></script>
+
+
+
+
+		<!-- Share FB -->
+			<div id="fb-root"></div>
+			<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=1028769577197298&autoLogAppEvents=1"></script>
+
+
+		<!-- 	Share  -->
+		<!-- 	<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5e4d2e43b068220012f217e4&product=inline-share-buttons" async="async"></script> -->
+
+
+			<script type="text/javascript" src="js/jquery.printElement.js"></script>
+
+
+
+		</head>
+ 
+
+
+	<body>
+
+			<img id="name_icon" src="name_left.png" width=250 height=75 >
+			<img id="name_icon2" src="icon_100%.png" width=70 height=50 >
+
+
+
+	
+			<div id ="map"  > </div> </br>
+
+
+
+			<div id="information" class="slideshow-container">
+
+			  <!-- Full-width images with number and caption text -->
+			  <!-- Alimentaire -->
+			  <div class="mySlides fade">
+			    <div class="numbertext"> <br> Votre resultat</div>
+			    <div class="questions-content">
+			        <h1> 
+			        <br> <br> 
+			      	_____ kilomètre carré de Surface végétalisée nécessaire à l’absorption de mon émission carbone annuelle.</h4>
+
+			    </div>
+			  </div>
+
+
+			   <div class="mySlides fade">
+			    <div class="numbertext"> <br> Comparaison avec le moyenne</div>
+			    <div class="questions-content">
+			        <h1>
+			        <br> <br> 
+			      	...La moyenne des émissions de CO2 des véhicules neufs vendus en France reste stable en 2019 par rapport à 2018. Elle se situe à 112 g de CO2 / km en 2019. ... </h4>
+			    </div>
+			  </div>
+
+
+			   <div class="mySlides fade">
+			    <div class="numbertext"> <br> Si le mode de vie change...</div>
+			    <div class="questions-content">
+			        <h1> 
+			        	<br> <br> 
+			        	Vous sentiez que vous savez émis trop de carbone? 
+			        </br>
+			      	<br> <br> 
+			      	Vous voulez savoir un autre résultat si vous changez votre mode de vie ou votre lieu d'habitation?</h4> <br> 
+
+					<button id=""> Changer mes réponses </button>
+
+			    </div>
+			  </div>
+
+			  <!-- Next and previous buttons -->
+			  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+			  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+			</div>
+
+
+
+
+			<!-- 	Share FB  -->
+			<div id = "share_fb" class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
+
+		</body>
+
+
+			<!-- 	Share  -->
+			<!-- 	<div id = "share" class="sharethis-inline-share-buttons"></div> -->
+
+
+			<a id = "share_imprimer" href="javascript:window.print()"
+			   onclick="$('#table').printElement({leaveOpen:true, printMode:'popup', pageTitle:'RELEVE DE NOTE SEQUANTIELLE'});">
+			    <button> <img src="printer.png" width=30 height=23 > </button>
+			</a>
+
+
+
+
+<script src= "map.js" ></script>
+
+
+
+<html>
+
+

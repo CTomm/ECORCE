@@ -68,7 +68,7 @@ map.on("moveend",function(){
   placeMarker()
 });
 
-map.on("click", function(ev){
+commune.on("click", function(ev){
   searchControl.markers.remove();
   marqueur.clearLayers();
   marqueur.addLayer(L.marker(ev.latlng));
