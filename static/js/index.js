@@ -11,3 +11,10 @@ $.get( "/sendresultat", function(parc) {
 	console.log(parc);
     var mymapdata = L.geoJSON(parc).addTo(map);
 });
+
+function show(){
+	$.get( "/sendmoyenne", function(moy) {
+		console.log(moy);
+	    var mymoy = L.geoJSON(moy, {color: 'red'}).addTo(map);
+	});
+}
