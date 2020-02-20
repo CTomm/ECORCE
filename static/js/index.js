@@ -12,10 +12,43 @@ $.get( "/sendresultat", function(parc) {
     var mymapdata = L.geoJSON(parc).addTo(map);
 });
 
-$.get( "/change", function(elect) {
-	console.log(elect);
-    document.getElementById("Q9-A").value = parseInt(elect)
+
+// Récupérer les valeurs du formulaire
+$.get( "/change", function(emission) {
+	console.log(emission);
+    //document.getElementById("Q9-A").value = parseInt(viande)
 });
+// $.get( "/legume", function(legume) {
+// 	console.log('legume'+legume);
+// 	new_legume= legume
+//     //document.getElementById("Q9-A").value = parseInt(legume)
+// });
+// $.get( "/avion", function(avion) {
+// 	console.log('avion'+avion);
+// 	new_avion = avion
+//     //document.getElementById("Q9-A").value = parseInt(avion)
+// });
+// $.get( "/voiture", function(voiture) {
+// 	console.log('voiture'+voiture);
+// 	new_voiture = voiture
+//     //document.getElementById("Q9-A").value = parseInt(voiture)
+// });
+// $.get( "/energie", function(energie) {
+// 	console.log('energie'+energie);
+// 	new_energie = energie
+//     //document.getElementById("Q9-A").value = parseInt(energie)
+// });
+// $.get( "/emission", function(emission) {
+// 	console.log('emissions'+emission);
+// 	new_emission = emission
+//     //document.getElementById("Q9-A").value = parseInt(emission)
+// });
+
+function resend(){
+    $.post( "/sendresultat", {
+      emission:emission
+      })
+};
 
 function show(){
 	$.get( "/sendmoyenne", function(moy) {

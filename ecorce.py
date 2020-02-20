@@ -87,6 +87,7 @@ def omni():
     agneau = 334.2929584*float(request.form['Q3_agneau'])
     boeuf = 235.1966514*float(request.form['Q3_boeuf'])
     poisson = 22.78607013*float(request.form['Q4'])
+    session['viande']=float(request.form['Q3_poulet'])+float(request.form['Q3_porc'])+float(request.form['Q3_agneau'])+float(request.form['Q3_boeuf'])+float(request.form['Q4'])
     oeufs = 11.10564*int(request.form['Q5'])
     fromage = 356.72*float(request.form['Q6'])
     lait = 52.53948708*int(request.form['Q7'])
@@ -94,20 +95,26 @@ def omni():
     #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
         leg = 44.82296
+        session['legume']=leg
     else:
         leg = 267.98408
+        session['legume']=leg
 
     #ENERGIE
+    session['energie']=0
     if request.form['Q8'] == "A":
         if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
-            session['electrique']=int(request.form['Q9_electrique'])
+            session['energie']+=int(request.form['Q9_electrique'])
         if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
+            session['energie']+=int(request.form['Q9_gaz'])
         if request.form['Q9_fioul'] != None:
             fioul = 0.275*int(request.form['Q9_fioul'])
+            session['energie']+=int(request.form['Q9_fioul'])
         if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
+            session['energie']+=int(request.form['Q9_bois'])
     else:
         elect = 0
         gaz = 0
@@ -118,10 +125,12 @@ def omni():
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
+    session['voiture']=voit_s
     train = 0.007*int(request.form['Q14'])
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
+    session['avion']=avion
 
     emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emissions
@@ -220,4 +229,47 @@ def vegan():
 
 @app.route('/change', methods=['GET'])
 def change():
-    return str(session.get('electrique', 'not set'))
+    energie= session.get('energie', 'not set')
+    new_energie = energie*float(request.form['Q19'])
+
+    legume=session.get('legume', 'not set')
+    new_legume=float(request.form['Q7b'])
+
+    viande = session.get('viande', 'not set')
+    if request.form['Q0']== 'Veg' :
+        new_viande=0
+
+    voiture= session.get('voiture', 'not set')
+    if request.form['Q18']== 'A' :
+        voiture= voiture*0.1846
+
+    avion=session.get('avion', 'not set')
+    new_avion = request.form['Q17']
+
+    emissions=session.get('emissions', 'not set')-energie+new_energie-legume+new_legume-viande+new_viande-voiture+voiture-avion+avion
+
+    return emissions
+
+@app.route('/energie', methods=['GET'])
+def energie():
+    return str(session.get('energie', 'not set'))
+
+@app.route('/legume', methods=['GET'])
+def legume():
+    return str(session.get('legume', 'not set'))
+
+@app.route('/viande', methods=['GET'])
+def viande():
+    return str(session.get('viande', 'not set'))
+
+@app.route('/voiture', methods=['GET'])
+def voiture():
+    return str(session.get('voiture', 'not set'))
+
+@app.route('/avion', methods=['GET'])
+def avion():
+    return str(session.get('avion', 'not set'))
+
+@app.route('/emission', methods=['GET'])
+def emission():
+    return str(session.get('emissions', 'not set'))
