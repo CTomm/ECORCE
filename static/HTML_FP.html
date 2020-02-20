@@ -104,66 +104,89 @@
 
 
 <br><br>
-<ul>
+<!-- <ul>
   <li><a class="active" href="#Alimentaire">Alimentaire</a></li>
   <li><a href="#Energie">Energie</a></li>
   <li><a href="#Transport">Transport</a></li>
-</ul>
+</ul> -->
 
-<div style="padding:10px;margin-top:15px;background-color:#1abc9c;height:1500px;">
-        				<h1>
-        		
-        				Suivez vous l’un des régimes alimentaires suivant ?</h1>
+<div style="padding:10px;margin-top:10px;background-color:#1abc9c;height:1500px;">
+        				<h2>
+        				Vous changez votre régimes alimentaires ?</h1>
 
-			            <div>
+<!-- 			            <div>
 			                <input type="radio" name="Q0" id="Q0-A"required value="V" />
 			                <label for="Q0-A">  Végan  </label>
-			            </div>
+			            </div> -->
 
 			            <div>
 			                <input type="radio" name="Q0" id="Q0-B"required value="Veg"/>
 			                <label for="Q0-B"> Végétarien </label>
 			            </div>
 			            
-			            <div>
+<!-- 			            <div>
 			                <input type="radio" name="Q0" id="Q0-C"required value="A"/>
 			                <label for="Q0-C"> Aucun régime spécifique  </label>
-			            </div>
+			            </div> -->
 
-		            <h1>
-        				Quelle quantité d'énergie domestique utilisez-vous ?</h1>
+
+        				<h2>
+        				Comment choisissez vous les fruits et légumes que vous consommez ?</h1>
 
 			            <div>
-			                <input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="9999999999" value="0">
-			                <label for="Q9-A">consommation électrique par mois (en kWm/mois)</label>
-			            </div>
-			        
-			            <div>
-			                <input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="9999999999" value="0">
-			                <label for="Q9-A">consommation de gaz / propane par an (en kWm/an)</label>
+			                <input type="radio" name="Q7b" id="Q7b-A" value="A" required/>
+			                <label for="Q7b-A">Je mange majoritairement des fruits et légumes de saison </label>
 			            </div>
 
 			            <div>
-			                <input type="number" id="Q9-C" name="Q9_fioul" step=1 min="0" max="9999999999" value="0">
-			                <label for="Q9-A">consommation de fioul par an (L/an)</label>
-			            </div>            
-
-			            <div>
-			                <input type="number" id="Q9-D" name="Q9_bois" step=1 min="0" max="9999999999" value="0">
-			                <label for="Q9-A">consommation de bois par an (kg/an)</label>
-			            </div>  
-
-
-			          <h1>
-        				Combien de kilomètres réalisez-vous par semaine en transports en communs ?</h1>
-			            <div>
-			                <input type="number" id="Q12-A" name="Q12" step=1 min="0" max="9999999999" value="0">
-			                <label for="Q12-A">kilomètres par semaine  </label>
+			                <input type="radio" name="Q7b" id="Q7b-B" value="B" required/>
+			                <label for="Q7b-B">Je n’apporte pas d’intérêt particulier au choix des fruits et légumes que j’achète</label>
 			            </div>
 
+        				<h2>
+        				Vous changez votre mode de deplacement ?</h1>
+
+			            <div>
+			                <input type="radio" name="Q18" id="Q18-A" value="A" required/>
+			                <label for="Q18-A">Je prends que le transports en communs </label>
+			            </div>
+<!-- 			            <div>
+			                <input type="radio" name="Q18" id="Q18-B" value="B" required/>
+			                <label for="Q18-B">Je prends que la voiture </label>
+			            </div> -->
 
 
-   <br> <br>
+        				<h2>
+        				Combien de kilomètres faites-vous en avion?</h1>
+
+			            <div>
+			                <input type="number" id="Q17-A" name="Q17" step=1 min="0" max="9999999999" value="0">
+			                <label for="Q17-A">kilomètres par an</label>
+			            </div> 
+
+
+
+		            <h2>
+        				Vous changez votre type de d'énergie domestique ?</h1>
+
+			            <div>
+			                <input type="radio" name="Q19" id="Q19-A" value="A" required/>
+			                <label for="Q19-A">Consommation électrique </label>
+			            </div>
+			            <div>
+			                <input type="radio" name="Q19" id="Q19-B" value="B" required/>
+			                <label for="Q19-B">Consommation de gaz / propane </label>
+			            </div> 
+			            <div>
+			                <input type="radio" name="Q19" id="Q19-C" value="C" required/>
+			                <label for="Q19-C">Consommation de fioul</label>
+			            </div>
+			            <div>
+			                <input type="radio" name="Q19" id="Q19-D" value="D" required/>
+			                <label for="Q19-D">Consommation de bois</label>
+			            </div>
+
+   <br> 
    <input class="button button1" type="submit" value="Validez les modifications" />
   </div>
 
