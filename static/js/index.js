@@ -14,10 +14,10 @@ $.get( "/sendresultat", function(parc) {
 
 
 // Récupérer les valeurs du formulaire
-$.get( "/change", function(emission) {
-	console.log(emission);
-    //document.getElementById("Q9-A").value = parseInt(viande)
-});
+// $.get( "/change", function(emission) {
+// 	console.log(emission);
+//     //document.getElementById("Q9-A").value = parseInt(viande)
+// });
 // $.get( "/legume", function(legume) {
 // 	console.log('legume'+legume);
 // 	new_legume= legume
@@ -44,11 +44,11 @@ $.get( "/change", function(emission) {
 //     //document.getElementById("Q9-A").value = parseInt(emission)
 // });
 
-function resend(){
-    $.post( "/sendresultat", {
-      emission:emission
-      })
-};
+// function resend(){
+//     $.post( "/sendresultat", {
+//       emission:emission
+//       })
+// };
 
 function show(){
 	$.get( "/sendmoyenne", function(moy) {

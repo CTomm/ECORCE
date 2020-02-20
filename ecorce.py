@@ -227,7 +227,7 @@ def vegan():
 # #A enlever quand on va sur la VM
 # #app.run(host='0.0.0.0', port='5000')
 
-@app.route('/change', methods=['GET'])
+@app.route('/change', methods=['POST'])
 def change():
     energie= session.get('energie', 'not set')
     new_energie = energie*float(request.form['Q19'])
@@ -238,17 +238,35 @@ def change():
     viande = session.get('viande', 'not set')
     if request.form['Q0']== 'Veg' :
         new_viande=0
+    else:
+        new_viande=viande
 
     voiture= session.get('voiture', 'not set')
     if request.form['Q18']== 'A' :
         voiture= voiture*0.1846
+    else:
+        new_voiture=voiture
 
     avion=session.get('avion', 'not set')
     new_avion = request.form['Q17']
 
-    emissions=session.get('emissions', 'not set')-energie+new_energie-legume+new_legume-viande+new_viande-voiture+voiture-avion+avion
+    emission=session.get('emissions', 'not set')-energie+new_energie-legume+new_legume-viande+new_viande-voiture+voiture-avion+avion
+    emission=float(emission)
 
-    return emissions
+    position = session.get('position', 'not set')
+    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
+    cursor = conn.cursor()
+    cursor.execute(""" 
+        with parc as (select st_transform(geom, 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+"""))
+        select json_build_object(
+        'type', 'FeatureCollection',
+        'features', json_agg(ST_AsGeoJSON(parc.*)::json)
+        ) as geojson
+        from parc;
+        """)
+    resultat = cursor.fetchone()[0]
+    conn.close()
+    return jsonify(resultat)
 
 @app.route('/energie', methods=['GET'])
 def energie():
