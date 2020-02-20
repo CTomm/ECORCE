@@ -30,7 +30,7 @@
 https://css-tricks.com/building-a-simple-quiz/
  -->
 		
-<form action="/handle_data" method="POST" id="___">
+<form action="/omni" method="POST" id="___">
 
 
 <!-- Slideshow container -->
@@ -292,10 +292,6 @@ https://css-tricks.com/building-a-simple-quiz/
 
         
         <h3>9. Quelle quantité d'énergie domestique utilisez-vous ?</h3>
-        <a class="infobulle"> 
-    		<img id="bulleinfo" src="image/bulleinfo.png" /> 
-			<span>L'énergie domestique correspond à toute l'énergie consommée dans votre foyer.<br> Elle englobe le chauffage, le chauffage de l'eau, la cuisson et l'électroménager par exemple.</span> 
-    	</a>
     	
             <div>
                 <input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="9999999999" value="0">
@@ -305,7 +301,11 @@ https://css-tricks.com/building-a-simple-quiz/
             <div>
                 <input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="9999999999" value="0">
                 <label for="Q9-A">consommation de gaz / propane par an (en kWm/an)</label>
-            </div>
+				<a class="infobulle"> 
+					<img id="bulleinfo" src="image/bulleinfo.png" /> 
+					<span>Une bouteille de gaz pesant 10kg produit environ 140 KWh d'énergie.</span> 
+				</a>
+			</div>
 
             <div>
                 <input type="number" id="Q9-C" name="Q9_fioul" step=1 min="0" max="9999999999" value="0">

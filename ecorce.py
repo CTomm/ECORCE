@@ -1,8 +1,9 @@
-from flask import Flask, request, render_template, jsonify, session
+from flask import Flask, request, render_template, jsonify, session, redirect
 import psycopg2
 
 app = Flask(__name__,  template_folder='static')
-app.secret_key = "ecorce2020"
+app.secret_key = "ecorce2020"$
+
 
 @app.route('/<path:path>')
 def send_file(path):
@@ -12,13 +13,13 @@ def send_file(path):
 def hello2():
     return "<h1 style='color:blue'>Welcome to ECORCE</h1>"
 
-@app.route("/sendresultat")
+@app.route("/sendresultat", methods=['GET'])
 def sendresultat():
     position = session.get('position', 'not set')
     emission = session.get('emissions', 'not set')
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
-    cursor.execute("""
+    cursor.execute(""" 
         with parc as (select st_transform(geom, 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+"""))
         select json_build_object(
         'type', 'FeatureCollection',
@@ -33,12 +34,12 @@ def sendresultat():
 
 @app.route('/sendposition', methods=['POST'])
 def sendposition():
-    position = request.form['position']
-    session['position'] = position
+    position_api = request.form['position']
+    session['position'] = position_api
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute("""
-            create materialized view parctri as select * from get_parctri(st_transform(st_geomfromtext('POINT("""+position+""")', 4326), 2154));
+            create materialized view parctri as select * from get_parctri(st_transform(st_geomfromtext('POINT("""+position_api+""")', 4326), 2154));
             """)
     conn.commit()
     conn.close()
@@ -106,7 +107,7 @@ def omni():
     emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emissions
 
-    return render_template("index.html")
+    return redirect("http://localhost:8080/index.html")
 
 @app.route('/vege', methods=['POST'])
 def vege():
@@ -150,7 +151,7 @@ def vege():
 
     emissions = alimfixe+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emissions
-    return render_template("index.html")
+    return redirect("http://localhost:8080/index.html")
 
 @app.route('/vegan', methods=['POST'])
 def vegan():
@@ -193,6 +194,7 @@ def vegan():
 
     emissions = leg+legumineuse+cere+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emissions
-    return render_template("index.html")
+    return redirect("http://localhost:8080/index.html")
+    #return render_template("index.html")
 # #A enlever quand on va sur la VM
 # #app.run(host='0.0.0.0', port='5000')
