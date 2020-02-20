@@ -101,6 +101,7 @@ def omni():
     if request.form['Q8'] == "A":
         if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
+            session['electrique']=int(request.form['Q9_electrique'])
         if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
         if request.form['Q9_fioul'] != None:
@@ -125,7 +126,7 @@ def omni():
     emissions = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emissions
 
-    return redirect("http://localhost:8080/index.html")
+    return redirect("http://localhost:8080/HTML_FP.html")
 
 @app.route('/vege', methods=['POST'])
 def vege():
@@ -216,3 +217,7 @@ def vegan():
     #return render_template("index.html")
 # #A enlever quand on va sur la VM
 # #app.run(host='0.0.0.0', port='5000')
+
+@app.route('/change', methods=['GET'])
+def change():
+    return str(session.get('electrique', 'not set'))
