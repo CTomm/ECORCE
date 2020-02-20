@@ -5,10 +5,6 @@
 	 	<title> Trouver son adresse </title>
 	 	<script src="../static/lib/leaflet/leaflet.js"></script>
 	 	<link rel="stylesheet" href="../static/lib/leaflet/leaflet.css"/>
-
-	 	<!-- Plugin search-leaflet pour recherche adresse -->
-<!-- 	 	<script src="lib/leaflet-search-master/dist/leaflet-search.src.js"> </script/>
-	 	<link rel="stylesheet" href="lib/leaflet-search-master/dist/leaflet-search.min.css"/>  -->
 	 	<link  rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css"/>
 		<script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
 
@@ -31,11 +27,7 @@
 	 	<div id='map'> </div>
 
 	 	<br> <br>
-
-	 	<form action="/sendposition" method="POST" id="___">
-	 		<textarea name=position id=pos></textarea>
-		    <input type="submit" value="Valider ma position" id ="button_input1"/>
-    	</form>
+    	<button id="button_commemcer" onclick="send()"> Validate</button>
 
     <button id="button_commemcer" onclick="window.location.href='questionchoix.html';"> Commencer la questionnaire</button>
 

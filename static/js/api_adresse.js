@@ -73,8 +73,13 @@ commune.on("click", function(ev){
   marqueur.clearLayers();
   marqueur.addLayer(L.marker(ev.latlng));
   console.log(ev.latlng);
-  position.value = String(ev.latlng.lng) + ' ' + String(ev.latlng.lat);
+  position_user = String(ev.latlng.lng) + ' ' + String(ev.latlng.lat);
 });
 
+function send(){
+    $.post( "/sendposition", {
+      position: position_user
+      })
+};
 
 map.addControl(searchControl);

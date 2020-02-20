@@ -1,10 +1,8 @@
 from flask import Flask, request, render_template, jsonify, session, redirect
-from flask_cors import CORS
 import psycopg2
 
 app = Flask(__name__,  template_folder='static')
-app.secret_key = "ecorce2020"
-cors = CORS(app)
+app.secret_key = "ecorce2020"$
 
 
 @app.route('/<path:path>')
@@ -36,12 +34,12 @@ def sendresultat():
 
 @app.route('/sendposition', methods=['POST'])
 def sendposition():
-    position = request.form['position']
-    session['position'] = position
+    position_api = request.form['position']
+    session['position'] = position_api
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute("""
-            create materialized view parctri as select * from get_parctri(st_transform(st_geomfromtext('POINT("""+position+""")', 4326), 2154));
+            create materialized view parctri as select * from get_parctri(st_transform(st_geomfromtext('POINT("""+position_api+""")', 4326), 2154));
             """)
     conn.commit()
     conn.close()
