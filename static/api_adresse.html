@@ -1,52 +1,71 @@
 <! DOCTYPE html>
 <html>
-	 <head>
-	 	<meta charset="utf-8"/>
-	 	<title> Trouver son adresse </title>
-	 	<script src="../static/lib/leaflet/leaflet.js"></script>
-	 	<link rel="stylesheet" href="../static/lib/leaflet/leaflet.css"/>
-
-	 	<!-- Plugin search-leaflet pour recherche adresse -->
-<!-- 	 	<script src="lib/leaflet-search-master/dist/leaflet-search.src.js"> </script/>
-	 	<link rel="stylesheet" href="lib/leaflet-search-master/dist/leaflet-search.min.css"/>  -->
-	 	<link  rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@latest/assets/css/leaflet.css"/>
-		<script src="https://unpkg.com/leaflet-geosearch@latest/dist/bundle.min.js"></script>
-
-	 	<link rel="stylesheet" href="../static/style/api_adresse.css"/>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script>
-
-		<style>
-			body{background-image: url("ICON_ECROCE.png");
-				background-repeat:no-repeat;
-				background-size:cover;
-			}
-		</style>
-
-	 </head>
-	 <body>
-
-	 	<h2 STYLE="font 40pt monaco"> ECORCE </h2>
-	 	<h1>Recherche de l'adresse de l'utilisateur </h1>
-
-	 	<div id='map'> </div>
-
-	 	<br> <br>
-
-	 	<form action="/sendposition" method="POST" id="___">
-	 		<textarea name=position id=pos></textarea>
-		    <input type="submit" value="Valider ma position" id ="button_input1"/>
-    	</form>
-
-    <button id="button_commemcer" onclick="window.location.href='questionchoix.html';"> Commencer la questionnaire</button>
-
-	 </body>
+	<head>
+		 	<meta charset="utf-8"/>
+		 	<title> Trouver son adresse </title>
+		 	<script src="../static/lib/leaflet/leaflet.js"></script>
+		 	<link rel="stylesheet" href="../static/lib/leaflet/leaflet.css"/>
+		
+		
+		 	<!-- Plugin search-leaflet pour recherche adresse -->
+			<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+			<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 
-	 
+		 	<link rel="stylesheet" href="../static/style/api_adresse.css"/>
+			<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.0/jquery.min.js'></script>
+
+			<!-- 		<style>
+				body{background-image: url("ICON_ECROCE.png");
+					background-repeat:no-repeat;
+					background-size:cover;
+				}
+			</style> -->
+
+		 </head>
 
 
 
+	<body>
 
+	 		<img id="name_icon" src="image/F_name_left.png" width=250 height=75 >
+			<img id="name_icon2" src="image/F_icon_100.png" width=70 height=50 >
+
+			<section id="information2">
+			  <nav>
+			  	<img src="image/API_etape.png" width=40 height=284 >
+					</nav>
+				</section>
+
+			<section id="information">
+			  <nav>
+					<p>CHECHER VOTRE ADREESE :
+						<br>
+						<br>Cliquez sur la carte 
+						<br>ou
+						<br>Chercher votre addresse dans le bar de recheche 
+					</p>
+
+
+					
+					<button class="button button2" onclick="send()"> Cliquez pour validater l'adresse </button>
+
+					<br><br><br>
+				  <button class="button button2" onclick="window.location.href='questionchoix.html';"> Commencer le questionnaire</button>
+				  <br><br><br>
+
+					</nav>
+				</section>
+
+
+
+	 			<div id='map'> </div>
+
+
+	 		</body>
+
+
+	
    	<script src="../static/js/communes_UuLySE.js"></script>
-	 <script src ="../static/js/api_adresse.js"> </script>
+	 	<script src ="../static/js/api_adresse.js"> </script>
  </html>

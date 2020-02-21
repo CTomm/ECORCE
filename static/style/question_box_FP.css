@@ -2,11 +2,12 @@
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 300px;
+  max-width: 400px;
   position: relative;
   margin: auto;
   background-color: black;
-  opacity: 80%;
+  opacity: 85%;
+    font-family:"Gill Sans", sans-serif;
 }
 
 /* Hide the images by default */
@@ -54,6 +55,7 @@
   bottom: 8px;
   width: 100%;
   text-align: center;
+    font-family:"Gill Sans", sans-serif;
 }
 
 /* Number text (1/3 etc) */
