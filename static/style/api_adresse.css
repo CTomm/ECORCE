@@ -1,5 +1,5 @@
 body {
-	background-color: azure;
+	background-color: FFF;
 }
 h1{
 margin-left: 40px;
@@ -22,8 +22,98 @@ h2{
 
 }
 
-#map{
-	margin-left: 40px;
-	width:90%;
-	height:500px;
+
+#information2{
+	position: fixed;
+	top:87;
+	left: 5;
+	right: 90;
+	width : 5;
+	height : 100%;
 }
+
+#information{
+	position: fixed;
+	top:87;
+	left: 80;
+	right: 70;
+	width : 325;
+	height : 100%;
+}
+
+
+
+#map{
+	margin-left: 400px;
+	margin-right: 5px;
+	top:0;
+	width:800;
+	height:385;
+}
+
+
+
+nav {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  background: #9AB4B2;
+  padding: 50px;
+}
+
+
+
+p{
+	color: white;
+  font-size: 15px;
+  font-family:"Gill Sans", sans-serif;
+
+}
+
+
+
+/*button in the slide*/
+		.button {
+		  background-color: #4CAF50; /* Green */
+		  border: none;
+		  color: white;
+		  padding: 8px 25px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 12px;
+		  	font-family:"Gill Sans", sans-serif;
+		  margin: 4px 2px;
+		  transition-duration: 0.4s;
+		  cursor: pointer;
+		}
+
+		.button1 {
+		  background-color: white;
+		  color: black;
+		  border: 2px solid #555555;
+		}
+
+		.button1:hover {
+		  background-color: #555555;
+		  color: white;
+		}
+
+		.button2 {
+		  background-color: white;
+		  opacity: 0.8;
+		  color: black;
+		  border: 1px solid #555555;
+		}
+
+		.button2:hover {
+		  background-color: #555555;
+		  color: white;
+		}
+
+
+
+
+
+
+
