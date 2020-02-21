@@ -3,39 +3,254 @@
 		<meta charset="utf-8">
 		<title>ECORCE</title>
 
-		
-		<link rel="stylesheet" href="style/style_CoverPage.css"/>
 
-		<style>
-			body{background-image: url("ICON_ECROCE.png");
-				background-repeat:no-repeat;
-				background-size:cover;
-			}
-		</style>
+<head>
+
+	<!-- background	 -->
+			<meta name="viewport" content="width=device-width, initial-scale=1">
+				<style>
+					body {
+						margin: 0;
+					  font-family: Arial, Helvetica, sans-serif;
+					}
+
+					.hero-image {
+					  background: url(image/C_background1.jpeg) no-repeat center; 
+					  background-size: cover;
+					  height: 500px;
+					  position: relative;
+					}
+
+					.hero-text {
+					  text-align: center;
+					  position: absolute;
+					  top: 50%;
+					  left: 50%;
+					  transform: translate(-50%, -50%);
+					  color: white;
+					}
+					</style>
+
+
+
+	<!-- button -->
+				<style>
+					.button {
+					  background-color: #4CAF50; /* Green */
+					  border: none;
+					  color: white;
+					  padding: 8px 25px;
+					  text-align: center;
+					  text-decoration: none;
+					  display: inline-block;
+					  font-size: 12px;
+					  	font-family:"Gill Sans", sans-serif;
+					  margin: 4px 2px;
+					  transition-duration: 0.4s;
+					  cursor: pointer;
+					}
+
+					.button_commencer {
+					  background-color: white;
+					  color: black;
+					  border: 2px solid #555555;
+					  opacity: 90% ;
+					}
+
+					.button_commencer:hover {
+					  background-color: #555555;
+					  color: white;
+					}
+					</style>
+
+
+
+	<!-- /*image "savez vous"*/ -->
+				<style>
+					.container {
+					  position: relative;
+					}
+
+					.image {
+					  display: block;
+					  width: 100%;
+					  height: auto;
+					}
+
+					.overlay {
+					  position: absolute;
+					  top: 0;
+					  bottom: 0;
+					  left: 0;
+					  right: 0;
+					  height: 100%;
+					  width: 100%;
+					  opacity: 0;
+					  transition: .5s ease;
+					  background-color: #9AB4B2;
+					}
+
+					.container:hover .overlay {
+					  opacity: 1;
+					}
+
+					.text {
+					  color: white;
+					  font-size: 15px;
+					  	font-family:"Gill Sans", sans-serif;
+					  position: absolute;
+					  top: 50%;
+					  left: 50%;
+					  transform: translate(-50%, -50%);
+					  -ms-transform: translate(-50%, -50%);
+					}
+					.text2 {
+					  color: white;
+					  font-size: 10px;
+					  	font-family:"Gill Sans", sans-serif;
+					  position: absolute;
+					  top: 50%;
+					  left: 50%;
+					  transform: translate(-50%, -50%);
+					  -ms-transform: translate(-50%, -50%);
+					}				
+					</style>
+
+
+
+	<!-- footer -->
+				<style>
+					footer {
+					  background-color: #FFF;
+					  padding: 10px;
+					  	font-family:"Gill Sans", sans-serif;
+					  text-align: center;
+					  color: white;
+						}
+
+					#f1 {
+					  background-color: #FFF;
+					  padding: 10px;
+					  	font-family:"Gill Sans", sans-serif;
+					  text-align: center;
+					  color: white;				
+					}	
+
+					#f2 {
+					  background-color: #FFF;
+					  padding: 10px
+					  	font-family:"Gill Sans", sans-serif;
+					  	font-size: 12px;
+					  text-align: center;
+					  color: #777;				
+					}	
+
+
+					#f3 {
+					  background-color: #FFF;
+					  padding: 10px
+					  	font-family:"Gill Sans", sans-serif;
+					  	font-size: 8px;
+					  text-align: center;
+					  color: #777;				
+					}			
+
+						</style>
+
+
 
 	</head>
 
 
 
-	<body>
-		<h1 > ECORCE </h1>
+<body>
 
-		<p>Connaissez-vous votre empreinte écologique?  </p>
-		<!-- <h2> VOTRE EMPREINTE ECOLOGIQUE? </h2>
- -->
-		
-		<div id="intro"> C’est un petit questionnaire auquel vous devrez vous soumettre afin d’évaluer votre empreinte carbone pour une année. Cette application convertit votre empreinte carbone par rapport à l’absorption possible des espaces végétalisés les plus proches de votre domicile. Ainsi, vous aurez une idée du nombre de parcs urbains nécessaires pour absorber votre émissions de carbone annuelles. </div>
+		<img id="name_icon" src="image/F_name_left.png" width=250 height=75 >
+		<img id="name_icon2" src="image/F_icon_100.png" width=70 height=50 >
 
 
-		<div id ="question_coverpage"> Quelle est la surface végétalisée nécessaire à l’absorption de mon émission carbone annuelle ? 
-		</div>
-		
-		
+		<div class="hero-image">
+		  <div class="hero-text">
+		    <h1 style="font-size:50px">E C O R C E</h1>
+		    <h3>Estimation de la surfaCe d’absORption du Carbone Emis </h3>
+		    <br><br>
 
 
 
-<!-- Ajouter un button-->
-		<button id="button_commemcer" onclick="window.location.href='api_adresse.html';"> COMMENCER </button>
+
+		    <button class="button button_commencer" onclick="window.location.href='api_adresse.html';"> Créer votre carte de consummation CO2 </button>
+		  	</div>
+			</div>
+
+
+		</body>
+
+
+<!-- Savez-vous + Question  -->
+	<footer id="f1">
+						<br><br><br>
+				    <div class="container">
+	  					<img src="image/C_SavezVous.png" width=200 height=200 left= 240 alt="Avatar" class="image_c" >
+	  					<div class="overlay">
+	   						 <div class="text">
+									« Si mon quartier consommait comme moi, <br>quelle serait la surface végétalisée nécessaire à l’absorption de son émission carbone annuelle ? »
+	   						 </div>
+	 						 </div>
+				  	</div>
+	</footer>		
+
+<!-- Discription de questionnaire  -->
+	<footer id="f2">
+		C’est un questionnaire auquel vous devrez vous soumettre <br>afin d’évaluer votre empreinte carbone pour une année. <br>
+		<br>Cette application convertit votre empreinte carbone par rapport à l’absorption possible <br>des espaces végétalisés les plus proches de votre domicile. <br>
+		<br>Ainsi, vous aurez une idée du nombre de parcs urbains nécessaires <br>pour absorber votre émissions de carbone annuelles.
+	</footer>	
+
+<!-- infotmations -->
+<br>
+	<foote id="f3"> 
+		<div class="container">
+	  					<img src="image/C_infor1.png" width=550 height=80 left= 240 alt="Avatar" class="image_c" >
+	  					<div class="overlay">
+	   						 <div class="text2">
+									1.  Cherchez votre adresse 
+									<br> 2.  Remplir la questionnaire
+									<br> 3.  Decouvir votre carte de consommation CO2 
+	   						 </div>
+	 						 </div>
+				  	</div>
+  	</foote>
+
+	<foote id="f3">
+		<div class="container">
+	  					<img src="image/C_infor2.png" width=700 height=80 left= 240 alt="Avatar" class="image_c" >
+	  					<div class="overlay">
+	   						 <div class="text2">
+									INCA2 . ADEME . RTE
+	   						 </div>
+	 						 </div>
+				  	</div>
+  	</foote>
+
+	<foote id="f3">
+		<div class="container">
+	  					<img src="image/C_infor3.png" width=700 height=80 left= 240 alt="Avatar" class="image_c" >
+	  					<div class="overlay">
+	   						 <div class="text2">
+									MASTER GEONUM . 2020
+	   						 </div>
+	 						 </div>
+				  	</div>
+  	</foote>
+
+
+
+<!-- LOGO of school -->
+	<br>
+	<footer>
+		<br><br>
+		<img src="image/C_School_icon.png" width=350 height=40 >
+	</footer>	
 
 
 
