@@ -36,9 +36,8 @@
 			<img id="name_icon" src="image/F_name_left.png" width=250 height=75 >
 			<img id="name_icon2" src="image/F_icon_100.png" width=70 height=50 >
 
+			</br>
 
-
-	
 			<div id ="map"  > </div> </br>
 
 
@@ -131,7 +130,7 @@
 
 
         				<h2>
-        				Comment choisissez vous les fruits et légumes que vous consommez ?</h1>
+        				Comment choisissez vous les légumes que vous consommez ?</h1>
 
 			            <div>
 			                <input type="radio" name="Q7b" id="Q7b-A" value="0.17108" required/>
@@ -144,7 +143,7 @@
 			            </div>
 
         				<h2>
-        				Vous changez votre mode de deplacement ?</h1>
+        				Voulez-vous changer votre mode de déplacement ?</h1>
 
 			            <div>
 			                <input type="radio" name="Q18" id="Q18-A" value="A" required/>
@@ -187,18 +186,11 @@
 			            </div>
 
    <br> 
-   <input class="button button1" type="submit" value="Validez les modifications" />
+   <!-- <input class="button button1" type="submit" value="Validez les modifications" /> -->
+     
+</form>
+	
   </div>
-
-
-
-							</form>
-
-
-
-				  <input class="button button1" type="submit" value="Validez les modifications" />
-
-					<!-- <button class="button button1">Validez les modifications</button> -->
 
 
 
@@ -214,6 +206,9 @@
 
 
 			<!-- 	Share FB  -->
+			<div id = "share_fb"><button id=val onclick="resend()">Nouvelles valeurs</button></div>
+			<div id = "share_fb"><button id=moy onclick="moy()">Moyenne</button></div>
+			
 			<div id = "share_fb" class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-size="large"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
 
 		</body>
@@ -221,7 +216,6 @@
 
 			<!-- 	Share  -->
 			<!-- 	<div id = "share" class="sharethis-inline-share-buttons"></div> -->
-
 
 			<a id = "share_imprimer" href="javascript:window.print()"
 			   onclick="$('#table').printElement({leaveOpen:true, printMode:'popup', pageTitle:'RELEVE DE NOTE SEQUANTIELLE'});">

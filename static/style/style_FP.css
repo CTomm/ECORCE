@@ -75,6 +75,16 @@ left: 240	;
 	top:30;
 	right: 85;
 }
+#val{
+	position: fixed;
+	top:30;
+	right: 150;
+}
+#moy{
+	position: fixed;
+	top:30;
+	right: 250;
+}
 
 button {
 	 border: none;
