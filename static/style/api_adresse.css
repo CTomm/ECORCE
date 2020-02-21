@@ -29,7 +29,6 @@ h2{
 	left: 5;
 	right: 90;
 	width : 5;
-	height : 100%;
 }
 
 #information{
@@ -37,18 +36,17 @@ h2{
 	top:87;
 	left: 80;
 	right: 70;
-	width : 325;
-	height : 100%;
+	width : 310;
 }
 
 
 
 #map{
 	margin-left: 400px;
-	margin-right: 5px;
+	margin-right: 50px;
 	top:0;
-	width:800;
-	height:385;
+	width:70%;
+	height:500px;
 }
 
 
@@ -59,6 +57,7 @@ nav {
   flex: 1;
   background: #9AB4B2;
   padding: 50px;
+  height:400px;
 }
 
 
