@@ -55,7 +55,7 @@ left: 240	;
 #map{ 
 	position: fixed;
 	top:60;
-	right: 0%;
+	right: 0;
 	left:0%;
   border: 1px solid black ;
 	width : 100%;
