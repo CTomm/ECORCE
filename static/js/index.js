@@ -1,4 +1,3 @@
-
 var map = L.map('map');
 
 var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -16,10 +15,10 @@ function resend(){
 	console.log("hello")
 	//Vegetarien ou non
 	if (document.getElementsByName("Q0")[0].checked == true){
-		viande = document.getElementsByName("Q0")[0].value;
+		regime = document.getElementsByName("Q0")[0].value;
 	}
 	else if (document.getElementsByName("Q0")[1].checked == true){
-		viande = document.getElementsByName("Q0")[1].value;
+		regime = document.getElementsByName("Q0")[1].value;
 	}
 	
 	//Legumes sous serre ou de saison
@@ -51,9 +50,10 @@ function resend(){
 	else if (document.getElementsByName("Q19")[3].checked == true){
 		energie = document.getElementsByName("Q19")[3].value;
 	}
+	console.log(regime);
 
     $.post( "/change", {
-      viande: viande,
+      regime: regime,
       legume: legume,
       voiture: voiture,
       energie: energie,
@@ -72,42 +72,23 @@ function moy(){
 	});
 };
 
-var overlayMaps ={
-	"moyenne": mymoy,
-	"nouvelles valeurs":newparc,
-	"orginal":mymapdata
-};
-L.control.layers(null, overlayMaps).addTo(map);
 
+// if (typeof mymoy !== "undefined"){
+// 	var overlayMaps ={
+// 	"moyenne": mymoy,
+// 	"orginal":mymapdata
+// 	}
+// }
+// else{
+// 	var overlayMaps ={
+// 	"orginal":mymapdata
+// };
+// }
 
+// L.control.layers(null, overlayMaps).addTo(map);
 
-// Récupérer les valeurs du formulaire
-// $.get( "/change", function(emission) {
-// 	console.log(emission);
-//     //document.getElementById("Q9-A").value = parseInt(viande)
-// });
-// $.get( "/legume", function(legume) {
-// 	console.log('legume'+legume);
-// 	new_legume= legume
-//     //document.getElementById("Q9-A").value = parseInt(legume)
-// });
-// $.get( "/avion", function(avion) {
-// 	console.log('avion'+avion);
-// 	new_avion = avion
-//     //document.getElementById("Q9-A").value = parseInt(avion)
-// });
-// $.get( "/voiture", function(voiture) {
-// 	console.log('voiture'+voiture);
-// 	new_voiture = voiture
-//     //document.getElementById("Q9-A").value = parseInt(voiture)
-// });
-// $.get( "/energie", function(energie) {
-// 	console.log('energie'+energie);
-// 	new_energie = energie
-//     //document.getElementById("Q9-A").value = parseInt(energie)
-// });
-// $.get( "/emission", function(emission) {
-// 	console.log('emissions'+emission);
-// 	new_emission = emission
-//     //document.getElementById("Q9-A").value = parseInt(emission)
-// });
+$(window).on("beforeunload", function() {
+	console.log("kflklkl");
+ 	fetch( "/leaving");
+ 	return 'coucou';
+});
