@@ -68,6 +68,8 @@ text-transform: none;
 }
 
 
+
+
 label{
 	font-family:"Gill Sans", sans-serif;
 	font-size:14px;
@@ -136,6 +138,45 @@ font-variant: normal;
 text-transform: none;
 }
 
+
+#domaines2{
+margin-left: 180px;
+font-family:"Gill Sans", sans-serif;
+font-size: 10px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #FFF;
+font-weight: 400;
+/*text-decoration: underline; */
+font-variant: normal;
+text-transform: none;
+}
+
+#domaines3{
+margin-left: 200px;
+font-family:"Gill Sans", sans-serif;
+font-size: 10px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #FFF;
+font-weight: 400;
+/*text-decoration: underline; */
+font-variant: normal;
+text-transform: none;
+}
+
+
+#image_information{
+	margin-left: 180px;
+}
+
+#image_information2{
+	margin-left: 200px;
+}
+
+#image_information3{
+	margin-left: 100px;
+}
 
 
 #button_commemcer{
