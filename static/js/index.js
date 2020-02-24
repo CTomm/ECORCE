@@ -1,15 +1,63 @@
+/*----------- MAP ----------------*/
 
-var map = L.map('map');
+var map = L.map('map', {
+    center: [45.75, 4.8],
+	minZoom: 0,
+    maxZoom: 20,
+    zoom: 12
+});
 
-var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+var StadiaAttib='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+var Stadia_AlidadeSmooth = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {attribution: StadiaAttib}).addTo(map);
 
-var osmAttrib='Map data by OpenStreetMap contributors';
-map.setView([45.75, 4.8], 11);
-var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib}).addTo(map);
+/*----------- STYLE ----------------*/
+var stylemoy = {
+	"color": "#D7833A",
+	"weight": 0.8, 
+	"opacity": 0,
+	"fillOpacity": 1
+};
+
+var styleb = {
+	"color": "#004E2B",
+	"fillOpacity": 1,
+	"weight": 0.8, 
+	"opacity": 0
+};
+
+var stylea = {
+	"color": "#93A285",
+	"fillOpacity": 1,
+	"weight": 0.8, 
+	"opacity": 0
+};
+
+var stylecom = {
+	"color": 'white',
+	"fillOpacity": 0.2,
+	"weight": 1.5, 
+	"opacity": 1
+};
+
+function createCustomIcon (feature, latlng) {
+  let locIcon = L.icon({
+  iconUrl: 'image/marker.png',
+  iconSize: [38, 38],
+  iconAnchor: [19, 38]
+  })
+  return L.marker(latlng, { icon: locIcon })
+};
+
+let myLayerOptions = {
+  pointToLayer: createCustomIcon
+};
+
+
+/*----------- LAYERS ----------------*/
 
 $.get( "/sendresultat", function(parc) {
 	//console.log('old : '+ parc);
-    var mymapdata = L.geoJSON(parc).addTo(map);
+    var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
 });
 
 function resend(){
@@ -61,24 +109,46 @@ function resend(){
       },
       function(newparc) {
 		console.log('new :'+newparc);
-	    var newparc = L.geoJSON(newparc, {color: 'red'}).addTo(map);
+	    var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);
 	});
 };
 
 function moy(){
 	$.get( "/sendmoyenne", function(moy) {
 		//console.log(moy);
-	    var mymoy = L.geoJSON(moy, {color: 'green'}).addTo(map);
+	    var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
 	});
 };
 
-var overlayMaps ={
-	"moyenne": mymoy,
-	"nouvelles valeurs":newparc,
-	"orginal":mymapdata
-};
-L.control.layers(null, overlayMaps).addTo(map);
+var commune = L.geoJSON(commune,
+	{style:stylecom}).addTo(map);
 
+var loc = L.geoJSON(loc, myLayerOptions).addTo(map)
+
+/*----------- GESTION DES LAYERS-LEGENDE----------------*/
+	
+var overlayMaps = {
+    "Résultat pour votre consommation modifiée": conso_b,
+	"Résultat pour la consommation d'un français moyen": conso_moy,
+	"Résultat pour votre consommation modifiée": conso_a,
+	"Limites communales":commune,
+	"Votre adresse":loc
+};
+
+L.control.layers(null, overlayMaps,autoZIndex = true, collapsed = true).addTo(map);
+
+var legend = L.control({ position: "bottomright" });
+
+legend.onAdd = function(map) {
+  var div = L.DomUtil.create("div", "legend");
+  div.innerHTML += "<h4>Légende</h4>";
+  div.innerHTML += '<i style="background: #93A285"></i><span>Votre résultat</span><br>';
+  div.innerHTML += '<i style="background: #004E2B"></i><span>Votre résultat modifié</span><br>';
+  div.innerHTML += '<i style="background: #D7833A"></i><span>Résultat si vous consommiez<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspcomme un français "moyen"</span><br>';
+  div.innerHTML += '<i class="icon" url(https://image.flaticon.com/icons/svg/1119/1119071.svg);background-repeat: no-repeat;"></i><span>Votre adresse</span><br>';
+  return div;
+};
+legend.addTo(map);
 
 
 // Récupérer les valeurs du formulaire

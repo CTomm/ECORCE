@@ -38,8 +38,7 @@ def sendmoyenne():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
-        with emissions as (select emission as e from commune where st_intersects(commune.geom, st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154))),
-        parc as (select st_transform(st_union(geom), 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), (select e from emissions)))
+        with parc as (select st_transform(st_union(geom), 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 3104.67))
         select json_build_object(
         'type', 'FeatureCollection',
         'features', json_agg(ST_AsGeoJSON(parc.*)::json)
