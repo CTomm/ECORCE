@@ -119,23 +119,30 @@ function moy(){
 	    var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
 	});
 };
-
+/*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
+var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
+var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);*/
 var commune = L.geoJSON(commune,
 	{style:stylecom}).addTo(map);
 
-var loc = L.geoJSON(loc, myLayerOptions).addTo(map)
+var loc = L.geoJSON(loc, myLayerOptions).addTo(map);
 
 /*----------- GESTION DES LAYERS-LEGENDE----------------*/
-	
-var overlayMaps = {
-    "Résultat pour votre consommation modifiée": conso_b,
-	"Résultat pour la consommation d'un français moyen": conso_moy,
-	"Résultat pour votre consommation modifiée": conso_a,
-	"Limites communales":commune,
-	"Votre adresse":loc
-};
 
-L.control.layers(null, overlayMaps,autoZIndex = true, collapsed = true).addTo(map);
+L.control.zoom({
+     position:'topright'
+}).addTo(map);
+
+
+var controlLayers = {
+	"<span style='color: black';'font:14px'>Consommation modifiée</span>": conso_b,
+	"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
+	"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
+	"<span style='color: black';'font:14px'>Adresse</span>": loc,
+	"<span style='color: black';'font:14px'>Communes, quartiers</span>": commune
+}
+
+L.control.layers(null, controlLayers, {collapsed:false}).addTo(map);
 
 var legend = L.control({ position: "bottomright" });
 
@@ -145,7 +152,7 @@ legend.onAdd = function(map) {
   div.innerHTML += '<i style="background: #93A285"></i><span>Votre résultat</span><br>';
   div.innerHTML += '<i style="background: #004E2B"></i><span>Votre résultat modifié</span><br>';
   div.innerHTML += '<i style="background: #D7833A"></i><span>Résultat si vous consommiez<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspcomme un français "moyen"</span><br>';
-  div.innerHTML += '<i class="icon" url(https://image.flaticon.com/icons/svg/1119/1119071.svg);background-repeat: no-repeat;"></i><span>Votre adresse</span><br>';
+  div.innerHTML += '<i class="icon" ></i><span>Votre adresse</span><br>';
   return div;
 };
 legend.addTo(map);
