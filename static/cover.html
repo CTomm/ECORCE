@@ -17,7 +17,7 @@
 					.hero-image {
 					  background: url(image/C_background1.jpeg) no-repeat center; 
 					  background-size: cover;
-					  height: 500px;
+					  height: 450px;
 					  position: relative;
 					}
 
@@ -37,29 +37,39 @@
 				<style>
 					.button {
 					  background-color: #4CAF50; /* Green */
-					  border: none;
 					  color: white;
-					  padding: 8px 25px;
+					  padding: 16px 40px;
 					  text-align: center;
 					  text-decoration: none;
 					  display: inline-block;
-					  font-size: 12px;
+					  font-size: 14px;
 					  	font-family:"Gill Sans", sans-serif;
 					  margin: 4px 2px;
 					  transition-duration: 0.4s;
 					  cursor: pointer;
+					  display: block;
+					  margin : auto;
 					}
 
 					.button_commencer {
+
 					  background-color: white;
 					  color: black;
-					  border: 2px solid #555555;
-					  opacity: 90% ;
+					  	border-radius:10px;
+						width:250px;
+						border:1px solid #ccc;
+						box-shadow:2px 2px 3px #999;
+					  opacity: 70% ;
+					  display: block;
+					  margin : auto;
 					}
 
 					.button_commencer:hover {
-					  background-color: #555555;
+					  background-color: #887c79;
+					  border:1px solid #887c79;
 					  color: white;
+					  display: block;
+					  margin : auto;
 					}
 					</style>
 
@@ -96,7 +106,7 @@
 
 					.text {
 					  color: white;
-					  font-size: 15px;
+					  font-size: 20px;
 					  	font-family:"Gill Sans", sans-serif;
 					  position: absolute;
 					  top: 50%;
@@ -106,14 +116,15 @@
 					}
 					.text2 {
 					  color: white;
-					  font-size: 10px;
+					  	font-size: 13px;
 					  	font-family:"Gill Sans", sans-serif;
 					  position: absolute;
 					  top: 50%;
 					  left: 50%;
 					  transform: translate(-50%, -50%);
 					  -ms-transform: translate(-50%, -50%);
-					}				
+					}
+	
 					</style>
 
 
@@ -130,29 +141,27 @@
 
 					#f1 {
 					  background-color: #FFF;
-					  padding: 10px;
+					  padding: 1px;
 					  	font-family:"Gill Sans", sans-serif;
 					  text-align: center;
 					  color: white;				
 					}	
 
-					#f2 {
-					  background-color: #FFF;
-					  padding: 10px
-					  	font-family:"Gill Sans", sans-serif;
-					  	font-size: 12px;
-					  text-align: center;
-					  color: #777;				
-					}	
-
-
 					#f3 {
 					  background-color: #FFF;
-					  padding: 10px
+					  padding: 10px;
 					  	font-family:"Gill Sans", sans-serif;
-					  	font-size: 8px;
+					  	font-size: 10px;
 					  text-align: center;
 					  color: #777;				
+					}
+					#bord{
+					width:600px; 
+					height:90px;
+					background: none;
+					border: 1px solid  white;
+					border-radius:5px;
+					margin : auto;
 					}			
 
 				</style>
@@ -170,41 +179,28 @@
 
 
 		<div class="hero-image">
-		  <div class="hero-text">
-		    <h1 style="font-size:50px">E C O R C E</h1>
-		    <h3>Estimation de la surfaCe d’absORption du Carbone Emis </h3>
-		    <br><br>
+			<div class="hero-text">
+				<div id="bord"; style="font-size:50px">
+		    	E C O R C E 
+		    	<div style="font-size:20px">Estimation de la surfaCe d’absORption du Carbone Emis</div>
+		    	</div>
+		    	<br><br>
+		    	« Si ma commune ou mon quartier consommait comme moi, <br>quelle serait la surface végétalisée nécessaire à l’absorption de son émission carbone annuelle ? »
+		    	<br><br><br><br>
 
-
-
-
-		    <button class="button button_commencer" onclick="window.location.href='api_adresse.html';"> Créer votre carte d'émission de CO2 </button>
-		  	</div>
+				<div style="font-size:13px; font-style:normal">
+				Après avoir renseigné votre <B>adresse</B>, nous vous proposons de répondre à <br>quelques <B>questions</B> afin d’évaluer votre <B>empreinte carbone</B> annuelle. <br>
+				<br>L'application va alors la <B>convertir</B> en une absorption par <br>les <B>espaces végétalisés</B> proches de votre domicile. <br>
+				<br>Ainsi, vous aurez une idée de l'espace nécessaire <br>pour <B>absorber l'émission carbone annuelle</B> de votre quartier ou commune <br>si l'ensemble de ces habitants consomment comme vous.</B></div>
+				</div> 
 			</div>
+		</div>
+
 
 
 		</body>
-
-
-<!-- Savez-vous + Question  -->
-	<footer id="f1">
-						<br><br><br>
-				    <div class="container">
-	  					<img src="image/C_SavezVous.png" width=200 height=200 left= 240 alt="Avatar" class="image_c" >
-	  					<div class="overlay">
-	   						 <div class="text">
-									« Si mon quartier consommait comme moi, <br>quelle serait la surface végétalisée nécessaire à l’absorption de son émission carbone annuelle ? »
-	   						 </div>
-	 						 </div>
-				  	</div>
-	</footer>		
-
-<!-- Discription de questionnaire  -->
-	<footer id="f2">
-		Après avoir renseigné une adresse, nous vous proposons de répondre à quelques questions <br>afin d’évaluer votre empreinte carbone pour une année. <br>
-		<br>L'application va alors convertir votre empreinte carbone par rapport à l’absorption possible <br>des espaces végétalisés les plus proches de votre domicile. <br>
-		<br>Ainsi, vous aurez une idée du nombre des espaces végétalisés nécessaire <br>pour absorber votre émissions de carbone annuelles.
-	</footer>	
+	<br><br>
+	<button class="button button_commencer" onclick="window.location.href='api_adresse.html';"> Créer votre carte d'émission de CO₂ </button>
 
 <!-- infotmations -->
 <br>
@@ -213,9 +209,7 @@
 	  					<img src="image/C_infor1.png" width=550 height=80 left= 240 alt="Avatar" class="image_c" >
 	  					<div class="overlay">
 	   						 <div class="text2">
-									1.  Cherchez votre adresse 
-									<br> 2.  Remplir la questionnaire
-									<br> 3.  Découvrer votre carte de consommation CO2 !
+									Vos émissions de CO₂ multipliées par la population de votre quartier ou commune. 
 	   						 </div>
 	 						 </div>
 				  	</div>
@@ -238,7 +232,7 @@
 	  					<div class="overlay">
 	   						 <div class="text2">
 									BLARD Flavie - CRETOIS Hélène - MABIRE Thomas - MOK Yan Kiu - TOMMASI Chloé
-									<br> Etudiants Master <a href="https://mastergeonum.org/" style ="color:#FFFFFF; text-decoration: :none;"> Géographies numériques </a> . 2020
+									<br> Etudiants Master <a href="https://mastergeonum.org/" target="_blank" style ="color:#FFFFFF; text-decoration: :none;"> Géographies numériques </a> . 2020
 	   						 </div>
 	 						 </div>
 				  	</div>
