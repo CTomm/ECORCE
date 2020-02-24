@@ -48,10 +48,37 @@ h3{
 }
 
 
+h5{
+	font-family:"Gill Sans", sans-serif;
+	font-size:15px;
+	color : #FFF;
+	display: inline-block;
+}
+
+h6{
+font-family:"Gill Sans", sans-serif;
+font-size: 18px;
+letter-spacing: 0px;
+word-spacing: 0px;
+color: #738988;
+font-weight: 400;
+/*text-decoration: underline; */
+font-variant: normal;
+text-transform: none;
+}
+
+
 label{
 	font-family:"Gill Sans", sans-serif;
 	font-size:14px;
 	color : #434F4B;
+	}
+
+label{
+	font-family:"Gill Sans", sans-serif;
+	font-size:14px;
+	/*color : #434F4B;*/
+	color : FFF;
 	}
 
 /*FONT:
@@ -98,14 +125,13 @@ text-transform: none;
 
 #domaines{
 margin-left: 400px;
-font-family: "Apple Chancery", Times, serif;
-font-size: 30px;
+font-family:"Gill Sans", sans-serif;
+font-size: 25px;
 letter-spacing: 0px;
 word-spacing: 0px;
-color: #7D7461;
+color: #738988;
 font-weight: 400;
 /*text-decoration: underline; */
-font-style: italic;
 font-variant: normal;
 text-transform: none;
 }
@@ -128,4 +154,43 @@ text-transform: none;
 		@HTML : <div classe ="mapClasse"> </div>
 		@CSS : give style to "classe" : .mapClasse {}
 */
+
+
+/*button in the slide*/
+		.button {
+			margin-left: 50px;
+		  background-color: #4CAF50; /* Green */
+		  border: none;
+		  color: white;
+		  padding: 8px 25px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		  font-size: 12px;
+		  	font-family:"Gill Sans", sans-serif;
+		  margin: 4px 2px;
+		  transition-duration: 0.4s;
+		  cursor: pointer;
+		}
+
+		.button_next {
+			margin-left: 50px;
+		  background-color: white;
+		  color: black;
+		  border: 2px solid #555555;
+		}
+
+		.button_next:hover {
+			margin-left: 50px;
+		  background-color: #555555;
+		  color: white;
+		}
+
+
+
+
+
+
+
+
 
