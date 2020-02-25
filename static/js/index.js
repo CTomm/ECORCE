@@ -1,3 +1,5 @@
+//var map = L.map('map');
+
 /*----------- MAP ----------------*/
 
 var map = L.map('map', {
@@ -55,19 +57,24 @@ let myLayerOptions = {
 
 /*----------- LAYERS ----------------*/
 
-$.get( "/sendresultat", function(parc) {
-	//console.log('old : '+ parc);
-    var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
+$.post( "/sendresultat", {
+	position: localStorage.getItem('position')}, 
+	function(parc) {
+	//console.log(localStorage.getItem('position'));
+    var conso_a = L.geoJSON(parc,{style:stylea}).addTo(map);
+    controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
 });
+
+
 
 function resend(){
 	console.log("hello")
 	//Vegetarien ou non
 	if (document.getElementsByName("Q0")[0].checked == true){
-		viande = document.getElementsByName("Q0")[0].value;
+		regime = document.getElementsByName("Q0")[0].value;
 	}
 	else if (document.getElementsByName("Q0")[1].checked == true){
-		viande = document.getElementsByName("Q0")[1].value;
+		regime = document.getElementsByName("Q0")[1].value;
 	}
 	
 	//Legumes sous serre ou de saison
@@ -99,9 +106,10 @@ function resend(){
 	else if (document.getElementsByName("Q19")[3].checked == true){
 		energie = document.getElementsByName("Q19")[3].value;
 	}
+	console.log(regime);
 
     $.post( "/change", {
-      viande: viande,
+      regime: regime,
       legume: legume,
       voiture: voiture,
       energie: energie,
@@ -110,32 +118,44 @@ function resend(){
       function(newparc) {
 		console.log('new :'+newparc);
 	    var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);
+	    controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
 	});
 };
 
 function moy(){
-	$.get( "/sendmoyenne", function(moy) {
-		//console.log(moy);
+	$.post( "/sendmoyenne", {
+	position: localStorage.getItem('position')},
+	function(consomoy) {
+		console.log(localStorage.getItem('position'));
 	    var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
+	    controlLayers.addOverlay(conso_moy, "<span style='color: black';'font:14px'>Consommation d'un français moyen</span>") 
 	});
 };
-
+/*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
+var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
+var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);*/
 var commune = L.geoJSON(commune,
 	{style:stylecom}).addTo(map);
 
-var loc = L.geoJSON(loc, myLayerOptions).addTo(map)
+
+var loc = L.geoJSON(loc, myLayerOptions).addTo(map);
 
 /*----------- GESTION DES LAYERS-LEGENDE----------------*/
-	
-var overlayMaps = {
-    "Résultat pour votre consommation modifiée": conso_b,
-	"Résultat pour la consommation d'un français moyen": conso_moy,
-	"Résultat pour votre consommation modifiée": conso_a,
-	"Limites communales":commune,
-	"Votre adresse":loc
-};
 
-L.control.layers(null, overlayMaps,autoZIndex = true, collapsed = true).addTo(map);
+L.control.zoom({
+     position:'topright'
+}).addTo(map);
+
+
+var overlays = {
+	//"<span style='color: black';'font:14px'>Consommation modifiée</span>": conso_b,
+	//"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
+	//"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
+	//"<span style='color: black';'font:14px'>Adresse</span>": loc,
+	"<span style='color: black';'font:14px'>Communes, quartiers</span>": commune
+}
+var controlLayers = L.control.layers(null, overlays, {collapsed:false}).addTo(map);
+
 
 var legend = L.control({ position: "bottomright" });
 
@@ -145,39 +165,13 @@ legend.onAdd = function(map) {
   div.innerHTML += '<i style="background: #93A285"></i><span>Votre résultat</span><br>';
   div.innerHTML += '<i style="background: #004E2B"></i><span>Votre résultat modifié</span><br>';
   div.innerHTML += '<i style="background: #D7833A"></i><span>Résultat si vous consommiez<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspcomme un français "moyen"</span><br>';
-  div.innerHTML += '<i class="icon" url(https://image.flaticon.com/icons/svg/1119/1119071.svg);background-repeat: no-repeat;"></i><span>Votre adresse</span><br>';
+  div.innerHTML += '<i class="icon" ></i><span>Votre adresse</span><br>';
   return div;
 };
 legend.addTo(map);
 
 
-// Récupérer les valeurs du formulaire
-// $.get( "/change", function(emission) {
-// 	console.log(emission);
-//     //document.getElementById("Q9-A").value = parseInt(viande)
-// });
-// $.get( "/legume", function(legume) {
-// 	console.log('legume'+legume);
-// 	new_legume= legume
-//     //document.getElementById("Q9-A").value = parseInt(legume)
-// });
-// $.get( "/avion", function(avion) {
-// 	console.log('avion'+avion);
-// 	new_avion = avion
-//     //document.getElementById("Q9-A").value = parseInt(avion)
-// });
-// $.get( "/voiture", function(voiture) {
-// 	console.log('voiture'+voiture);
-// 	new_voiture = voiture
-//     //document.getElementById("Q9-A").value = parseInt(voiture)
-// });
-// $.get( "/energie", function(energie) {
-// 	console.log('energie'+energie);
-// 	new_energie = energie
-//     //document.getElementById("Q9-A").value = parseInt(energie)
-// });
-// $.get( "/emission", function(emission) {
-// 	console.log('emissions'+emission);
-// 	new_emission = emission
-//     //document.getElementById("Q9-A").value = parseInt(emission)
-// });
+$(window).on("beforeunload", function() {
+ 	fetch( "/leaving");
+ 	localStorage.clear();
+});

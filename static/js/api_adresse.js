@@ -69,6 +69,10 @@ var adress = L.Control.geocoder({
     var monmark = L.marker([x, y], {icon:greenIcon})
     marqueur.addLayer(monmark);
     zoomTo(monmark);
+    position_user = String(x) + ' ' + String(y);
+    localStorage.setItem('position', position_user);
+    console.log(position_user);
+    console.log(localStorage.getItem('position'));
   })
   .addTo(map);
 
@@ -77,6 +81,9 @@ commune.on("click", function(ev){
   var monmark = L.marker(ev.latlng, {icon:greenIcon})
   marqueur.addLayer(monmark);
   position_user = String(ev.latlng.lng) + ' ' + String(ev.latlng.lat);
+  localStorage.setItem('position', position_user);
+  console.log(position_user);
+  console.log(localStorage.getItem('position'));
   //zoomTo(monmark);
 });
 
@@ -85,3 +92,9 @@ function send(){
       position: position_user
       })
 };
+
+
+$(window).on("load", function() {
+  fetch( "/leaving");
+  localStorage.clear();
+});
