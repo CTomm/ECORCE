@@ -4,7 +4,7 @@ import psycopg2
 app = Flask(__name__,  template_folder='static')
 app.secret_key = "ecorce2020"
 
-position = '0'
+#
 emission = 0
 viande = 0
 avion = 0
@@ -19,16 +19,20 @@ def send_file(path):
 #Nettoyer la session et la base de données quand l'utilisateur quitte l'application
 @app.route('/leaving')
 def clear():
-    #session.clear()
-    print(session)
-    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
-    cursor = conn.cursor()
-    cursor.execute("""
-            drop materialized view parctri;
-            """)
-    conn.commit()
-    conn.close()
-    return 'App closed.'
+    global position
+    position = '0'
+    print(position)
+    try:
+        conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
+        cursor = conn.cursor()
+        cursor.execute("""
+                drop materialized view parctri;
+                """)
+        conn.commit()
+        conn.close()
+        return 'Materialized view dropped.'
+    except:
+        return 'No materialized view.'
 
 #Page d'accueil
 @app.route("/")
@@ -40,6 +44,7 @@ def welcome():
 @app.route("/sendresultat", methods=['GET'])
 def sendresultat():
     global position
+    #print(position)
     #print('on send resultat : '+ str(session))
     # position = session.get('position', 'not set')
     # emission = session.get('emissions', 'not set')
@@ -83,6 +88,7 @@ def sendposition():
     global position
     #position_api = request.form['position']
     position = request.form['position']
+    print(position)
     #session['position'] = position_api
     #print('on send position : '+ str(session))
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
@@ -392,4 +398,4 @@ def change():
     conn.close()
     return jsonify(resultat)
 
-app.run(host='0.0.0.0', port='8080', debug=True)
+#app.run(host='0.0.0.0', port='8080', debug=True)

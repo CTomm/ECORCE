@@ -85,3 +85,8 @@ function send(){
       position: position_user
       })
 };
+
+
+$(window).on("load", function() {
+  fetch( "/leaving");
+});

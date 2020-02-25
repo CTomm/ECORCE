@@ -1,4 +1,4 @@
-var map = L.map('map');
+//var map = L.map('map');
 
 /*----------- MAP ----------------*/
 
@@ -57,9 +57,9 @@ let myLayerOptions = {
 
 /*----------- LAYERS ----------------*/
 
-$.get( "/sendresultat", function(parc) {
+$.get( "/sendresultat", function(consa) {
 	//console.log('old : '+ parc);
-    var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
+    var conso_a = L.geoJSON(consa,{style:stylea}).addTo(map);
 });
 
 function resend(){
@@ -113,13 +113,15 @@ function resend(){
       function(newparc) {
 		console.log('new :'+newparc);
 	    var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);
+	    controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
 	});
 };
 
 function moy(){
-	$.get( "/sendmoyenne", function(moy) {
+	$.get( "/sendmoyenne", function(consomoy) {
 		//console.log(moy);
 	    var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
+	    controlLayers.addOverlay(conso_moy, "<span style='color: black';'font:14px'>Consommation d'un français moyen</span>") 
 	});
 };
 /*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
@@ -151,9 +153,9 @@ L.control.zoom({
 
 // L.control.layers(null, overlayMaps).addTo(map);
 var controlLayers = {
-	"<span style='color: black';'font:14px'>Consommation modifiée</span>": conso_b,
+	//"<span style='color: black';'font:14px'>Consommation modifiée</span>": conso_b,
 	"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
-	"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
+	//"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
 	"<span style='color: black';'font:14px'>Adresse</span>": loc,
 	"<span style='color: black';'font:14px'>Communes, quartiers</span>": commune
 }
@@ -175,7 +177,5 @@ legend.addTo(map);
 
 
 $(window).on("beforeunload", function() {
-	console.log("kflklkl");
  	fetch( "/leaving");
- 	return 'coucou';
 });
