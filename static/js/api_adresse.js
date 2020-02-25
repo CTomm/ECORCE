@@ -153,6 +153,7 @@ commune.on("click", function(ev){
 });
 
 function send(){
+  console.log("coucou")
   $.post( "/sendposition", {
     position: position_user
   })
@@ -178,6 +179,7 @@ document.getElementById("conf_quest").onclick = function() {
       //document.getElementById("fenetre_alert").style.visibility='visible';
       document.getElementById("info_map").style.opacity="0.5" ;
   } else{
+  send();
   document.getElementById("fenetre_validation").style.visibility='visible';
   document.getElementById("info_map").style.opacity="0.5";
   }

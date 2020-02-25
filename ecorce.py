@@ -4,14 +4,6 @@ import psycopg2
 app = Flask(__name__,  template_folder='static')
 app.secret_key = "ecorce2020"
 
-# #
-# emission = 0
-# viande = 0
-# avion = 0
-# legume = 0
-# voiture = 0
-# energie = 0
-
 @app.route('/<path:path>')
 def send_file(path):
     return app.send_static_file(path)
@@ -92,7 +84,6 @@ def sendposition():
 #Choisir son type d'alimentation (bouton "Suite du questionnaire" de questionchoix.html)
 @app.route('/choice', methods=['POST'])
 def choice():
-    #print('on choice : '+ str(session))
     if request.form['Q0'] == 'V':
         return render_template("questionv.html")
     elif request.form['Q0'] == 'Veg':
@@ -110,13 +101,12 @@ def omni():
     #FIXE
     alimfixe = 282.72608
 
-    poulet = 28.34551491*float(request.form['Q3_poulet'])
-    porc = 34.90253149*float(request.form['Q3_porc'])
-    agneau = 334.2929584*float(request.form['Q3_agneau'])
-    boeuf = 235.1966514*float(request.form['Q3_boeuf'])
+    poulet = 214.4*float(request.form['Q3_poulet'])
+    porc = 304.2*float(request.form['Q3_porc'])
+    agneau = 1451.32*float(request.form['Q3_agneau'])
+    boeuf = 1493.96*float(request.form['Q3_boeuf'])
     poisson = 22.78607013*float(request.form['Q4'])
     viande = 52*(float(request.form['Q3_poulet'])+float(request.form['Q3_porc'])+float(request.form['Q3_agneau'])+float(request.form['Q3_boeuf'])+float(request.form['Q4']))
-    #session['qteviande']=52*(float(request.form['Q3_poulet'])+float(request.form['Q3_porc'])+float(request.form['Q3_agneau'])+float(request.form['Q3_boeuf'])+float(request.form['Q4']))
     oeufs = 11.10564*int(request.form['Q5'])
     fromage = 356.72*float(request.form['Q6'])
     lait = 52.53948708*int(request.form['Q7'])
@@ -124,66 +114,44 @@ def omni():
     # #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
         leg = 1.834*0.17108
-        legume = 1.834
-        #session['legume']=1.834
+        #legume = 1.834
     else:
         leg = 1.834*1.02284
-        legume = 1.834
-        #session['legume']=1.834
+        #legume = 1.834
 
     # #ENERGIE
-    # #session['energie']=0
-    energie = 0
+    #energie = 0
     if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
-            #session['energie']+=int(request.form['Q9_electrique'])
-            energie +=int(request.form['Q9_electrique'])
+            #energie +=int(request.form['Q9_electrique'])*12
     if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
-            #session['energie']+=int(request.form['Q9_gaz'])
-            energie +=int(request.form['Q9_gaz'])
+            #energie +=int(request.form['Q9_gaz'])
     if request.form['Q9_fioul'] != None:
             fioul = 0.275*int(request.form['Q9_fioul'])
-            #session['energie']+=int(request.form['Q9_fioul'])
-            energie +=int(request.form['Q9_fioul'])
+            #energie +=int(request.form['Q9_fioul'])
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
-            #session['energie']+=int(request.form['Q9_bois'])
-            energie +=int(request.form['Q9_bois'])
-    #else:
-        # elect = 0
-        # gaz = 0
-        # fioul = 0
-        # bois = 0
+            #energie +=int(request.form['Q9_bois'])
 
     # #TRANSPORTS
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
     voiture = int(request.form['Q13'])
-    #session['voiture']=int(request.form['Q13'])
     train = 0.007*int(request.form['Q14'])
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
-    #session['avion']=avion
 
     emission = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emission
-    #print('on questionnaire : ' + str(session))
 
     return render_template("HTML_FP.html")
 
 #Récupérer réponse questionnaire et envoyer la requête (dans questionvege.html)
 @app.route('/vege', methods=['POST'])
 def vege():
-    global avion, emission, energie, voiture, legume, viande
-    emission = 0
-    viande = 0
-    avion = 0
-    legume = 0
-    voiture = 0
-    energie = 0
 
     print('on vege : ' + str(session))
     #Alimentation
@@ -195,53 +163,35 @@ def vege():
     #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
         leg = 1.834*0.17108
-        legume = 1.834
-        #session['legume']=1.834
+        #legume = 1.834
     else:
         leg = 1.834*1.02284
-        legume = 1.834
-        #session['legume']=1.834
+        #legume = 1.834
 
-    #session['viande'] = 0
-    #Energie
-
-    #ENERGIE
-    #session['energie']=0
-    energie = 0
-    if request.form['Q8'] == "A":
-        if request.form['Q9_electrique'] != None:
+    # #ENERGIE
+    #energie = 0
+    if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
-            #session['energie']+=int(request.form['Q9_electrique'])
-            energie +=int(request.form['Q9_electrique'])
-        if request.form['Q9_gaz'] != None:
+            #energie +=int(request.form['Q9_electrique'])*12
+    if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
-            #session['energie']+=int(request.form['Q9_gaz'])
-            energie +=int(request.form['Q9_gaz'])
-        if request.form['Q9_fioul'] != None:
+            #energie +=int(request.form['Q9_gaz'])
+    if request.form['Q9_fioul'] != None:
             fioul = 0.275*int(request.form['Q9_fioul'])
-            #session['energie']+=int(request.form['Q9_fioul'])
-            energie +=int(request.form['Q9_fioul'])
-        if request.form['Q9_bois'] != None:
+            #energie +=int(request.form['Q9_fioul'])
+    if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
-            #session['energie']+=int(request.form['Q9_bois'])
-            energie +=int(request.form['Q9_bois'])
-    else:
-        elect = 0
-        gaz = 0
-        fioul = 0
-        bois = 0
+            #energie +=int(request.form['Q9_bois'])
 
     #TRANSPORTS
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
     voiture = int(request.form['Q13'])
-    #session['voiture']=int(request.form['Q13'])
     train = 0.007*int(request.form['Q14'])
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
-    #session['avion']=avion
 
     emission = alimfixe+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emission
@@ -250,14 +200,6 @@ def vege():
 #Récupérer réponse questionnaire et envoyer la requête (dans questionv.html)
 @app.route('/vegan', methods=['POST'])
 def vegan():
-    global avion, emission, energie, voiture, legume, viande
-    emission = 0
-    viande = 0
-    avion = 0
-    legume = 0
-    voiture = 0
-    energie = 0
-    #print("on vegan : " + str(session))
     #Alimentation
     legumineuse = 0.24024*int(request.form['Q1b'])
     cere = 0.58058*int(request.form['Q1c'])
@@ -265,51 +207,35 @@ def vegan():
     #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
         leg = 0.17108*int(request.form['Q1a'])
-        legume = int(request.form['Q1a'])
-        #session['legume']=int(request.form['Q1a'])
+        #legume = int(request.form['Q1a'])
     else:
         leg = 1.02284*int(request.form['Q1a'])
-        legume = int(request.form['Q1a'])
-        #session['legume']=int(request.form['Q1a'])
+        #legume = int(request.form['Q1a'])
 
-    #session['viande'] = 0
-    #Energie
-    #session['energie']=0
-    energie = 0
-    if request.form['Q8'] == "A":
-        if request.form['Q9_electrique'] != None:
+    # #ENERGIE
+    #energie = 0
+    if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
-            #session['energie']+=int(request.form['Q9_electrique'])
-            energie +=int(request.form['Q9_electrique'])
-        if request.form['Q9_gaz'] != None:
+            #energie +=int(request.form['Q9_electrique'])*12
+    if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
-            #session['energie']+=int(request.form['Q9_gaz'])
-            energie +=int(request.form['Q9_gaz'])
-        if request.form['Q9_fioul'] != None:
+            #energie +=int(request.form['Q9_gaz'])
+    if request.form['Q9_fioul'] != None:
             fioul = 0.275*int(request.form['Q9_fioul'])
-            #session['energie']+=int(request.form['Q9_fioul'])
-            energie +=int(request.form['Q9_fioul'])
-        if request.form['Q9_bois'] != None:
+            #energie +=int(request.form['Q9_fioul'])
+    if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
-            #session['energie']+=int(request.form['Q9_bois'])
-            energie +=int(request.form['Q9_bois'])
-    else:
-        elect = 0
-        gaz = 0
-        fioul = 0
-        bois = 0
+            #energie +=int(request.form['Q9_bois'])
 
     #TRANSPORTS
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
     voiture = int(request.form['Q13'])
-    #session['voiture']=int(request.form['Q13'])
     train = 0.007*int(request.form['Q14'])
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
-    #session['avion']=avion
 
     emission = leg+legumineuse+cere+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emission
@@ -319,36 +245,30 @@ def vegan():
 #Changer ses résultats (bouton "nouvelles valeurs" de HTML_FP.html)
 @app.route('/change', methods=['POST'])
 def change():
-    # global avion, viande, energie, voiture, legume, emission
-    #print('on change : ' + str(session))
-    #energie= session.get('energie', 'not set')
     energie = int(request.form['energie'])
-    new_energie = energie*int(request.form['new_energie'])
+    new_energie = energie*float(request.form['new_energie'])
+    print(energie)
+    print(new_energie)
 
-    #legume=session.get('legume', 'not set')
-    #print("legume" + str(legume))
     legume = float(request.form['legume'])
     new_legume=legume*float(request.form['new_legume'])
 
-    #avion=session.get('avion', 'not set')
-    #print("avion" + str(avion))
     new_avion = int(request.form['new_avion'])
     avion = int(request.form['avion'])
 
-    #viande = session.get('qteviande', 'not set')
-    print(request.form['viande'])
-    viande = int(request.form['viande'])
+    # print(request.form['viande'])
+    viande = float(request.form['viande'])
     if request.form['regime']== 'Veg' :
         new_viande=0
     elif request.form['regime']== 'V' :
         new_viande=0        
     elif request.form['regime']== 'A' :
         if viande == 0:
-            new_viande = 877.710652
+            new_viande = 964.393612 #poisson y compris
         else:
             new_viande=viande
-    print(viande, new_viande)
-    print(new_viande)
+    # print(viande, new_viande)
+    # print(new_viande)
 
     voiture= int(request.form['voiture'])
     if request.form['voiture']== 'A' :
