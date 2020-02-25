@@ -57,10 +57,15 @@ let myLayerOptions = {
 
 /*----------- LAYERS ----------------*/
 
-$.get( "/sendresultat", function(consa) {
-	//console.log('old : '+ parc);
-    var conso_a = L.geoJSON(consa,{style:stylea}).addTo(map);
+$.post( "/sendresultat", {
+	position: localStorage.getItem('position')}, 
+	function(parc) {
+	//console.log(localStorage.getItem('position'));
+    var conso_a = L.geoJSON(parc,{style:stylea}).addTo(map);
+    controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
 });
+
+
 
 function resend(){
 	console.log("hello")
@@ -118,8 +123,10 @@ function resend(){
 };
 
 function moy(){
-	$.get( "/sendmoyenne", function(consomoy) {
-		//console.log(moy);
+	$.post( "/sendmoyenne", {
+	position: localStorage.getItem('position')},
+	function(consomoy) {
+		console.log(localStorage.getItem('position'));
 	    var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
 	    controlLayers.addOverlay(conso_moy, "<span style='color: black';'font:14px'>Consommation d'un français moyen</span>") 
 	});
@@ -139,28 +146,16 @@ L.control.zoom({
      position:'topright'
 }).addTo(map);
 
-// if (typeof mymoy !== "undefined"){
-// 	var overlayMaps ={
-// 	"moyenne": mymoy,
-// 	"orginal":mymapdata
-// 	}
-// }
-// else{
-// 	var overlayMaps ={
-// 	"orginal":mymapdata
-// };
-// }
 
-// L.control.layers(null, overlayMaps).addTo(map);
-var controlLayers = {
+var overlays = {
 	//"<span style='color: black';'font:14px'>Consommation modifiée</span>": conso_b,
-	"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
+	//"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
 	//"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
-	"<span style='color: black';'font:14px'>Adresse</span>": loc,
+	//"<span style='color: black';'font:14px'>Adresse</span>": loc,
 	"<span style='color: black';'font:14px'>Communes, quartiers</span>": commune
 }
+var controlLayers = L.control.layers(null, overlays, {collapsed:false}).addTo(map);
 
-L.control.layers(null, controlLayers, {collapsed:false}).addTo(map);
 
 var legend = L.control({ position: "bottomright" });
 
@@ -178,4 +173,5 @@ legend.addTo(map);
 
 $(window).on("beforeunload", function() {
  	fetch( "/leaving");
+ 	localStorage.clear();
 });

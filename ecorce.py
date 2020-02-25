@@ -4,13 +4,13 @@ import psycopg2
 app = Flask(__name__,  template_folder='static')
 app.secret_key = "ecorce2020"
 
-#
-emission = 0
-viande = 0
-avion = 0
-legume = 0
-voiture = 0
-energie = 0
+# #
+# emission = 0
+# viande = 0
+# avion = 0
+# legume = 0
+# voiture = 0
+# energie = 0
 
 @app.route('/<path:path>')
 def send_file(path):
@@ -19,9 +19,6 @@ def send_file(path):
 #Nettoyer la session et la base de données quand l'utilisateur quitte l'application
 @app.route('/leaving')
 def clear():
-    global position
-    position = '0'
-    print(position)
     try:
         conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
         cursor = conn.cursor()
@@ -37,17 +34,13 @@ def clear():
 #Page d'accueil
 @app.route("/")
 def welcome():
-    #session.clear()
     return redirect("http://localhost:8080/cover.html")
 
 #Envoyer les résultats finaux dans la requête Postgres (dans HTML_FP.html)
-@app.route("/sendresultat", methods=['GET'])
+@app.route("/sendresultat", methods=['POST'])
 def sendresultat():
-    global position
-    #print(position)
-    #print('on send resultat : '+ str(session))
-    # position = session.get('position', 'not set')
-    # emission = session.get('emissions', 'not set')
+    emission = session.get('emissions', 'not set')
+    position = request.form['position']
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
@@ -63,10 +56,9 @@ def sendresultat():
     return jsonify(resultat)
 
 #Requêter les moyennes (bouton "moyenne" de HTML_FP.html)
-@app.route("/sendmoyenne", methods=['GET'])
+@app.route("/sendmoyenne", methods=['POST'])
 def sendmoyenne():
-    global position
-    #position = session.get('position', 'not set')
+    position = request.form['position']
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
@@ -85,12 +77,8 @@ def sendmoyenne():
 #Envoyer la position pour trier les parcs (api_adresse.html)
 @app.route('/sendposition', methods=['POST'])
 def sendposition():
-    global position
-    #position_api = request.form['position']
     position = request.form['position']
     print(position)
-    #session['position'] = position_api
-    #print('on send position : '+ str(session))
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute("""
@@ -106,7 +94,6 @@ def sendposition():
 def choice():
     #print('on choice : '+ str(session))
     if request.form['Q0'] == 'V':
-        #session["regime"] = "V"
         return render_template("questionv.html")
     elif request.form['Q0'] == 'Veg':
         return render_template("questionvege.html")
@@ -190,7 +177,7 @@ def omni():
     #session['avion']=avion
 
     emission = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
-    #session['emissions'] = emissions
+    session['emissions'] = emission
     print('on questionnaire : ' + str(session))
 
     return render_template("HTML_FP.html")
@@ -265,7 +252,7 @@ def vege():
     #session['avion']=avion
 
     emission = alimfixe+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
-    #session['emissions'] = emissions
+    session['emissions'] = emission
     return render_template("HTML_FP.html")
 
 #Récupérer réponse questionnaire et envoyer la requête (dans questionv.html)
@@ -333,7 +320,7 @@ def vegan():
     #session['avion']=avion
 
     emission = leg+legumineuse+cere+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
-    #session['emissions'] = emissions
+    session['emissions'] = emission
     return render_template("HTML_FP.html")
 
 
