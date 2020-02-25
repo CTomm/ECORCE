@@ -1,4 +1,3 @@
-//var map = L.map('map');
 
 /*----------- MAP ----------------*/
 
@@ -39,6 +38,13 @@ var stylecom = {
 	"fillOpacity": 0.2,
 	"weight": 1.5, 
 	"opacity": 1
+};
+
+var styleusercom = {
+	weight: 3,
+    color: '#666',
+    dashArray: '',
+    fillOpacity: 0.1
 };
 
 function createCustomIcon (feature, latlng) {
@@ -145,11 +151,15 @@ function moy(){
 /*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
 var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
 var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);*/
+
 var commune = L.geoJSON(commune,
 	{style:stylecom}).addTo(map);
-
-
 var loc = L.geoJSON(loc, myLayerOptions).addTo(map);
+var usercom = L.geoJSON(usercom,
+	{style:styleusercom}).addTo(map);
+
+map.flyTo(loc.getBounds().getCenter(),13.5);
+
 
 /*----------- GESTION DES LAYERS-LEGENDE----------------*/
 
@@ -162,7 +172,8 @@ var overlays = {
 	//"<span style='color: black';'font:14px'>Consommation modifiée</span>": conso_b,
 	//"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
 	//"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
-	//"<span style='color: black';'font:14px'>Adresse</span>": loc,
+	//"<span style='color: black';'font:14px'>Votre adresse</span>": loc,
+	//"<span style='color: black';'font:14px'>Votre commune</span>": usercom,
 	"<span style='color: black';'font:14px'>Communes, quartiers</span>": commune
 }
 var controlLayers = L.control.layers(null, overlays, {collapsed:false}).addTo(map);
@@ -172,11 +183,11 @@ var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(map) {
   var div = L.DomUtil.create("div", "legend");
-  div.innerHTML += "<h4>Légende</h4>";
   div.innerHTML += '<i style="background: #93A285"></i><span>Votre résultat</span><br>';
   div.innerHTML += '<i style="background: #004E2B"></i><span>Votre résultat modifié</span><br>';
   div.innerHTML += '<i style="background: #D7833A"></i><span>Résultat si vous consommiez<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspcomme un français "moyen"</span><br>';
   div.innerHTML += '<i class="icon" ></i><span>Votre adresse</span><br>';
+  div.innerHTML += '<i style="color: #666" ></i><span>Votre commune</span><br>';
   return div;
 };
 legend.addTo(map);
@@ -186,3 +197,73 @@ $(window).on("beforeunload", function() {
  	fetch( "/leaving");
  	localStorage.clear();
 });
+
+/*----------- GRAPHIQUE ----------------*/
+
+var ctx = document.getElementById('myChart').getContext('2d');
+ctx.canvas.width = 30;
+ctx.canvas.height = 24;
+
+var alim_a = 1.3
+var alim_b = 0.9
+
+var ener_a = 2.5
+var ener_b = 1.2
+
+var transp_a = 2.1
+var transp_b = 1.2
+
+var emission_tot = 0
+
+var myChartConfig = {
+    type: 'bar',
+    data: {
+        labels: ["Vos émissions", "Vos émissions modifiées", "Emissions d'un français moyen"],
+        datasets: [
+           {
+           label: "Alimentation",
+           data: [alim_a, alim_b, 1.1],
+		   backgroundColor: ['#93A285','#93A285','#93A285'],
+           },{
+           label: "Energie",
+           data: [ener_a,ener_b,1.5],
+		   backgroundColor: ['#004E2B','#004E2B','#004E2B']
+           },{
+           label: "Transport",
+           data: [transp_a,transp_b,1.7],
+		   backgroundColor: ['#D7833A','#D7833A','#D7833A'],
+           }
+        ]
+    },
+	options: {
+		title: {
+			display: true,
+			text: 'Tonnes de dioxyde de carbone émis',
+			fontColor: 'white'
+        },
+        scales: {
+            xAxes: [{
+                stacked: true,
+                ticks: {
+					fontColor: "white",
+                    autoSkip: false,
+                    maxRotation: 0,
+                    minRotation: 0
+                },
+				labels: [["Vos", "émmions"], 
+						["Vos", "émissions", "modifiées"],
+						["Emissions", "d'un français", "moyen"]]
+            }],
+            yAxes: [{
+                stacked: true
+            }]
+        },
+		legend: {
+            display: true,
+            labels: {
+                fontColor: 'white'
+            }
+        }
+    }
+}
+var myChart = new Chart(ctx, myChartConfig);
