@@ -8,23 +8,11 @@
         <link rel="stylesheet" href="style/question_box.css"/>
         <script src= "js/question_box.js" ></script>
 
-		<style>
-			body{background-image: url("ICON_ECROCE.png");
-				background-repeat:no-repeat;
-				background-attachment: fixed;
-                background-size: contain;
-			}
-		</style>
-
 	</head>
 
+<img id="name_icon" src="image/F_name_left.png" width=250 height=75 >
+<img id="name_icon2" src="image/F_icon_100.png" width=70 height=50 >
 
-
-
-<h1 > ECORCE </h1>
-
-<p>Connaissez-vous votre empreinte écologique?  </p>
-<!-- <h2> VOTRE EMPREINTE ECOLOGIQUE? </h2> -->
 
 <!-- Building a Simple Quiz
 https://css-tricks.com/building-a-simple-quiz/
@@ -40,25 +28,21 @@ https://css-tricks.com/building-a-simple-quiz/
   <!-- Alimentaire -->
   <div class="mySlides fade">
     <div class="numbertext">1 / 3</div>
-    <div id ="domaines"> Alimentation 
-        <a class="infobulle" >
-			<img id="bulleinfo" src="image/bulleinfo.png" /> 
-			<span>
-				<img src="image/graph_alim.png" height="400" width="610"/>
-				<br/>
-				<br/>
-				<br/>
-				Première nécessité pour l’homme, les denrées alimentaires impactent les émissions de gaz à effet de serre à chaque étape <br> de la chaîne de production, du champ à la fourchette.
-				<br>Les activités agricoles et alimentaires françaises seraient responsables de 24 % des émissions. Les deux tiers sont dues <br> à la production agricole, 19 % au transport et la part restante provient de la grande distribution et la gestion des déchets.
-			</span> 
-		</a>
-    </div>
-    
+    <div id ="domaines"> - Alimentation - </div>
+
+  
     <div class="questions-content">
+        <br>
+        <img id="image_information" src="image/graph_alim3.PNG" width=600 height=384 ><br>
+        <div id ="domaines2">
+        Première nécessité pour l’homme, les denrées alimentaires impactent les émissions de gaz à effet de serre à chaque étape <br> de la chaîne de production, du champ à la fourchette.
+        <br>Les activités agricoles et alimentaires françaises seraient responsables de 24 % des émissions. Les deux tiers sont dues <br> à la production agricole, 19 % au transport et la part restante provient de la grande distribution et la gestion des déchets.
+        <br><br>
+        </div>
         
-        <h3>3. Quelle(s) viande(s) et en quelle quantité consommez vous 
+        <h5>Quelle(s) viande(s) et en quelle quantité consommez vous 
             chaque semaine ?
-        </h3>
+        </h5>
             <a class="infobulle"> 
 				<img id="bulleinfo" src="image/bulleinfo.png" /> 
 				<span>
@@ -66,8 +50,8 @@ https://css-tricks.com/building-a-simple-quiz/
 					<br/>La part de l’élevage représente 44 % des émissions de<br> production d’entres elles sont du méthane issu de la <br>fermentation enthérique. La richesse de l’alimentation <br>carnée est donc un paramètre déterminant sur <br>notre impact carbone. 
 				</span> 
 			</a>
-            <br><br>
-            De poulet :
+            <br>
+            <label>De poulet :</label><br>
 
             <SELECT name="Q3_poulet" size="1" value="">
                 <OPTION value="0.1">Moins de 200gr
@@ -78,7 +62,7 @@ https://css-tricks.com/building-a-simple-quiz/
             </SELECT>
 
             <br><br>
-            De porc :
+            <label>De porc :</label><br>
 
             <SELECT name="Q3_porc" size="1">
                 <OPTION value="0.1">Moins de 200gr
@@ -89,7 +73,7 @@ https://css-tricks.com/building-a-simple-quiz/
             </SELECT>
 
             <br><br>
-            D'agneau :
+            <label>D'agneau :</label><br>
 
             <SELECT name="Q3_agneau" size="1">
                 <OPTION value="0.1">Moins de 200gr
@@ -100,7 +84,7 @@ https://css-tricks.com/building-a-simple-quiz/
             </SELECT>
 
             <br><br>
-            De boeuf :
+            <label>De boeuf :</label><br>
 
             <SELECT name="Q3_boeuf" size="1">
                 <OPTION value="0.1">Moins de 200gr
@@ -112,14 +96,14 @@ https://css-tricks.com/building-a-simple-quiz/
             <br>
 
 
-        <h3>4. À quelle fréquence consommez-vous du poisson par semaine ?</h3>
+        <h5>À quelle fréquence consommez-vous du poisson par semaine ?</h5>
             <a class="infobulle"> 
 				<img id="bulleinfo" src="image/bulleinfo.png" /> 
 				<span>
 					La moyenne de consommation de poisson des français est d’environ <strong>de 474 grammes  par semaine</strong>. 
 				</span> 
 			</a>
-            <br>
+            
             <div>
                 <input type="radio" name="Q4" id="Q4-A" value="0" required/>
                 <label for="Q4-A">Je ne consomme pas de poisson</label>
@@ -145,7 +129,7 @@ https://css-tricks.com/building-a-simple-quiz/
                 <label for="Q4-E">Tous les midis et tous les soirs</label>
             </div>
      
-        <h3>5. Combien d’oeufs consommez vous par semaine ?</h3>
+        <h5>Combien d’oeufs consommez vous par semaine ?</h5>
             <a class="infobulle"> 
 				<img id="bulleinfo" src="image/bulleinfo.png" /> 
 				<span>
@@ -173,7 +157,7 @@ https://css-tricks.com/building-a-simple-quiz/
                 <label for="Q5-D">Environ 12 oeufs</label>
             </div>
 
-        <h3>6. Quelle quantité de fromage consommez vous par semaine ?</h3>
+        <h5>Quelle quantité de fromage consommez vous par semaine ?</h5>
             <a class="infobulle"> 
 				<img id="bulleinfo" src="image/bulleinfo.png" /> 
 				<span>
@@ -207,7 +191,7 @@ https://css-tricks.com/building-a-simple-quiz/
             </div>
                 
 
-        <h3>7. Combien de fois par semaine consommez vous des produits laitiers (hors fromage) ? </h3>
+        <h5>Combien de fois par semaine consommez vous des produits laitiers (hors fromage) ? </h5>
             <a class="infobulle"> 
 				<img id="bulleinfo" src="image/bulleinfo.png" /> 
 				<span>
@@ -241,7 +225,7 @@ https://css-tricks.com/building-a-simple-quiz/
             </div>
 
 
-        <h3>7b. Comment choisissez vous les fruits et légumes que vous consommez? </h3>
+        <h5>Comment choisissez vous les fruits et légumes que vous consommez? </h5>
         
             <div>
                 <input type="radio" name="Q7b" id="Q7b-A" value="A" required/>
@@ -264,16 +248,18 @@ https://css-tricks.com/building-a-simple-quiz/
   <div class="mySlides fade">
     <div class="numbertext">2 / 3</div>
     
-    <div id ="domaines"> Energie
-        <a class="infobulle"> 
-			<img id="bulleinfo" src="image/bulleinfo.png" /> 
-			<span><img src="image/graph_energie.png" height="352" width="470"/> <br>
-			L'impact de la production de l'énergie sur les émissions de CO² a largement dimininué depuis <br>40 ans en France, avec le développement des énergies renouvelables et la recherche de<br>  l'efficacité énergétique. <br> Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet <br> 1,3 Gigatonne CO² par an. </span> 
-		</a>
-	</div>
+    <div id ="domaines"> - Energie - </div>
 	
     <div class="questions-content">
-        <h3>8. Connaissez-vous votre consommation d'énergie domestique ? </h3>
+        <br>
+        <img id="image_information2" src="image/graph_energie3.PNG" width=568 height=348 >
+        <div id ="domaines3">
+        L'impact de la production de l'énergie sur les émissions de CO² a largement dimininué depuis 40 ans en France,<br> avec le développement des énergies renouvelables et la recherche de l'efficacité énergétique. <br> Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet 1,3 Gigatonne CO² par an.
+        <br><br>
+        </div>
+
+
+        <h5>Connaissez-vous votre consommation d'énergie domestique ? </h5>
         <a class="infobulle"> 
     		<img id="bulleinfo" src="image/bulleinfo.png" /> 
 			<span>L'énergie domestique correspond à toute l'énergie consommée dans votre foyer.<br> Elle englobe le chauffage, le chauffage de l'eau, la cuisson et l'électroménager par exemple.</span> 
@@ -291,7 +277,7 @@ https://css-tricks.com/building-a-simple-quiz/
 
 
         
-        <h3>9. Quelle quantité d'énergie domestique utilisez-vous ?</h3>
+        <h5>Quelle quantité d'énergie domestique utilisez-vous ?</h5>
     	
             <div>
                 <input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="9999999999" value="0">
@@ -327,59 +313,56 @@ https://css-tricks.com/building-a-simple-quiz/
   <div class="mySlides fade">
     <div class="numbertext">3 / 3</div>
     
-    <div id ="domaines"> Transport
-        <a class="infobulle"> 
-			<img id="bulleinfo" src="image/bulleinfo.png" /> 
-			<span> <img src="image/graph_transp.png" height="300" width="740" /></span> 
-		</a>
-	</div>
+    <div id ="domaines"> - Transport - 	</div>
     
     <div class="questions-content">
-    
-    <br/>
-	<label>Pour répondre à cette partie du questionnaire, vous pouvez vous aider de ce <a href="https://fr.distance.to/" target="_blank"> calculateur kilométrique </a>.</label>
+    <br>
+        <img id="image_information3" src="image/graph_transp3.PNG" width=840 height=336 ><br>
+        <div id ="domaines3">
+        Pour répondre à cette partie du questionnaire, vous pouvez vous aider de ce <a href="https://fr.distance.to/" target="_blank">calculateur kilométrique</a>.
+        </div>
 	<br/>
 
-        <h3>Distance parcourue en transports sur des trajets urbains/périurbains journaliers </h3>
+        <h6>Distance parcourue en transports sur des trajets urbains/périurbains journaliers </h6>
 
-        <h3>12. Combien de kilomètres réalisez-vous par semaine en transports en communs ? </h3>
+        <h5>Combien de kilomètres réalisez-vous par semaine en transports en communs ? </h5>
         
             <div>
                 <input type="number" id="Q12-A" name="Q12" step=1 min="0" max="9999999999" value="0">
                 <label for="Q12-A">kilomètres par semaine  </label>
             </div>
 
-        <h3>13. Combien de kilomètres réalisez-vous en voiture par semaine (trajets quotidien) ? </h3>
+        <h5>Combien de kilomètres réalisez-vous en voiture par semaine (trajets quotidien) ? </h5>
         
             <div>
                 <input type="number" id="Q13-A" name="Q13" step=1 min="0" max="9999999999" value="0">
                 <label for="Q13-A">kilomètres par semaine</label>
-            </div>
+            </div><br/>
 
-        <h3>Distance parcourue en transports sur des trajets nationaux ou internationaux annuels </h3>
+        <h6>Distance parcourue en transports sur des trajets nationaux ou internationaux annuels </h6>
 
-        <h3>14. Combien de kilomètre réalisez-vous par an, en transport en commun ferroviaire ? </h3>
+        <h5>Combien de kilomètre réalisez-vous par an, en transport en commun ferroviaire ? </h5>
         
             <div>
                 <input type="number" id="Q14-A" name="Q14" step=1 min="0" max="9999999999" value="0">
                 <label for="Q14-A">kilomètres par an</label>
             </div>
        
-        <h3>15. Combien de kilomètres réalisez-vous en voiture (hors trajets quotidien) ?</h3>
+        <h5>Combien de kilomètres réalisez-vous en voiture (hors trajets quotidien) ?</h5>
         
             <div>
                 <input type="number" id="Q15-A" name="Q15" step=1 min="0" max="9999999999" value="0">
                 <label for="Q15-A">kilomètres par an</label>
             </div>
 
-        <h3>16. Combien de kilomètres faites-vous en autocar ? </h3>
+        <h5>Combien de kilomètres faites-vous en autocar ? </h5>
         
             <div>
                 <input type="number" id="Q16-A" name="Q16" step=1 min="0" max="9999999999" value="0">
                 <label for="Q16-A">kilomètres par an</label>
             </div>
 
-        <h3>17. Combien de kilomètres faites-vous en avion ? </h3>
+        <h5>Combien de kilomètres faites-vous en avion ? </h5>
         
             <div>
                 <input type="number" id="Q17-A" name="Q17" step=1 min="0" max="9999999999" value="0">
@@ -387,11 +370,10 @@ https://css-tricks.com/building-a-simple-quiz/
             </div> <br>
 
     </div>
-
-    <input type="submit" value="Soumettre le questionnaire" id ="button_input1" 
-    onclick="return confirm('Êtes-vous sûr de votre choix ?')"
+    <br><br>
+    <input type="submit" value="Soumettre le questionnaire" class="button button_next" onclick="return confirm('Êtes-vous sûr de votre choix ?')"
     />
-    <input id ="button_input2" type="reset" > 
+<!--     <input id ="button_input2" type="reset" >  -->
     <br>
 
   </div>
@@ -411,7 +393,7 @@ https://css-tricks.com/building-a-simple-quiz/
 
 
 </form>
-
+<!-- <button id=question value="Soumettre le questionnaire" onclick="resend()" /> -->
 <html>
 
 

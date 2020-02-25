@@ -125,6 +125,9 @@ var adress = L.Control.geocoder({
     zoomTo(monmark);
     position_user = String(x) + ' ' + String(y);
     document.getElementById("adresse_utilisateur").innerHTML = e.geocode.name;
+    localStorage.setItem('position', position_user);
+    console.log(position_user);
+    console.log(localStorage.getItem('position'));
   })
   .addTo(map);
 
@@ -135,6 +138,9 @@ commune.on("click", function(ev){
   var monmark = L.marker(ev.latlng, {icon:greenIcon})
   marqueur.addLayer(monmark);
   position_user = String(ev.latlng.lng) + ' ' + String(ev.latlng.lat);
+  localStorage.setItem('position', position_user);
+  console.log(position_user);
+  console.log(localStorage.getItem('position'));
   //zoomTo(monmark);
   
   //OSM Nomitatim documentation: http://wiki.openstreetmap.org/wiki/Nominatim , call by jsonQuery
@@ -180,3 +186,8 @@ document.getElementById("conf_quest").onclick = function() {
 document.getElementById("debut_questionnaire").onclick = function() {
   window.location.href='questionchoix.html'
 }
+
+$(window).on("load", function() {
+  fetch( "/leaving");
+  localStorage.clear();
+});

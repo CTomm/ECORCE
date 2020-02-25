@@ -34,6 +34,7 @@
 
 		<section id = "info_map" >
 			<section id="information">
+
 				<nav>
 					<h4> <i> « Si mon quartier consommait comme moi, quelle serait la surface végétalisée nécessaire à l’absorption de son émission carbone annuelle ? » </i> </h4>
 
@@ -41,6 +42,7 @@
 						<img id="eye" src="image/real-estate.png" width=30 height=30 class= "img_mep" > Pour répondre à cette question, entrez votre adresse à l'aide de la barre de recherche ou en cliquant à l'endroit souhaité sur la carte. <!-- icon de itim2101 -->
 						<br><br>
 						<img id="eye" src="image/idea.png" width=30 height=30 class= "img_mep" > Cela nous permettra de connaitre les espaces végétalisées les plus proches de chez vous !
+
 						<br>
 						Vos émissions carbone vont être multiplées par le nombre d'habitants du quartier dans lequel se situe l'adresse.
 						<br><br>
@@ -95,9 +97,28 @@
 		    </div>
 		</div>
  
-	</body>
-	
-   	<script src="../static/js/communes.js"></script>
+
+
+					
+					<button class="button button2" onclick="send()"> Cliquez pour valider l'adresse </button>
+
+					<br><br><br>
+				  <button class="button button2" onclick="window.location.href='questionchoix.html';"> Commencer le questionnaire</button>
+				  <br><br><br>
+
+					</nav>
+				</section>
+
+
+
+	 			<div id='map'> </div>
+
+
+	 		</body>
+
+	 		   	<script src="../static/js/communes.js"></script>
 	<script src ="../static/js/api_adresse.js"> </script>
+
+
 	
  </html>

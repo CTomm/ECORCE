@@ -1,25 +1,80 @@
+//var map = L.map('map');
 
-var map = L.map('map');
+/*----------- MAP ----------------*/
 
-var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-
-var osmAttrib='Map data by OpenStreetMap contributors';
-map.setView([45.75, 4.8], 11);
-var osm = new L.TileLayer(osmUrl, {attribution: osmAttrib}).addTo(map);
-
-$.get( "/sendresultat", function(parc) {
-	//console.log('old : '+ parc);
-    var mymapdata = L.geoJSON(parc).addTo(map);
+var map = L.map('map', {
+    center: [45.75, 4.8],
+	minZoom: 0,
+    maxZoom: 20,
+    zoom: 12
 });
+
+var StadiaAttib='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+var Stadia_AlidadeSmooth = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {attribution: StadiaAttib}).addTo(map);
+
+/*----------- STYLE ----------------*/
+var stylemoy = {
+	"color": "#D7833A",
+	"weight": 0.8, 
+	"opacity": 0,
+	"fillOpacity": 1
+};
+
+var styleb = {
+	"color": "#004E2B",
+	"fillOpacity": 1,
+	"weight": 0.8, 
+	"opacity": 0
+};
+
+var stylea = {
+	"color": "#93A285",
+	"fillOpacity": 1,
+	"weight": 0.8, 
+	"opacity": 0
+};
+
+var stylecom = {
+	"color": 'white',
+	"fillOpacity": 0.2,
+	"weight": 1.5, 
+	"opacity": 1
+};
+
+function createCustomIcon (feature, latlng) {
+  let locIcon = L.icon({
+  iconUrl: 'image/marker.png',
+  iconSize: [38, 38],
+  iconAnchor: [19, 38]
+  })
+  return L.marker(latlng, { icon: locIcon })
+};
+
+let myLayerOptions = {
+  pointToLayer: createCustomIcon
+};
+
+
+/*----------- LAYERS ----------------*/
+
+$.post( "/sendresultat", {
+	position: localStorage.getItem('position')}, 
+	function(parc) {
+	//console.log(localStorage.getItem('position'));
+    var conso_a = L.geoJSON(parc,{style:stylea}).addTo(map);
+    controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
+});
+
+
 
 function resend(){
 	console.log("hello")
 	//Vegetarien ou non
 	if (document.getElementsByName("Q0")[0].checked == true){
-		viande = document.getElementsByName("Q0")[0].value;
+		regime = document.getElementsByName("Q0")[0].value;
 	}
 	else if (document.getElementsByName("Q0")[1].checked == true){
-		viande = document.getElementsByName("Q0")[1].value;
+		regime = document.getElementsByName("Q0")[1].value;
 	}
 	
 	//Legumes sous serre ou de saison
@@ -51,9 +106,10 @@ function resend(){
 	else if (document.getElementsByName("Q19")[3].checked == true){
 		energie = document.getElementsByName("Q19")[3].value;
 	}
+	console.log(regime);
 
     $.post( "/change", {
-      viande: viande,
+      regime: regime,
       legume: legume,
       voiture: voiture,
       energie: energie,
@@ -61,53 +117,61 @@ function resend(){
       },
       function(newparc) {
 		console.log('new :'+newparc);
-	    var newparc = L.geoJSON(newparc, {color: 'red'}).addTo(map);
+	    var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);
+	    controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
 	});
 };
 
 function moy(){
-	$.get( "/sendmoyenne", function(moy) {
-		//console.log(moy);
-	    var mymoy = L.geoJSON(moy, {color: 'green'}).addTo(map);
+	$.post( "/sendmoyenne", {
+	position: localStorage.getItem('position')},
+	function(consomoy) {
+		console.log(localStorage.getItem('position'));
+	    var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
+	    controlLayers.addOverlay(conso_moy, "<span style='color: black';'font:14px'>Consommation d'un français moyen</span>") 
 	});
 };
+/*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
+var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
+var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);*/
+var commune = L.geoJSON(commune,
+	{style:stylecom}).addTo(map);
 
-var overlayMaps ={
-	"moyenne": mymoy,
-	"nouvelles valeurs":newparc,
-	"orginal":mymapdata
+
+var loc = L.geoJSON(loc, myLayerOptions).addTo(map);
+
+/*----------- GESTION DES LAYERS-LEGENDE----------------*/
+
+L.control.zoom({
+     position:'topright'
+}).addTo(map);
+
+
+var overlays = {
+	//"<span style='color: black';'font:14px'>Consommation modifiée</span>": conso_b,
+	//"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
+	//"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
+	//"<span style='color: black';'font:14px'>Adresse</span>": loc,
+	"<span style='color: black';'font:14px'>Communes, quartiers</span>": commune
+}
+var controlLayers = L.control.layers(null, overlays, {collapsed:false}).addTo(map);
+
+
+var legend = L.control({ position: "bottomright" });
+
+legend.onAdd = function(map) {
+  var div = L.DomUtil.create("div", "legend");
+  div.innerHTML += "<h4>Légende</h4>";
+  div.innerHTML += '<i style="background: #93A285"></i><span>Votre résultat</span><br>';
+  div.innerHTML += '<i style="background: #004E2B"></i><span>Votre résultat modifié</span><br>';
+  div.innerHTML += '<i style="background: #D7833A"></i><span>Résultat si vous consommiez<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspcomme un français "moyen"</span><br>';
+  div.innerHTML += '<i class="icon" ></i><span>Votre adresse</span><br>';
+  return div;
 };
-L.control.layers(null, overlayMaps).addTo(map);
+legend.addTo(map);
 
 
-
-// Récupérer les valeurs du formulaire
-// $.get( "/change", function(emission) {
-// 	console.log(emission);
-//     //document.getElementById("Q9-A").value = parseInt(viande)
-// });
-// $.get( "/legume", function(legume) {
-// 	console.log('legume'+legume);
-// 	new_legume= legume
-//     //document.getElementById("Q9-A").value = parseInt(legume)
-// });
-// $.get( "/avion", function(avion) {
-// 	console.log('avion'+avion);
-// 	new_avion = avion
-//     //document.getElementById("Q9-A").value = parseInt(avion)
-// });
-// $.get( "/voiture", function(voiture) {
-// 	console.log('voiture'+voiture);
-// 	new_voiture = voiture
-//     //document.getElementById("Q9-A").value = parseInt(voiture)
-// });
-// $.get( "/energie", function(energie) {
-// 	console.log('energie'+energie);
-// 	new_energie = energie
-//     //document.getElementById("Q9-A").value = parseInt(energie)
-// });
-// $.get( "/emission", function(emission) {
-// 	console.log('emissions'+emission);
-// 	new_emission = emission
-//     //document.getElementById("Q9-A").value = parseInt(emission)
-// });
+$(window).on("beforeunload", function() {
+ 	fetch( "/leaving");
+ 	localStorage.clear();
+});
