@@ -106,18 +106,29 @@ function resend(){
 	else if (document.getElementsByName("Q19")[3].checked == true){
 		energie = document.getElementsByName("Q19")[3].value;
 	}
-	console.log(regime);
+	//console.log(regime);
+	if (localStorage.getItem('viande')==null){
+		viande = 0
+	} else{
+		viande = localStorage.getItem('viande')
+	}
 
     $.post( "/change", {
       regime: regime,
-      legume: legume,
-      voiture: voiture,
-      energie: energie,
-      avion: document.getElementById('Q17-A').value
+      new_legume: legume,
+      new_voiture: voiture,
+      new_energie: energie,
+      new_avion: document.getElementById('Q17-A').value,
+      legume: localStorage.getItem('legume'),
+      voiture: localStorage.getItem('voiture'),
+      avion: localStorage.getItem('avion'),
+      viande: viande,
+      energie: localStorage.getItem('energie'),
+      position:localStorage.getItem('position')
       },
       function(newparc) {
 		console.log('new :'+newparc);
-	    var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);
+	    var conso_b = L.geoJSON(newparc,{style:styleb}).addTo(map);
 	    controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
 	});
 };

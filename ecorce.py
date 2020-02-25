@@ -104,13 +104,6 @@ def choice():
 #Récupérer réponse questionnaire et envoyer la requête (dans question.html)
 @app.route('/omni', methods=['POST'])
 def omni():
-    global viande, avion, emission, energie, voiture, legume
-    emission = 0
-    viande = 0
-    avion = 0
-    legume = 0
-    voiture = 0
-    energie = 0
 
     #ALIMENTATION
 
@@ -128,7 +121,7 @@ def omni():
     fromage = 356.72*float(request.form['Q6'])
     lait = 52.53948708*int(request.form['Q7'])
 
-    #Légumes de saison ou pas
+    # #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
         leg = 1.834*0.17108
         legume = 1.834
@@ -138,33 +131,32 @@ def omni():
         legume = 1.834
         #session['legume']=1.834
 
-    #ENERGIE
-    #session['energie']=0
+    # #ENERGIE
+    # #session['energie']=0
     energie = 0
-    if request.form['Q8'] == "A":
-        if request.form['Q9_electrique'] != None:
+    if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
             #session['energie']+=int(request.form['Q9_electrique'])
             energie +=int(request.form['Q9_electrique'])
-        if request.form['Q9_gaz'] != None:
+    if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
             #session['energie']+=int(request.form['Q9_gaz'])
             energie +=int(request.form['Q9_gaz'])
-        if request.form['Q9_fioul'] != None:
+    if request.form['Q9_fioul'] != None:
             fioul = 0.275*int(request.form['Q9_fioul'])
             #session['energie']+=int(request.form['Q9_fioul'])
             energie +=int(request.form['Q9_fioul'])
-        if request.form['Q9_bois'] != None:
+    if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
             #session['energie']+=int(request.form['Q9_bois'])
             energie +=int(request.form['Q9_bois'])
-    else:
-        elect = 0
-        gaz = 0
-        fioul = 0
-        bois = 0
+    #else:
+        # elect = 0
+        # gaz = 0
+        # fioul = 0
+        # bois = 0
 
-    #TRANSPORTS
+    # #TRANSPORTS
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
@@ -178,7 +170,7 @@ def omni():
 
     emission = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emission
-    print('on questionnaire : ' + str(session))
+    #print('on questionnaire : ' + str(session))
 
     return render_template("HTML_FP.html")
 
@@ -327,21 +319,25 @@ def vegan():
 #Changer ses résultats (bouton "nouvelles valeurs" de HTML_FP.html)
 @app.route('/change', methods=['POST'])
 def change():
-    global avion, viande, energie, voiture, legume, emission
+    # global avion, viande, energie, voiture, legume, emission
     #print('on change : ' + str(session))
     #energie= session.get('energie', 'not set')
-    new_energie = energie*float(request.form['energie'])
+    energie = int(request.form['energie'])
+    new_energie = energie*int(request.form['new_energie'])
 
     #legume=session.get('legume', 'not set')
     #print("legume" + str(legume))
-    new_legume=legume*float(request.form['legume'])
+    legume = float(request.form['legume'])
+    new_legume=legume*float(request.form['new_legume'])
 
     #avion=session.get('avion', 'not set')
     #print("avion" + str(avion))
-    new_avion = int(request.form['avion'])
+    new_avion = int(request.form['new_avion'])
+    avion = int(request.form['avion'])
 
     #viande = session.get('qteviande', 'not set')
-    #print(viande)
+    print(request.form['viande'])
+    viande = int(request.form['viande'])
     if request.form['regime']== 'Veg' :
         new_viande=0
     elif request.form['regime']== 'V' :
@@ -352,25 +348,24 @@ def change():
         else:
             new_viande=viande
     print(viande, new_viande)
-    #print(new_viande)
+    print(new_viande)
 
-    #voiture= session.get('voiture', 'not set')
+    voiture= int(request.form['voiture'])
     if request.form['voiture']== 'A' :
-        new_voiture= voiture*0.1846
+        new_voiture= int(request.form['voiture'])*0.1846
     else:
-        new_voiture=voiture*9.5602
+        new_voiture=int(request.form['voiture'])*9.5602
 
+    emission = session.get('emissions', 'not set')
+    print(emission)
+    position = request.form['position']
 
-    # if viande == 'not set':
-    #     emission=session.get('emissions', 'not set')-energie+new_energie-legume+new_legume+new_viande-voiture+new_voiture-avion+new_avion
-    #     print ('hello')
-    # else:
-    #     print('hi')
     emission=emission-energie+new_energie-legume+new_legume-viande+new_viande-voiture+new_voiture-avion+new_avion
 
     emission=float(emission)
+    print(emission)
+    print(position)
 
-    #position = session.get('position', 'not set')
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
@@ -385,4 +380,4 @@ def change():
     conn.close()
     return jsonify(resultat)
 
-#app.run(host='0.0.0.0', port='8080', debug=True)
+#app.run(host='0.0.0.0', port=8080, debug=True)

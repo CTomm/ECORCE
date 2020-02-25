@@ -6,7 +6,7 @@
 		
 		<link rel="stylesheet" href="style/style_CoverPage.css"/>
         <link rel="stylesheet" href="style/question_box.css"/>
-        <script src= "js/question_box.js" ></script>
+        <!-- <script src= "js/testrecup.js" ></script> -->
 
 	</head>
 
@@ -18,7 +18,7 @@
 https://css-tricks.com/building-a-simple-quiz/
  -->
 		
-<form action="/omni" method="POST" id="___">
+<form action="/omni" method="POST"   onsubmit="keepresults()" id="___">
 
 
 <!-- Slideshow container -->
@@ -53,7 +53,7 @@ https://css-tricks.com/building-a-simple-quiz/
             <br>
             <label>De poulet :</label><br>
 
-            <SELECT name="Q3_poulet" size="1" value="">
+            <SELECT name="Q3_poulet" id ="poulet" size="1">
                 <OPTION value="0.1">Moins de 200gr
                 <OPTION value="0.3">Entre 200 et 400 gr 
                 <OPTION value="0.5">Entre 400 et 600 gr
@@ -64,7 +64,7 @@ https://css-tricks.com/building-a-simple-quiz/
             <br><br>
             <label>De porc :</label><br>
 
-            <SELECT name="Q3_porc" size="1">
+            <SELECT name="Q3_porc" id ="porc" size="1">
                 <OPTION value="0.1">Moins de 200gr
                 <OPTION value="0.3">Entre 200 et 400 gr 
                 <OPTION value="0.5">Entre 400 et 600 gr
@@ -75,7 +75,7 @@ https://css-tricks.com/building-a-simple-quiz/
             <br><br>
             <label>D'agneau :</label><br>
 
-            <SELECT name="Q3_agneau" size="1">
+            <SELECT name="Q3_agneau" id ="agneau" size="1">
                 <OPTION value="0.1">Moins de 200gr
                 <OPTION value="0.3">Entre 200 et 400 gr 
                 <OPTION value="0.5">Entre 400 et 600 gr
@@ -86,7 +86,7 @@ https://css-tricks.com/building-a-simple-quiz/
             <br><br>
             <label>De boeuf :</label><br>
 
-            <SELECT name="Q3_boeuf" size="1">
+            <SELECT name="Q3_boeuf" id ="boeuf" size="1">
                 <OPTION value="0.1">Moins de 200gr
                 <OPTION value="0.3">Entre 200 et 400 gr 
                 <OPTION value="0.5">Entre 400 et 600 gr
@@ -258,7 +258,7 @@ https://css-tricks.com/building-a-simple-quiz/
         <br><br>
         </div>
 
-
+<!-- 
         <h5>Connaissez-vous votre consommation d'énergie domestique ? </h5>
         <a class="infobulle"> 
     		<img id="bulleinfo" src="image/bulleinfo.png" /> 
@@ -273,11 +273,15 @@ https://css-tricks.com/building-a-simple-quiz/
             <div>
                 <input type="radio" name="Q8" id="Q8-B" value="B" required/>
                 <label for="Q8-B"> Non : l’estimation ne prendra pas en compte votre consommation énergétique (Merci de ne pas répondre à question 9)</label> <br>
-            </div>
+            </div> -->
 
 
         
         <h5>Quelle quantité d'énergie domestique utilisez-vous ?</h5>
+            <a class="infobulle"> 
+            <img id="bulleinfo" src="image/bulleinfo.png" /> 
+            <span>L'énergie domestique correspond à toute l'énergie consommée dans votre foyer.<br> Elle englobe le chauffage, le chauffage de l'eau, la cuisson et l'électroménager par exemple.</span> 
+            </a>
     	
             <div>
                 <input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="9999999999" value="0">
@@ -285,7 +289,7 @@ https://css-tricks.com/building-a-simple-quiz/
             </div>
         
             <div>
-                <input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="9999999999" value="0">
+                <input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="9999999999" value="0" >
                 <label for="Q9-A">consommation de gaz / propane par an (en kWm/an)</label>
 				<a class="infobulle"> 
 					<img id="bulleinfo" src="image/bulleinfo.png" /> 
@@ -299,7 +303,7 @@ https://css-tricks.com/building-a-simple-quiz/
             </div>            
 
             <div>
-                <input type="number" id="Q9-D" name="Q9_bois" step=1 min="0" max="9999999999" value="0">
+                <input type="number" id="Q9-D" name="Q9_bois" step=1 min="0" max="9999999999" value="0" >
                 <label for="Q9-A">consommation de bois par an (kg/an)</label>
             </div>  <br>
 
@@ -394,6 +398,8 @@ https://css-tricks.com/building-a-simple-quiz/
 
 </form>
 <!-- <button id=question value="Soumettre le questionnaire" onclick="resend()" /> -->
+
+<script src= "js/question_box.js" ></script>
 <html>
 
 
