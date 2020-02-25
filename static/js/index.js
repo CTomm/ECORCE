@@ -158,7 +158,7 @@ var loc = L.geoJSON(loc, myLayerOptions).addTo(map);
 var usercom = L.geoJSON(usercom,
 	{style:styleusercom}).addTo(map);
 
-map.flyTo(loc.getBounds().getCenter(),13.5);
+//map.flyTo(loc.getBounds().getCenter(),13.5);
 
 
 /*----------- GESTION DES LAYERS-LEGENDE----------------*/
@@ -199,6 +199,21 @@ $(window).on("beforeunload", function() {
 });
 
 /*----------- GRAPHIQUE ----------------*/
+
+// Obtenir les valeurs du graphique
+
+$.post( "/getemissionmoy", {
+	position: localStorage.getItem('position')},
+	function(consomoy) {
+		CO2_moy = consomoy;
+		console.log(consomoy);
+	});
+
+$.get( "/getemission",
+	function(conso) {
+		CO2_perso = conso;
+		console.log(conso);
+	});
 
 var ctx = document.getElementById('myChart').getContext('2d');
 ctx.canvas.width = 30;
@@ -267,3 +282,5 @@ var myChartConfig = {
     }
 }
 var myChart = new Chart(ctx, myChartConfig);
+
+

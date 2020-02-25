@@ -86,10 +86,13 @@ def sendposition():
 def choice():
     if request.form['Q0'] == 'V':
         return render_template("questionv.html")
+        session['regime'] = 'Vegan'
     elif request.form['Q0'] == 'Veg':
         return render_template("questionvege.html")
+        session['regime'] = 'Vege'
     elif request.form['Q0'] == 'A':
         return render_template("question.html")
+        session['regime'] = 'Omni'
 
 
 #Récupérer réponse questionnaire et envoyer la requête (dans question.html)
@@ -267,8 +270,6 @@ def change():
             new_viande = 964.393612 #poisson y compris
         else:
             new_viande=viande
-    # print(viande, new_viande)
-    # print(new_viande)
 
     voiture= int(request.form['voiture'])
     if request.form['voiture']== 'A' :
@@ -281,6 +282,11 @@ def change():
     position = request.form['position']
 
     emission=emission-energie+new_energie-legume+new_legume-viande+new_viande-voiture+new_voiture-avion+new_avion
+
+    # if session.get('regime') == 'Vegan':
+    #     emission +=343.155904
+    #     print('add laitage')
+        
 
     emission=float(emission)
     print(emission)
@@ -300,4 +306,24 @@ def change():
     conn.close()
     return jsonify(resultat)
 
-#app.run(host='0.0.0.0', port=8080, debug=True)
+@app.route('/getemission', methods=['GET'])
+def getemission():
+    return str(session.get('emissions', 'not set'))
+
+@app.route('/getemissionmoy', methods=['POST'])
+def getemissionmoy():
+    position = request.form['position']
+    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
+    cursor = conn.cursor()
+    cursor.execute(""" 
+        select hab 
+        from commune 
+        where st_intersects(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), geom)
+        """)
+    moyenne = cursor.fetchone()[0]
+    conn.close()
+    return str(moyenne)
+
+
+
+app.run(host='0.0.0.0', port=8080, debug=True)
