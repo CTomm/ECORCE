@@ -1,9 +1,8 @@
-
+/* typographie */
 h1{
 	margin-top: 40px;
 	margin-left: 5px;
 	margin-right: 50px;
-/*	font-family: "Apple Color Emoji", Times, serif;*/
 	font-family:"Gill Sans", sans-serif;
 	font-size:12px;
 	color : #FFFFFF;
@@ -15,28 +14,48 @@ h2{
 	margin-top: 20px;
 	margin-left: 5px;
 	margin-right: 50px;
-/*	font-family: "Apple Color Emoji", Times, serif;*/
 	font-family:"Gill Sans", sans-serif;
 	font-size:14px;
 	color : #FFFFFF;
 }
 
-h3{
-	margin-top: 20px;
-	text-align: center;
-/*	font-family: "Apple Color Emoji", Times, serif;*/
+.h5{
+	font-size:35px;
+	color : #004E2B;
+	font-weight:bold;
+	margin-left: 80px;
 	font-family:"Gill Sans", sans-serif;
-	font-size:25px;
+}
+
+.h3{
+	font-size:35px;
 	color : #D7833A;
+	font-weight:bold;
+	margin-left: 80px;
+	font-family:"Gill Sans", sans-serif;
+}
+
+.h4{
+	text-align: center;
+	font-family:"Gill Sans", sans-serif;
+	font-size:12px;
+	color : #383736;
 }
 
 h4{
-	margin-top: 0px;
-	text-align: center;
-/*	font-family: "Apple Color Emoji", Times, serif;*/
+	margin-top:10px;
+	margin-left:20px;
+	text-align: LEFT;
 	font-family:"Gill Sans", sans-serif;
-	font-size:12px;
-	color : #FFFFFF;
+	font-size:13px;
+	color : #383736;
+}
+
+h5{
+	text-align: center;
+	font-family:"Gill Sans", sans-serif;
+	font-size:13px;
+	color : #383736;
 }
 
 label{
@@ -45,7 +64,7 @@ label{
 	color : #FFFFFF;
 	}
 
-
+/* carte et global */
 #name_icon{
 position: fixed;
 top:-5;
@@ -78,7 +97,7 @@ left: 240	;
 	height : 100%;
 }
 
-
+/* boutons*/
 #share_fb{
 	position: fixed;
 	top:30;
@@ -102,15 +121,16 @@ left: 240	;
 	right: 250;
 }
 
+
+
+/*button in the slide*/
 button {
 	 border: none;
 	 cursor: pointer;
 }
 
-
-/*button in the slide*/
-		.button {
-		  margin-left: 50px;
+.button {
+		  margin-left: 8px;
 		  background-color: #4CAF50; /* Green */
 		  border: none;
 		  color: white;
@@ -125,80 +145,38 @@ button {
 		  cursor: pointer;
 		}
 
-		.button_next {
-		  margin-left: 50px;
+.button_next {
+		  margin-left: 8px;
 		  background-color: white;
 		  color: black;
 		  border: 2px solid #555555;
 		}
 
-		.button_next:hover {
-		  margin-left: 50px;
+.button_next:hover {
+		  margin-left: 8px;
 		  background-color: #555555;
 		  color: white;
 		}
 
 /*comparaision in the slide*/
-		.container {
+.containera{
 		  position: relative;
-		  width: 85%;
-		}
-
-		.image_c {
-		  display: block;
-		  width: 100%;
-		  height: auto;
-		}
-
-		.overlay {
-		  position: absolute;
-		  bottom: 100%;
-		  left: 0;
-		  right: 0;
+		  width: 95%;
+		  background-color: #FFDFB4;
+		  border-color :#D7833A;
+		  border : solid #D7833A;
+		  
+}
+.containerb {
+		  position: relative;
+		  width: 95%;
 		  background-color: #99B4B2;
-		  overflow: hidden;
-		  width: 100%;
-		  height:0;
-		  transition: .5s ease;
-		}
-
-		.container:hover .overlay {
-		  bottom: 0;
-		  height: 100%;
-		}
-
-
-
-/*Bar Navigation*/
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #444;
+		  border-color: #004E2B;
+		  border : solid #004E2B;
+		  
 }
 
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  color: white;
-  font-family:"Gill Sans", sans-serif;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover:not(.active) {
-  background-color: #222;
-}
-
-.active {
-  background-color: #4CAF99;
-}
+/* Legende*/
 
 .legend {
   padding: 6px 8px;
@@ -238,6 +216,13 @@ li a:hover:not(.active) {
   background-image: url(https://image.flaticon.com/icons/svg/1119/1119071.svg);
   background-repeat: no-repeat;
 }
+
+/*.legend i.iconb {
+  background-size: 70%;
+  background-image: url (https://image.flaticon.com/icons/svg/2089/2089716.svg);
+  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 1);
+}*/
 
 /* Pop up*/
 
@@ -286,5 +271,41 @@ li a:hover:not(.active) {
     width: auto;
     margin: 10px;
 }
+
+/* Onglet */
+.systeme_onglets {
+	margin-top : 10px;
+	height : 30px;
+	margin-left:18px;
+    margin-right:2px;
+}
+	
+.onglet {
+	background-color: #cbd8c1;
+    display:inline-block;
+	height : 35px;
+    border:1px solid black;
+    cursor:pointer;
+}
+.onglet_0 {
+	background:#738688;
+	text-align: center;
+}
+.onglet_1 {
+    background:#cbd8c1; 
+	text-align: center;
+}
+.contenu_onglet {
+    border:1px solid black;
+	margin-left:5px;
+    margin-right:5px;
+    display:none;
+}
+ul {
+    margin-top:0px;
+    margin-bottom:0px;
+/*    margin-left:-10px*/
+}
+
 
 
