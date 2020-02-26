@@ -16,6 +16,9 @@
 
 .questions-content {
   margin-left: 50px;
+  margin-right: 50px;
+  text-align: justify;
+  color: #6D6A6D;
 }
 
 /* Next & previous buttons */
