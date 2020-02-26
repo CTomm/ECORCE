@@ -124,7 +124,15 @@ var adress = L.Control.geocoder({
     marqueur.addLayer(monmark);
     zoomTo(monmark);
     position_user = String(x) + ' ' + String(y);
-    document.getElementById("adresse_utilisateur").innerHTML = e.geocode.name;
+    var input = e.geocode.name;
+    console.log(input);
+    var fields = input.split(/,/);
+    var field1 = fields[0];
+    var field2 = fields[1];
+    var field3 = fields[2];
+    var field4 = fields[3];
+    document.getElementById("adresse_utilisateur").innerHTML = field1.concat(',',field2,',', field3,',' , field4);
+    //document.getElementById("adresse_utilisateur").innerHTML = e.geocode.name;
     localStorage.setItem('position', position_user);
     console.log(position_user);
     console.log(localStorage.getItem('position'));
@@ -148,9 +156,17 @@ commune.on("click", function(ev){
      
   $.getJSON(jsonQuery).done( function (result_data) {
     console.log(result_data);
-    document.getElementById("adresse_utilisateur").innerHTML = result_data.display_name
+    var input = result_data.display_name;
+    console.log(input);
+    var fields = input.split(/,/);
+    var field1 = fields[0];
+    var field2 = fields[1];
+    var field3 = fields[2];
+    var field4 = fields[3];
+    document.getElementById("adresse_utilisateur").innerHTML = field1.concat(',',field2,',', field3,',' , field4);
   });
 });
+
 
 function send(){
   console.log("coucou")
