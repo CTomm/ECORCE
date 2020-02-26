@@ -1,3 +1,4 @@
+<!Doctype html>
 <html>
 	<head>
 		<meta charset="utf-8">
@@ -11,451 +12,437 @@
 
 
 	</head>
-
-<img id="name_icon" src="image/F_name_left.png" width=250 height=75 >
-<img id="name_icon2" src="image/F_icon_100.png" width=70 height=50 >
-
-
-
-<!-- Building a Simple Quiz
-https://css-tricks.com/building-a-simple-quiz/
- -->
-		
-<form action="/vegan" onsubmit="keepresults()" method="POST" id="___">
-
-
-<!-- Slideshow container -->
-<div class="slideshow-container">
-
-  <!-- Full-width images with number and caption text -->
-  <!-- Alimentaire -->
-  <div class="mySlides fade">
-    <div class="numbertext">1 / 3</div>
-    <div id ="domaines"> - Alimentation -</div>
-		
-    <div class="questions-content">
-        <br>
-        <div id ="titre_graph"> Répartition des types d’aliments des français </div>
-
-        
-        <!-- <img id="image_information" src="image/graph_alim3.PNG" width=600 height=384 ><br> -->
-
-         <!-- graph_aliment -->
-        <div id ="taille_graph">
-        <canvas id="myChart_A" width="10" height="10"></canvas>
-                <script>
-                    var ctx = document.getElementById('myChart_A');
-
-                    var myChart_A = new Chart(ctx, {
-                        type: 'doughnut',
-                        data : {
-                                labels: [
-                                    'Surcre, pâtisseries',
-                                    'Plats à base, pain ',
-                                    'Fruits',
-                                    'Légume',
-                                    'Viandes, Poissons',
-                                    'Outre',
-                                    'Fromage, Produits laitiers',
-                                        ], //fin de labels
-                            
-                        datasets: [{
-                            label: 'xxx',
-
-                          data: [0.07, 0.24, 0.11, 0.22, 0.10, 0.16, 0.10],
-
-                          backgroundColor: [
-                                    'rgba(255, 99, 132, 0.4)',
-                                    'rgba(54, 162, 235, 0.4)',
-                                    'rgba(255, 206, 86, 0.4)',
-                                    'rgba(75, 192, 192, 0.4)',
-                                    'rgba(153, 102, 255, 0.4)',
-                                    'rgba(255, 159, 64, 0.4)'
-                                ], //fin de backgroundColor
-
-                                borderWidth: 1
-                            }], //fin de datasets
-                                } //fin de data
-
-
-                        }); //fin de new
-
-                </script>
-                </div>       
-
-
-
-        <div id ="domaines2">
-        <br>    
-        Première nécessité pour l’homme, les denrées alimentaires impactent les émissions de gaz à effet de serre à chaque étape <br> de la chaîne de production, du champ à la fourchette.
-        <br>Les activités agricoles et alimentaires françaises seraient responsables de 24 % des émissions. Les deux tiers sont dues <br> à la production agricole, 19 % au transport et la part restante provient de la grande distribution et la gestion des déchets.
-        <br><br>
-        </div>
-
-        <h5>Quelle quantité de légumes consommez vous par jour ?</h5>
-            <a class="infobulle"> 
-				<img id="bulleinfo" src="image/bulleinfo.png" /> 
-				<span>
-					La moyenne de consommation de légumes des français est d’environ <strong>450 grammes  par jour</strong>. 
-				</span> 
-			</a>
-            <br>
-            <div>
-                <input type="radio" name="Q1a" id="Q1a-A" value="0.15" checked required />
-                <label for="Q1a-A">Entre 50 et 250 gr</label>
-            </div>
-        
-            <div>
-                <input type="radio" name="Q1a" id="Q1a-B" value="0.375" required />
-                <label for="Q1a-B">Entre 250 et 500 gr</label>
-            </div>
-        
-            <div>
-                <input type="radio" name="Q1a" id="Q1a-C" value="0.675" required />
-                <label for="Q1a-C">Entre 500 et 750 gr </label>
-            </div>
-        
-
-
-        <h5>Quelle quantité de légumineuses consommez vous par jour ?</h5>
-        
-            <div>
-                <input type="radio" name="Q1b" id="Q1b-A" value="0.045" checked required />
-                <label for="Q1b-A">Entre 30 et 60 gr</label>
-            </div>
-        
-            <div>
-                <input type="radio" name="Q1b" id="Q1b-B" value="0.075" required />
-                <label for="Q1b-B">Entre 60 et 90 gr</label>
-            </div>
-        
-            <div>
-                <input type="radio" name="Q1b" id="Q1b-C" value="0.105" required />
-                <label for="Q1b-C">Entre 90 et 120 gr</label>
-            </div>
-
-
-        <h5>Quelle quantité de céréales et produits dérivés consommez vous par jour ?</h5>
-            <a class="infobulle"> 
-				<img id="bulleinfo" src="image/bulleinfo.png" /> 
-				<span>
-					La moyenne de consommation de céréales des français est d’environ <strong>640 grammes  par jour</strong>. 
-				</span> 
-			</a>
-            <br>
-            <div>
-                <input type="radio" name="Q1c" id="Q1c-A" value="0.150" checked required />
-                <label for="Q1c-A">Entre 50 et 250 gr </label>
-            </div>
-        
-            <div>
-                <input type="radio" name="Q1c" id="Q1c-B" value="0.375" required />
-                <label for="Q1c-B">Entre 250 et 500 gr</label>
-            </div>
-        
-            <div>
-                <input type="radio" name="Q1c" id="Q1c-C" value="0.625" required />
-                <label for="Q1c-C">Entre 500 et 750 gr</label>
-            </div>
-
-
-        <h5>Comment choisissez vous les fruits et légumes que vous consommez? </h5>
-        
-            <div>
-                <input type="radio" name="Q7b" id="Q7b-A" value="A" checked required />
-                <label for="Q7b-A">Je mange majoritairement des fruits et légumes de saison </label>
-            </div>
-
-            <div>
-                <input type="radio" name="Q7b" id="Q7b-B" value="B" required />
-                <label for="Q7b-B">Je n’apporte pas d’intérêt particulier au choix des fruits et légumes que j’achète</label>
-            </div> <br>
-
-
-
-    </div>
-  </div>
-
-
-
-  <!-- Energie -->
-  <div class="mySlides fade">
-    <div class="numbertext">2 / 3</div>
-    
-    <div id ="domaines"> - Energie -</div>
 	
-    <div class="questions-content">
-        <br>
-        <div id ="titre_graph"> Répartition la consommation énergétiques domestiques des français</div>
-        <!-- <img id="image_information2" src="image/graph_energie4.PNG" width=690 height=417 > -->
+	<body>
+		<img id="name_icon" src="image/F_name_left.png" width=250 height=75 >
+		<img id="name_icon2" src="image/F_icon_100.png" width=70 height=50 >
 
-        <!-- graph_energie -->
-        <div id ="taille_graph">
-        <canvas id="myChart" width="10" height="10"></canvas>
-                <script>
-                    var ctx = document.getElementById('myChart');
-
-                    var myChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data : {
-                                labels: [
-                                    'Pompe à chaleur',
-                                    'Bois',
-                                    'Charbon, autres',
-                                    'Chauffage urbain',
-                                    '',
-                                    'Fioul domestique',
-                                    'Gaz de pétrole liquéfié',
-                                    'Gaz naturel'
-                                        ], //fin de labels
-                            
-                        datasets: [{
-                            label: 'xxx',
-
-                          data: [0.02, 0.18, 0.01, 0.04, 0.31, 0.10, 0.02, 0.32],
-
-                          backgroundColor: [
-                                    'rgba(255, 99, 132, 0.4)',
-                                    'rgba(54, 162, 235, 0.4)',
-                                    'rgba(255, 206, 86, 0.4)',
-                                    'rgba(75, 192, 192, 0.4)',
-                                    'rgba(153, 102, 255, 0.4)',
-                                    'rgba(255, 159, 64, 0.4)'
-                                ], //fin de backgroundColor
-
-                                borderWidth: 1
-                            }], //fin de datasets
-                                } //fin de data
+		<!-- Building a Simple Quiz
+		https://css-tricks.com/building-a-simple-quiz/
+		-->
+			
+		<form action="/vegan" onsubmit="keepresults()" method="POST" id="___">
 
 
-                        }); //fin de new
+			<!-- Slideshow container -->
+			<div class="slideshow-container">
 
-                </script>
-                </div>
+				<!-- Alimentaire -->
+				<div class="mySlides fade">
+					<div class="numbertext">1 / 3</div>
+					<div id ="domaines"> - Alimentation -</div>
+					
+					<div class="questions-content">
+						<br>
+						<div id ="titre_graph"> Répartition des types d’aliments des français ( % ) </div>
 
-        <div id ="domaines3">
-        <br>     
-        L'impact de la production de l'énergie sur les émissions de CO² a largement dimininué depuis 40 ans en France,<br> avec le développement des énergies renouvelables et la recherche de l'efficacité énergétique. <br> Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet 1,3 Gigatonne CO² par an.
-        <br><br>
-        </div>
+				
+						<!-- graph_aliment -->
+						<div id ="taille_graph">
+							<canvas id="myChart_A" width="10" height="10"></canvas>
+								<script>
+								var ctx = document.getElementById('myChart_A');
+								var myChart_A = new Chart(ctx, {
+										type: 'doughnut',
+										data : {
+												labels: [
+													'Surcre, pâtisseries',
+													'Plats à base, pain ',
+													'Fruits',
+													'Légume',
+													'Viandes, Poissons',
+													'Outre',
+													'Fromage, Produits laitiers',
+														], //fin de labels
+											
+										datasets: [{
+											label: 'xxx',
 
-        
-        <h5>Quelle quantité d'énergie domestique utilisez-vous ?</h5>
-        <a class="infobulle"> 
-            <img id="bulleinfo" src="image/bulleinfo.png" /> 
-            <span>L'énergie domestique correspond à toute l'énergie consommée dans votre foyer.<br> Elle englobe le chauffage, le chauffage de l'eau, la cuisson et l'électroménager par exemple.</span> 
-        </a>
-        
-            <div>
-                <input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="999999999" value="0">
-                <label for="Q9-A">consommation électrique par mois (en kWm/mois) </label>
-            </div>
-        
-            <div>
-                <input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="999999999" value="0">
-                <label for="Q9-A">consommation de gaz / propane par mois (en kWm/mois)</label>
-                <a class="infobulle"> 
-					<img id="bulleinfo" src="image/bulleinfo.png" /> 
-					<span>Une bouteille de gaz pesant 10kg produit environ 140 KWh d'énergie.</span> 
-				</a>
+										  data: [7, 24, 11, 22, 10, 16, 10],
+
+										  backgroundColor: [
+													'rgba(255, 99, 132, 0.4)',
+													'rgba(54, 162, 235, 0.4)',
+													'rgba(255, 206, 86, 0.4)',
+													'rgba(75, 192, 192, 0.4)',
+													'rgba(153, 102, 255, 0.4)',
+													'rgba(255, 159, 64, 0.4)'
+												], //fin de backgroundColor
+
+												borderWidth: 1
+											}], //fin de datasets
+												} //fin de data
+
+
+										}); //fin de new
+
+								</script>
+						</div>       
+
+
+
+						<div id ="domaines2">
+							<br>    
+							Première nécessité pour l’homme, les denrées alimentaires impactent les émissions de gaz à effet de serre à chaque étape <br> de la chaîne de production, du champ à la fourchette.
+							<br>Les activités agricoles et alimentaires françaises seraient responsables de 24 % des émissions. Les deux tiers sont dues <br> à la production agricole, 19 % au transport et la part restante provient de la grande distribution et la gestion des déchets.
+							<br><br>
+						</div>
+
+						<h5>Quelle quantité de légumes consommez vous par jour ?</h5>
+						
+						<a class="infobulle"> 
+							<img id="bulleinfo" src="image/bulleinfo.png" /> 
+							<span>
+								La moyenne de consommation de légumes des français est d’environ <strong>450 grammes  par jour</strong>. 
+							</span> 
+						</a><br>
+						
+						<div>
+							<input type="radio" name="Q1a" id="Q1a-A" value="0.15" checked required />
+							<label for="Q1a-A">Entre 50 et 250 gr</label>
+						</div>
+						
+						<div>
+							<input type="radio" name="Q1a" id="Q1a-B" value="0.375" required />
+							<label for="Q1a-B">Entre 250 et 500 gr</label>
+						</div>
+						
+						<div>
+							<input type="radio" name="Q1a" id="Q1a-C" value="0.675" required />
+							<label for="Q1a-C">Entre 500 et 750 gr </label>
+						</div>
+						
+
+
+						<h5>Quelle quantité de légumineuses consommez vous par jour ?</h5>
+						
+							<div>
+								<input type="radio" name="Q1b" id="Q1b-A" value="0.045" checked required />
+								<label for="Q1b-A">Entre 30 et 60 gr</label>
+							</div>
+						
+							<div>
+								<input type="radio" name="Q1b" id="Q1b-B" value="0.075" required />
+								<label for="Q1b-B">Entre 60 et 90 gr</label>
+							</div>
+						
+							<div>
+								<input type="radio" name="Q1b" id="Q1b-C" value="0.105" required />
+								<label for="Q1b-C">Entre 90 et 120 gr</label>
+							</div>
+
+
+						<h5>Quelle quantité de céréales et produits dérivés consommez vous par jour ?</h5>
+						
+							<a class="infobulle"> 
+								<img id="bulleinfo" src="image/bulleinfo.png" /> 
+								<span>
+									La moyenne de consommation de céréales des français est d’environ <strong>640 grammes  par jour</strong>. 
+								</span> 
+							</a><br>
+							
+							<div>
+								<input type="radio" name="Q1c" id="Q1c-A" value="0.150" checked required />
+								<label for="Q1c-A">Entre 50 et 250 gr </label>
+							</div>
+						
+							<div>
+								<input type="radio" name="Q1c" id="Q1c-B" value="0.375" required />
+								<label for="Q1c-B">Entre 250 et 500 gr</label>
+							</div>
+						
+							<div>
+								<input type="radio" name="Q1c" id="Q1c-C" value="0.625" required />
+								<label for="Q1c-C">Entre 500 et 750 gr</label>
+							</div>
+
+
+						<h5>Comment choisissez vous les fruits et légumes que vous consommez? </h5>
+						
+							<div>
+								<input type="radio" name="Q7b" id="Q7b-A" value="A" checked required />
+								<label for="Q7b-A">Je mange majoritairement des fruits et légumes de saison </label>
+							</div>
+
+							<div>
+								<input type="radio" name="Q7b" id="Q7b-B" value="B" required />
+								<label for="Q7b-B">Je n’apporte pas d’intérêt particulier au choix des fruits et légumes que j’achète</label>
+							</div> <br>
+
+
+
+					</div>
+				</div>
+
+
+
+				<!-- Energie -->
+				<div class="mySlides fade">
+					<div class="numbertext">2 / 3</div>					
+					<div id ="domaines"> - Energie -</div>					
+					<div class="questions-content"><br>
+						
+						<!-- graph_energie -->
+						<div id ="titre_graph"> Répartition la consommation énergétique domestique des français</div>
+						<div id ="taille_graph">
+							<canvas id="myChart" width="10" height="10"></canvas>
+							<script>
+								var ctx = document.getElementById('myChart');
+
+								var myChart = new Chart(ctx, {
+									type: 'doughnut',
+									data : {
+											labels: [
+												'Pompe à chaleur',
+												'Bois',
+												'Charbon, autres',
+												'Chauffage urbain',
+												'Electricité',
+												'Fioul domestique',
+												'Gaz de pétrole liquéfié',
+												'Gaz naturel'
+													], //fin de labels
+										
+									datasets: [{
+										label: 'xxx',
+
+									  data: [2, 18, 1, 4, 31, 10, 2, 32],
+
+									  backgroundColor: [
+												'rgba(255, 99, 132, 0.4)',
+												'rgba(54, 162, 235, 0.4)',
+												'rgba(255, 206, 86, 0.4)',
+												'rgba(75, 192, 192, 0.4)',
+												'rgba(153, 102, 255, 0.4)',
+												'rgba(255, 159, 64, 0.4)'
+											], //fin de backgroundColor
+
+											borderWidth: 1
+										}], //fin de datasets
+											} //fin de data
+
+
+									}); //fin de new
+
+							</script>
+						</div>
+
+					<div id ="domaines3">
+						<br>     
+						L'impact de la production de l'énergie sur les émissions de CO² a largement dimininué depuis 40 ans en France,<br> avec le développement des énergies renouvelables et la recherche de l'efficacité énergétique. <br> Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet 1,3 Gigatonne CO² par an.
+						<br><br>
+					</div>
+
+					
+					<h5>Quelle quantité d'énergie domestique utilisez-vous ?</h5>
+					
+						<a class="infobulle"> 
+							<img id="bulleinfo" src="image/bulleinfo.png" /> 
+							<span>L'énergie domestique correspond à toute l'énergie consommée dans votre foyer.<br> Elle englobe le chauffage, le chauffage de l'eau, la cuisson et l'électroménager par exemple.</span> 
+						</a>
+						
+						<div>
+							<input type="number" id="Q9-A" name="Q9_electrique" step=1 min="0" max="999999999" value="0">
+							<label for="Q9-A">consommation électrique par mois (en kWm/mois) </label>
+						</div>
+					
+						<div>
+							<input type="number" id="Q9-B" name="Q9_gaz" step=1 min="0" max="999999999" value="0">
+							<label for="Q9-A">consommation de gaz / propane par mois (en kWm/mois)</label>
+							<a class="infobulle"> 
+								<img id="bulleinfo" src="image/bulleinfo.png" /> 
+								<span>Une bouteille de gaz pesant 10kg produit environ 140 KWh d'énergie.</span> 
+							</a>
+						</div>
+
+						<div>
+							<input type="number" id="Q9-C" name="Q9_fioul" step=1 min="0" max="999999999" value="0">
+							<label for="Q9-A">consommation de fioul par an (L/an)</label>
+						</div>            
+
+						<div>
+							<input type="number" id="Q9-D" name="Q9_bois" step=1 min="0" max="999999999" value="0">
+							<label for="Q9-A">consommation de bois par an (kg/an)</label>
+						</div>  <br>
+
+
+					</div>
+				</div>
+
+
+
+			    <!-- Transport -->
+			    <div class="mySlides fade">
+					<div class="numbertext">3 / 3</div>				
+					<div id ="domaines"> - Transport - </div>				
+					<div class="questions-content"><br>
+					
+						<div id ="titre_graph">Modes de transport principaux des français pour les trajets longues distances ( % )</div>
+					
+						<div id ="taille_graph">
+							<canvas id="myChart_TL" width="10" height="10"></canvas>
+							<script>
+								var ctx = document.getElementById('myChart_TL');
+
+								var myChart_TL = new Chart(ctx, {
+									type: 'doughnut',
+									data : {
+											labels: [
+												'Voiture',
+												'Autocar',
+												'Autre',
+												'Train',
+												'Avion'
+													], //fin de labels
+										
+									datasets: [{
+										label: 'xxx',
+
+									  data: [40, 02, 2, 13, 43],
+
+									  backgroundColor: [
+												'rgba(255, 99, 132, 0.4)',
+												'rgba(54, 162, 235, 0.4)',
+												'rgba(255, 206, 86, 0.4)',
+												'rgba(75, 192, 192, 0.4)',
+												'rgba(153, 102, 255, 0.4)',
+												'rgba(255, 159, 64, 0.4)'
+											], //fin de backgroundColor
+
+											borderWidth: 1
+										}], //fin de datasets
+											} //fin de data
+
+
+									}); //fin de new
+
+							</script>
+						</div>  
+
+
+							
+
+
+						<br><br> 
+						<div id ="titre_graph">Modes de transport principaux des français pour les trajets quotidiens</div>
+						<!-- graph_trajet quotidiens -->
+							<div id ="taille_graph">
+								<canvas id="myChart_TQ" width="10" height="10"></canvas>
+								<script>
+									var ctx = document.getElementById('myChart_TQ');
+
+									var myChart_TQ = new Chart(ctx, {
+										type: 'doughnut',
+										data : {
+												labels: [
+													'Marche à pied',
+													'Deux roues',
+													'Bicyclette',
+													'Voiture',
+													'Transports collectifs urbains',
+													'Train',
+													], //fin de labels
+											
+										datasets: [{
+											label: 'xxx',
+
+										  data: [0.09, 0.03, 0.02, 0.73, 0.12, 0.01],
+
+										  backgroundColor: [
+													'rgba(255, 99, 132, 0.4)',
+													'rgba(54, 162, 235, 0.4)',
+													'rgba(255, 206, 86, 0.4)',
+													'rgba(75, 192, 192, 0.4)',
+													'rgba(153, 102, 255, 0.4)',
+													'rgba(255, 159, 64, 0.4)'
+												], //fin de backgroundColor
+
+												borderWidth: 1
+											}], //fin de datasets
+												} //fin de data
+
+
+										}); //fin de new
+
+								</script>
+							</div>
+
+
+						<br>
+						<div id ="domaines4">
+						Pour répondre à cette partie du questionnaire, vous pouvez vous aider de ce <a href="https://fr.distance.to/" target="_blank">calculateur kilométrique</a>.
+						</div>
+						<br/>
+
+
+						<h6>Distance parcourue en transports sur des trajets urbains/périurbains journaliers </h6>
+
+						<h5>Combien de kilomètres réalisez-vous par semaine en transports en communs ? </h5>
+						
+							<div>
+								<input type="number" id="Q12-A" name="Q12" step=1 min="0" max="999999999" value="0">
+								<label for="Q12-A">kilomètres par semaine  </label>
+							</div>
+
+						<h5>Combien de kilomètres réalisez-vous en voiture par semaine (trajets quotidien) ? </h5>
+						
+							<div>
+								<input type="number" id="Q13-A" name="Q13" step=1 min="0" max="999999999" value="0">
+								<label for="Q13-A">kilomètres par semaine</label>
+							</div><br/>
+
+						<h6>Distance parcourue en transports sur des trajets nationaux ou internationaux annuels </h6>
+
+						<h5>Combien de kilomètre réalisez-vous par an, en transport en commun ferroviaire ? </h5>
+						
+							<div>
+								<input type="number" id="Q14-A" name="Q14" step=1 min="0" max="999999999" value="0">
+								<label for="Q14-A">kilomètres par an</label>
+							</div>
+					   
+						<h5>Combien de kilomètres réalisez-vous en voiture (hors trajets quotidien) ?</h5>
+						
+							<div>
+								<input type="number" id="Q15-A" name="Q15" step=1 min="0" max="999999999" value="0">
+								<label for="Q15-A">kilomètres par an</label>
+							</div>
+
+						<h5>Combien de kilomètres faites-vous en autocar ? </h5>
+						
+							<div>
+								<input type="number" id="Q16-A" name="Q16" step=1 min="0" max="999999999" value="0">
+								<label for="Q16-A">kilomètres par an</label>
+							</div>
+
+						<h5>Combien de kilomètres faites-vous en avion ? </h5>
+						
+							<div>
+								<input type="number" id="Q17-A" name="Q17" step=1 min="0" max="999999999" value="0">
+								<label for="Q17-A">kilomètres par an</label>
+							</div> <br>
+
+					</div>
+					<br><br>
+					<input type="submit" value="Soumettre le questionnaire" class="button button_next"onclick="return confirm('Êtes-vous sûr de votre choix ?')"/>
+					<br>
+
+			    </div>
+
+				<!-- Next and previous buttons -->
+				<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+				<a class="next" onclick="plusSlides(1)">&#10095;</a>
+			</div>
+			<br>
+
+			<!-- The dots/circles -->
+			<div style="text-align:center">
+			  <span class="dot" onclick="currentSlide(1)"></span>
+			  <span class="dot" onclick="currentSlide(2)"></span>
+			  <span class="dot" onclick="currentSlide(3)"></span>
 			</div>
 
-            <div>
-                <input type="number" id="Q9-C" name="Q9_fioul" step=1 min="0" max="999999999" value="0">
-                <label for="Q9-A">consommation de fioul par an (L/an)</label>
-            </div>            
 
-            <div>
-                <input type="number" id="Q9-D" name="Q9_bois" step=1 min="0" max="999999999" value="0">
-                <label for="Q9-A">consommation de bois par an (kg/an)</label>
-            </div>  <br>
-
-
-    </div>
-  </div>
-
-
-
-  <!-- Transport -->
-  <div class="mySlides fade">
-    <div class="numbertext">3 / 3</div>
-    
-    <div id ="domaines"> - Transport - </div>
-    
-    <div class="questions-content">
-    <br>
-    <div id ="titre_graph">Modes de transport principaux des français pour les trajets longues distances</div>
-        <!-- <img id="image_information3" src="image/graph_transp3.PNG" width=840 height=336 ><br> -->
-
-
-        <!-- graph_trajet longues -->
-        <div id ="taille_graph">
-        <canvas id="myChart_TL" width="10" height="10"></canvas>
-                <script>
-                    var ctx = document.getElementById('myChart_TL');
-
-                    var myChart_TL = new Chart(ctx, {
-                        type: 'doughnut',
-                        data : {
-                                labels: [
-                                    'Voiture',
-                                    'Autocar',
-                                    'Autre',
-                                    'Train',
-                                    'Avion'
-                                        ], //fin de labels
-                            
-                        datasets: [{
-                            label: 'xxx',
-
-                          data: [0.40, 0.02, 0.02, 0.13, 0.43],
-
-                          backgroundColor: [
-                                    'rgba(255, 99, 132, 0.4)',
-                                    'rgba(54, 162, 235, 0.4)',
-                                    'rgba(255, 206, 86, 0.4)',
-                                    'rgba(75, 192, 192, 0.4)',
-                                    'rgba(153, 102, 255, 0.4)',
-                                    'rgba(255, 159, 64, 0.4)'
-                                ], //fin de backgroundColor
-
-                                borderWidth: 1
-                            }], //fin de datasets
-                                } //fin de data
-
-
-                        }); //fin de new
-
-                </script>
-                </div>  
-
-
-                
-
-
-        <br><br> 
-        <div id ="titre_graph">Modes de transport principaux des français pour les trajets quotidiens</div>
-        <!-- graph_trajet quotidiens -->
-        <div id ="taille_graph">
-        <canvas id="myChart_TQ" width="10" height="10"></canvas>
-                <script>
-                    var ctx = document.getElementById('myChart_TQ');
-
-                    var myChart_TQ = new Chart(ctx, {
-                        type: 'doughnut',
-                        data : {
-                                labels: [
-                                    'Marche à pied',
-                                    'Deux roues',
-                                    'Bicyclette',
-                                    'Voiture',
-                                    'Transports collectifs urbains',
-                                    'Train',
-                                    ], //fin de labels
-                            
-                        datasets: [{
-                            label: 'xxx',
-
-                          data: [0.09, 0.03, 0.02, 0.73, 0.12, 0.01],
-
-                          backgroundColor: [
-                                    'rgba(255, 99, 132, 0.4)',
-                                    'rgba(54, 162, 235, 0.4)',
-                                    'rgba(255, 206, 86, 0.4)',
-                                    'rgba(75, 192, 192, 0.4)',
-                                    'rgba(153, 102, 255, 0.4)',
-                                    'rgba(255, 159, 64, 0.4)'
-                                ], //fin de backgroundColor
-
-                                borderWidth: 1
-                            }], //fin de datasets
-                                } //fin de data
-
-
-                        }); //fin de new
-
-                </script>
-                </div>
-
-
-        <br>
-        <div id ="domaines4">
-        Pour répondre à cette partie du questionnaire, vous pouvez vous aider de ce <a href="https://fr.distance.to/" target="_blank">calculateur kilométrique</a>.
-        </div>
-        <br/>
-
-
-        <h6>Distance parcourue en transports sur des trajets urbains/périurbains journaliers </h6>
-
-        <h5>Combien de kilomètres réalisez-vous par semaine en transports en communs ? </h5>
-        
-            <div>
-                <input type="number" id="Q12-A" name="Q12" step=1 min="0" max="999999999" value="0">
-                <label for="Q12-A">kilomètres par semaine  </label>
-            </div>
-
-        <h5>Combien de kilomètres réalisez-vous en voiture par semaine (trajets quotidien) ? </h5>
-        
-            <div>
-                <input type="number" id="Q13-A" name="Q13" step=1 min="0" max="999999999" value="0">
-                <label for="Q13-A">kilomètres par semaine</label>
-            </div><br/>
-
-        <h6>Distance parcourue en transports sur des trajets nationaux ou internationaux annuels </h6>
-
-        <h5>Combien de kilomètre réalisez-vous par an, en transport en commun ferroviaire ? </h5>
-        
-            <div>
-                <input type="number" id="Q14-A" name="Q14" step=1 min="0" max="999999999" value="0">
-                <label for="Q14-A">kilomètres par an</label>
-            </div>
-       
-        <h5>Combien de kilomètres réalisez-vous en voiture (hors trajets quotidien) ?</h5>
-        
-            <div>
-                <input type="number" id="Q15-A" name="Q15" step=1 min="0" max="999999999" value="0">
-                <label for="Q15-A">kilomètres par an</label>
-            </div>
-
-        <h5>Combien de kilomètres faites-vous en autocar ? </h5>
-        
-            <div>
-                <input type="number" id="Q16-A" name="Q16" step=1 min="0" max="999999999" value="0">
-                <label for="Q16-A">kilomètres par an</label>
-            </div>
-
-        <h5>Combien de kilomètres faites-vous en avion ? </h5>
-        
-            <div>
-                <input type="number" id="Q17-A" name="Q17" step=1 min="0" max="999999999" value="0">
-                <label for="Q17-A">kilomètres par an</label>
-            </div> <br>
-
-    </div>
-    <br><br>
-    <input type="submit" value="Soumettre le questionnaire" class="button button_next"
-    onclick="return confirm('Êtes-vous sûr de votre choix ?')"
-    />
-<!--     <input id ="button_input2" type="reset" >  -->
-    <br>
-
-  </div>
-
-  <!-- Next and previous buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-</div>
-<br>
-
-<!-- The dots/circles -->
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span>
-  <span class="dot" onclick="currentSlide(2)"></span>
-  <span class="dot" onclick="currentSlide(3)"></span>
-</div>
-
-
-</form>
-
+		</form>
+	<body>
 <html>
 
