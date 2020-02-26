@@ -1,8 +1,21 @@
+/*----------ONGLETS---------------*/
+
+var anc_onglet = 'quoi';
+change_onglet(anc_onglet);
+
+function change_onglet(name){
+    document.getElementById('onglet_' + anc_onglet).className = 'onglet_0 onglet';
+    document.getElementById('onglet_' + name).className = 'onglet_1 onglet';
+    document.getElementById('contenu_onglet_' + anc_onglet).style.display = 'none';
+    document.getElementById('contenu_onglet_' + name).style.display = 'block';
+    anc_onglet = name;
+}
 
 /*----------- MAP ----------------*/
 
 var map = L.map('map', {
     center: [45.75, 4.8],
+	zoomControl: false,
 	minZoom: 0,
     maxZoom: 20,
     zoom: 12
@@ -59,7 +72,6 @@ function createCustomIcon (feature, latlng) {
 let myLayerOptions = {
   pointToLayer: createCustomIcon
 };
-
 
 /*----------- LAYERS ----------------*/
 
@@ -156,7 +168,11 @@ var commune = L.geoJSON(commune,
 	{style:stylecom}).addTo(map);
 var loc = L.geoJSON(loc, myLayerOptions).addTo(map);
 var usercom = L.geoJSON(usercom,
-	{style:styleusercom}).addTo(map);
+	{style:styleusercom,
+	onEachFeature: function (feature,layer) {
+		layer.bindPopup('<h5>'+feature.properties.Lieux+'</h5><p>Votre consommation a été multipliée par la population: '+feature.properties.pop+' habitants.</p>');
+}});
+usercom.addTo(map);
 
 //map.flyTo(loc.getBounds().getCenter(),13.5);
 
@@ -173,7 +189,6 @@ var overlays = {
 	//"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
 	//"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
 	//"<span style='color: black';'font:14px'>Votre adresse</span>": loc,
-	//"<span style='color: black';'font:14px'>Votre commune</span>": usercom,
 	"<span style='color: black';'font:14px'>Communes, quartiers</span>": commune
 }
 var controlLayers = L.control.layers(null, overlays, {collapsed:false}).addTo(map);
@@ -197,6 +212,20 @@ $(window).on("beforeunload", function() {
  	fetch( "/leaving");
  	localStorage.clear();
 });
+
+/*----------- INFOS ----------------*/
+
+var surf = 50;
+document.getElementById("surf").innerHTML = surf;
+var rayon = 345;
+document.getElementById("rayon").innerHTML = rayon;
+var em_tot = 6.4;
+document.getElementById("em_tot").innerHTML = em_tot;
+var em_moy = 12;
+document.getElementById("em_moy").innerHTML = em_moy;
+var em_ideal = 72;
+document.getElementById("em_ideal").innerHTML = em_ideal;
+
 
 /*----------- GRAPHIQUE ----------------*/
 
@@ -228,7 +257,6 @@ var ener_b = 1.2
 var transp_a = 2.1
 var transp_b = 1.2
 
-var emission_tot = 0
 
 var myChartConfig = {
     type: 'bar',
