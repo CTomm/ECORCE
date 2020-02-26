@@ -13,6 +13,7 @@
 			<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=1028769577197298&autoLogAppEvents=1"></script>
 			<script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+			<script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
 	</head>
  
 
@@ -53,7 +54,7 @@
 		             </p> 
 		            </div> 
 		            <div id="div_button" class="bouton_volet" align="center"> 
-		              <button id="simuFromBienvenue" class="sideButton button-simulation" type="button">OK</button>  
+		              <!-- <button id="simuFromBienvenue" class="sideButton button-simulation" type="button">OK</button>   -->
 		          </div> 
 		        </div> 
 		      </div> 
@@ -99,7 +100,7 @@
 						<br>
 						<button class = "button button_next" onclick="moy()">Afficher la consommation moyenne</button>
 						<br>
-						<button class = "button button_next" onclick="ideal()">Afficher la consommation idéale</button>
+						<button class = "button button_next" onclick="sendideal()">Afficher la consommation idéale</button>
 						</div>
 					</div>
 					
@@ -139,7 +140,7 @@
 										
 										<div>
 											<input type="radio" name="Q0" id="Q0-C"required value="A"/>
-											<label for="Q0-C"> Ne pas changer  </label>
+											<label for="Q0-C"> Omnivore (incluant tout produit de provenance animale)  </label>
 										</div>
 
 
