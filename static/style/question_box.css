@@ -16,6 +16,9 @@
 
 .questions-content {
   margin-left: 50px;
+  margin-right: 50px;
+  text-align: justify;
+  color: #6D6A6D;;
 }
 
 /* Next & previous buttons */
@@ -59,7 +62,7 @@
 /* Number text (1/3 etc) */
 .numbertext {
   color: #738988;
-    font-family:"Gill Sans", sans-serif;
+  font-family:"Gill Sans", sans-serif;
   font-size: 15px;
   padding: 8px 12px;
   position: absolute;
