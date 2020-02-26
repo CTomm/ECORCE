@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="style/style_CoverPage.css"/>
         <link rel="stylesheet" href="style/question_box.css"/>
         <script src= "js/question_box.js" ></script>
+        <script src="js/Chart.js"></script>
 
 
 	</head>
@@ -34,10 +35,59 @@ https://css-tricks.com/building-a-simple-quiz/
 
 
     <div class="questions-content">
-
         <br>
-        <img id="image_information" src="image/graph_alim3.PNG" width=600 height=384 ><br>
+        <div id ="titre_graph"> Répartition des types d’aliments des français </div>
+
+        
+        <!-- <img id="image_information" src="image/graph_alim3.PNG" width=600 height=384 ><br> -->
+
+         <!-- graph_aliment -->
+        <div id ="taille_graph">
+        <canvas id="myChart_A" width="10" height="10"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart_A');
+
+                    var myChart_A = new Chart(ctx, {
+                        type: 'doughnut',
+                        data : {
+                                labels: [
+                                    'Surcre, pâtisseries',
+                                    'Plats à base, pain ',
+                                    'Fruits',
+                                    'Légume',
+                                    'Viandes, Poissons',
+                                    'Outre',
+                                    'Fromage, Produits laitiers',
+                                        ], //fin de labels
+                            
+                        datasets: [{
+                            label: 'xxx',
+
+                          data: [0.07, 0.24, 0.11, 0.22, 0.10, 0.16, 0.10],
+
+                          backgroundColor: [
+                                    'rgba(255, 99, 132, 0.4)',
+                                    'rgba(54, 162, 235, 0.4)',
+                                    'rgba(255, 206, 86, 0.4)',
+                                    'rgba(75, 192, 192, 0.4)',
+                                    'rgba(153, 102, 255, 0.4)',
+                                    'rgba(255, 159, 64, 0.4)'
+                                ], //fin de backgroundColor
+
+                                borderWidth: 1
+                            }], //fin de datasets
+                                } //fin de data
+
+
+                        }); //fin de new
+
+                </script>
+                </div>       
+
+
+
         <div id ="domaines2">
+        <br>    
         Première nécessité pour l’homme, les denrées alimentaires impactent les émissions de gaz à effet de serre à chaque étape <br> de la chaîne de production, du champ à la fourchette.
         <br>Les activités agricoles et alimentaires françaises seraient responsables de 24 % des émissions. Les deux tiers sont dues <br> à la production agricole, 19 % au transport et la part restante provient de la grande distribution et la gestion des déchets.
         <br><br>
@@ -165,11 +215,59 @@ https://css-tricks.com/building-a-simple-quiz/
     <div id ="domaines"> - Energie -</div>
 	
     <div class="questions-content">
-
         <br>
-        <img id="image_information2" src="image/graph_energie3.PNG" width=568 height=348 >
+        <div id ="titre_graph"> Répartition la consommation énergétiques domestiques des français</div>
+        <!-- <img id="image_information2" src="image/graph_energie4.PNG" width=690 height=417 > -->
+
+        <!-- graph_energie -->
+        <div id ="taille_graph">
+        <canvas id="myChart" width="10" height="10"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart');
+
+                    var myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data : {
+                                labels: [
+                                    'Pompe à chaleur',
+                                    'Bois',
+                                    'Charbon, autres',
+                                    'Chauffage urbain',
+                                    '',
+                                    'Fioul domestique',
+                                    'Gaz de pétrole liquéfié',
+                                    'Gaz naturel'
+                                        ], //fin de labels
+                            
+                        datasets: [{
+                            label: 'xxx',
+
+                          data: [0.02, 0.18, 0.01, 0.04, 0.31, 0.10, 0.02, 0.32],
+
+                          backgroundColor: [
+                                    'rgba(255, 99, 132, 0.4)',
+                                    'rgba(54, 162, 235, 0.4)',
+                                    'rgba(255, 206, 86, 0.4)',
+                                    'rgba(75, 192, 192, 0.4)',
+                                    'rgba(153, 102, 255, 0.4)',
+                                    'rgba(255, 159, 64, 0.4)'
+                                ], //fin de backgroundColor
+
+                                borderWidth: 1
+                            }], //fin de datasets
+                                } //fin de data
+
+
+                        }); //fin de new
+
+                </script>
+                </div>
+
+
+              
         <div id ="domaines3">
-        L'impact de la production de l'énergie sur les émissions de CO² a largement dimininué depuis 40 ans  <br>en France, avec le développement des énergies renouvelables et la recherche de l'efficacité énergétique. <br> Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet <br> 1,3 Gigatonne CO² par an.
+        <br>     
+        L'impact de la production de l'énergie sur les émissions de CO² a largement dimininué depuis 40 ans en France,<br> avec le développement des énergies renouvelables et la recherche de l'efficacité énergétique. <br> Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet 1,3 Gigatonne CO² par an.
         <br><br>
         </div>
 
@@ -217,10 +315,103 @@ https://css-tricks.com/building-a-simple-quiz/
     <div id ="domaines"> - Transport - </div>
     
     <div class="questions-content">
-    
+    <br>
+    <div id ="titre_graph">Modes de transport principaux des français pour les trajets longues distances</div>
+        <!-- <img id="image_information3" src="image/graph_transp3.PNG" width=840 height=336 ><br> -->
+
+
+        <!-- graph_trajet longues -->
+        <div id ="taille_graph">
+        <canvas id="myChart_TL" width="10" height="10"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart_TL');
+
+                    var myChart_TL = new Chart(ctx, {
+                        type: 'doughnut',
+                        data : {
+                                labels: [
+                                    'Voiture',
+                                    'Autocar',
+                                    'Autre',
+                                    'Train',
+                                    'Avion'
+                                        ], //fin de labels
+                            
+                        datasets: [{
+                            label: 'xxx',
+
+                          data: [0.40, 0.02, 0.02, 0.13, 0.43],
+
+                          backgroundColor: [
+                                    'rgba(255, 99, 132, 0.4)',
+                                    'rgba(54, 162, 235, 0.4)',
+                                    'rgba(255, 206, 86, 0.4)',
+                                    'rgba(75, 192, 192, 0.4)',
+                                    'rgba(153, 102, 255, 0.4)',
+                                    'rgba(255, 159, 64, 0.4)'
+                                ], //fin de backgroundColor
+
+                                borderWidth: 1
+                            }], //fin de datasets
+                                } //fin de data
+
+
+                        }); //fin de new
+
+                </script>
+                </div>  
+
+
+                
+
+
+        <br><br> 
+        <div id ="titre_graph">Modes de transport principaux des français pour les trajets quotidiens</div>
+        <!-- graph_trajet quotidiens -->
+        <div id ="taille_graph">
+        <canvas id="myChart_TQ" width="10" height="10"></canvas>
+                <script>
+                    var ctx = document.getElementById('myChart_TQ');
+
+                    var myChart_TQ = new Chart(ctx, {
+                        type: 'doughnut',
+                        data : {
+                                labels: [
+                                    'Marche à pied',
+                                    'Deux roues',
+                                    'Bicyclette',
+                                    'Voiture',
+                                    'Transports collectifs urbains',
+                                    'Train',
+                                    ], //fin de labels
+                            
+                        datasets: [{
+                            label: 'xxx',
+
+                          data: [0.09, 0.03, 0.02, 0.73, 0.12, 0.01],
+
+                          backgroundColor: [
+                                    'rgba(255, 99, 132, 0.4)',
+                                    'rgba(54, 162, 235, 0.4)',
+                                    'rgba(255, 206, 86, 0.4)',
+                                    'rgba(75, 192, 192, 0.4)',
+                                    'rgba(153, 102, 255, 0.4)',
+                                    'rgba(255, 159, 64, 0.4)'
+                                ], //fin de backgroundColor
+
+                                borderWidth: 1
+                            }], //fin de datasets
+                                } //fin de data
+
+
+                        }); //fin de new
+
+                </script>
+                </div>
+
+
         <br>
-        <img id="image_information3" src="image/graph_transp3.PNG" width=840 height=336 ><br>
-        <div id ="domaines3">
+        <div id ="domaines4">
         Pour répondre à cette partie du questionnaire, vous pouvez vous aider de ce <a href="https://fr.distance.to/" target="_blank">calculateur kilométrique</a>.
         </div>
         <br/>
