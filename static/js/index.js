@@ -13,13 +13,18 @@ function change_onglet(name){
 
 /*----------- MAP ----------------*/
 
+var positionsplit = localStorage.getItem("position").split(/ /);
+var positioncenter = '[' +String(positionsplit[1]) + ', ' + String(positionsplit[0]) +']';
+
+
 var map = L.map('map', {
-    center: [45.75, 4.8],
+    center: JSON.parse(positioncenter),
 	zoomControl: false,
 	minZoom: 0,
     maxZoom: 20,
     zoom: 12
 });
+
 
 var StadiaAttib='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 var Stadia_AlidadeSmooth = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {attribution: StadiaAttib}).addTo(map);
@@ -189,6 +194,7 @@ function resend(){
       },
       function(results) {
 		var emissionindiv = results.emission;
+		console.log(results);
 		myChart.config.data.datasets[0].data[1] = results.alim;
 		myChart.config.data.datasets[1].data[1] = results.energie;
 		myChart.config.data.datasets[2].data[1] = results.transport;
@@ -196,18 +202,14 @@ function resend(){
 			position:localStorage.getItem('position'),
 			emission:results.emission
 		}, function(e) {
-			console.log(e);
 			var conso_b =L.geoJSON(e,{style:styleb})
 			if (isFirst == false){
-				console.log("coucou");
-				console.log(conso_b);
 				test.remove();
 				controlLayers.removeLayer(test);
 			}
 			test = conso_b.addTo(map);
 			controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
 			isFirst = false;
-			//console.log(conso_b)
 			});
 		}
 	);
