@@ -35,6 +35,8 @@ def sendresultat():
     position = request.form['position']
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
+    print (emission)
+    #return str(emission)
     cursor.execute(""" 
         with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+""")),
         dist as (select max(distance) as maxdist, max(total) as total from results),
@@ -58,7 +60,7 @@ def sendmoyenne():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
-        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 3104.67)),
+        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 5711.633)),
         dist as (select max(distance) as maxdist from results),
         uniongeom as (select st_union(geom) as newgeom from results),
         areageom as (select st_area(newgeom) as aire from uniongeom),
@@ -79,7 +81,7 @@ def sendideal():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
-        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 1500),
+        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 1500)),
         dist as (select max(distance) as maxdist from results),
         uniongeom as (select st_union(geom) as newgeom from results),
         areageom as (select st_area(newgeom) as aire from uniongeom),
@@ -190,6 +192,8 @@ def vege():
         leg = 1.834*0.17108
     else:
         leg = 1.834*1.02284
+    alimentation = alimfixe + oeufs + fromage + lait + leg
+
 
 
     # #ENERGIE
@@ -201,6 +205,7 @@ def vege():
             fioul = 0.275*int(request.form['Q9_fioul'])
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
+    energie = elect + bois + fioul + gaz
 
     #TRANSPORTS
     
@@ -211,10 +216,11 @@ def vege():
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
+    transport = tc_s + voit_s + train +train + voit_annee + car + avion
 
     emission = alimfixe+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emission
-    return render_template("HTML_FP.html")
+    return render_template("HTML_FP.html", alimentation = str(alimentation), energie = str(energie), transport = str(transport))
 
 #Récupérer réponse questionnaire et envoyer la requête (dans questionv.html)
 @app.route('/vegan', methods=['POST'])
@@ -228,6 +234,8 @@ def vegan():
         leg = 0.17108*float(request.form['Q1a'])
     else:
         leg = 1.02284*float(request.form['Q1a'])
+    alimentation = legumineuse + cere + leg
+
 
     # #ENERGIE
     if request.form['Q9_electrique'] != None:
@@ -238,6 +246,7 @@ def vegan():
             fioul = 0.275*int(request.form['Q9_fioul'])
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
+    energie = elect + bois + fioul + gaz
 
     #TRANSPORTS
     
@@ -248,10 +257,12 @@ def vegan():
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
+    transport = tc_s + voit_s + train +train + voit_annee + car + avion
+
 
     emission = leg+legumineuse+cere+elect+fioul+bois+gaz+tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emission
-    return render_template("HTML_FP.html")
+    return render_template("HTML_FP.html", alimentation = str(alimentation), energie = str(energie), transport = str(transport))
 
 
 #Changer ses résultats (bouton "nouvelles valeurs" de HTML_FP.html)
@@ -287,8 +298,10 @@ def change():
         new_voiture=int(request.form['voiture'])*9.5602
 
     emission = session.get('emissions', 'not set')
-    print(emission)
-    position = request.form['position']
+
+    alimentation = -legume+new_legume-viande+new_viande
+    energie = -energie+new_energie
+    transport = -voiture+new_voiture-avion+new_avion
 
     emission=emission-energie+new_energie-legume+new_legume-viande+new_viande-voiture+new_voiture-avion+new_avion
 
@@ -298,9 +311,13 @@ def change():
         
 
     emission=float(emission)
-    print(emission)
-    print(position)
+    mydict = {'alim' :alimentation, 'transport' :transport, 'energie' :energie, 'emission': emission}
+    return jsonify(mydict)
 
+@app.route('/getchangeresults', methods=['POST'])
+def getchangeresults():
+    position = request.form['position']
+    emission = request.form['emission']
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 

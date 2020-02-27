@@ -75,23 +75,49 @@ let myLayerOptions = {
 
 /*----------- LAYERS ----------------*/
 
-var resultat = $.post( "/sendresultat", {
+var requetemoyenne = $.post( "/getemissionmoy", {
+	position: localStorage.getItem('position')},
+	function(consomoy) {
+		CO2_moy = consomoy;
+		var nom = consomoy.features[0].properties.nom;
+		var hab = consomoy.features[0].properties.hab;
+		localStorage.setItem("population", hab);
+		var emission_moy = consomoy.features[0].properties.emission;
+		var quartier = L.geoJSON(consomoy,{style:styleusercom}).addTo(map);
+
+		// INFOS
+		document.getElementById("em_moy").innerHTML =  Math.round(emission_moy/1000);
+
+		//GRAPHIQUE:
+		myChart.config.data.datasets[0].data[2] = emission_moy*0.4569;
+		myChart.config.data.datasets[1].data[2] = emission_moy*0.2946;
+		myChart.config.data.datasets[2].data[2] = emission_moy*0.2485;
+	});
+
+var resultat = $.when(requetemoyenne).done(function() {
+	$.post( "/sendresultat", {
 	position: localStorage.getItem('position')}, 
 	function(parc) {
-    var conso_a = L.geoJSON(parc,{style:stylea}).addTo(map);
-    var distmax = parc.features[0].properties.maxdist;
-    var aire = parc.features[0].properties.aire;
-    var conso = parc.features[0].properties.total;
-    controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
+	    var conso_a = L.geoJSON(parc,{style:stylea}).addTo(map);
+	    var distmax = parc.features[0].properties.maxdist;
+	    var aire = parc.features[0].properties.aire;
+	    var conso = parc.features[0].properties.total;
+	    controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
 
-	//INFOS;
-	document.getElementById("surf").innerHTML = Math.round(aire/ 10000) ;
-	document.getElementById("rayon").innerHTML =  Math.round(distmax/100)/10;
-	document.getElementById("em_tot").innerHTML =  Math.round(conso/1000);
-});
+		//INFOS;
+		document.getElementById("surf").innerHTML = Math.round(aire/ 10000) ;
+		document.getElementById("rayon").innerHTML =  Math.round(distmax/100)/10;
+		document.getElementById("em_tot").innerHTML =  Math.round(conso/1000);
+
+		//GRAPHIQUE:
+		myChart.config.data.datasets[0].data[0] = localStorage.getItem('alim')*localStorage.getItem("population");
+		myChart.config.data.datasets[1].data[0] = localStorage.getItem('ener')*localStorage.getItem("population");
+		myChart.config.data.datasets[2].data[0] = localStorage.getItem('transp')*localStorage.getItem("population");
+	});
+})	
 
 $.when(resultat).done(function() {	
-  	console.log("I'm done");
+  	//console.log("I'm done");
   	var button = document.createElement("BUTTON");
 	button.innerHTML = "Ok";
 	button.setAttribute('type','button');
@@ -103,9 +129,8 @@ $.when(resultat).done(function() {
 	document.getElementById("div_button").appendChild(button);  
 });
 
-
+var isFirst = true;
 function resend(){
-	console.log("hello")
 	//Vegetarien ou non
 	if (document.getElementsByName("Q0")[0].checked == true){
 		regime = document.getElementsByName("Q0")[0].value;
@@ -160,14 +185,32 @@ function resend(){
       voiture: localStorage.getItem('voiture'),
       avion: localStorage.getItem('avion'),
       viande: viande,
-      energie: localStorage.getItem('energie'),
-      position:localStorage.getItem('position')
+      energie: localStorage.getItem('energie')
       },
-      function(newparc) {
-		console.log('new :'+newparc);
-	    var conso_b = L.geoJSON(newparc,{style:styleb}).addTo(map);
-	    controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
-	});
+      function(results) {
+		var emissionindiv = results.emission;
+		myChart.config.data.datasets[0].data[1] = results.alim;
+		myChart.config.data.datasets[1].data[1] = results.energie;
+		myChart.config.data.datasets[2].data[1] = results.transport;
+		$.post( "/getchangeresults", {
+			position:localStorage.getItem('position'),
+			emission:results.emission
+		}, function(e) {
+			console.log(e);
+			var conso_b =L.geoJSON(e,{style:styleb})
+			if (isFirst == false){
+				console.log("coucou");
+				console.log(conso_b);
+				test.remove();
+				controlLayers.removeLayer(test);
+			}
+			test = conso_b.addTo(map);
+			controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
+			isFirst = false;
+			//console.log(conso_b)
+			});
+		}
+	);
 	return false;
 };
 
@@ -192,6 +235,7 @@ function sendideal(){
 	    var conso_ideal = L.geoJSON(parc,{style:stylea}).addTo(map);
 	    var distmax_ideal = parc.features[0].properties.maxdist;
 	    var aire_ideal = parc.features[0].properties.aire;
+	    var conso_ideal = L.geoJSON(parc,{color:'red'}).addTo(map);
 	    controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
 });
 }
@@ -244,20 +288,6 @@ legend.addTo(map);
 
 /*----------- INFOS ----------------*/
 
-// Obtenir les valeurs du graphique
-
-$.post( "/getemissionmoy", {
-	position: localStorage.getItem('position')},
-	function(consomoy) {
-		CO2_moy = consomoy;
-		var nom = consomoy.features[0].properties.nom;
-		var hab = consomoy.features[0].properties.hab;
-		var emission_moy = consomoy.features[0].properties.emission;
-		var quartier = L.geoJSON(consomoy,{style:styleusercom}).addTo(map);
-
-		// INFOS
-		document.getElementById("em_moy").innerHTML =  Math.round(emission_moy/1000);
-	});
 
 
 //Déplacé dans les fonctions où ces valeurs sont récupérées (sendresultat / sendmoyenne / sendideal)
@@ -280,14 +310,14 @@ var ctx = document.getElementById('myChart').getContext('2d');
 ctx.canvas.width = 30;
 ctx.canvas.height = 24;
 
-var alim_a = 1.3
-var alim_b = 0.9
+var alim_a = 0
+var alim_b = 0
 
-var ener_a = 2.5
-var ener_b = 1.2
+var ener_a = 0
+var ener_b = 0
 
-var transp_a = 2.1
-var transp_b = 1.2
+var transp_a = 0
+var transp_b = 0
 
 
 var myChartConfig = {
@@ -297,15 +327,15 @@ var myChartConfig = {
         datasets: [
            {
            label: "Alimentation",
-           data: [alim_a, alim_b, 1.1],
+           data: [0,0, 0],
 		   backgroundColor: ['#93A285','#93A285','#93A285'],
            },{
            label: "Energie",
-           data: [ener_a,ener_b,1.5],
+           data: [0,0,0],
 		   backgroundColor: ['#004E2B','#004E2B','#004E2B']
            },{
            label: "Transport",
-           data: [transp_a,transp_b,1.7],
+           data: [0,0,0],
 		   backgroundColor: ['#D7833A','#D7833A','#D7833A'],
            }
         ]
@@ -342,7 +372,7 @@ var myChartConfig = {
     }
 }
 var myChart = new Chart(ctx, myChartConfig);
-
+console.log(myChart.config.data.datasets[0].data[0]);
 
 /*----------- CLEARING WHEN USER LEAVING ----------------*/
 

@@ -14,14 +14,18 @@
 			<script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 			<script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
-<!-- 	<script type="text/javascript">
-	var test0 = '{{ alimentation[1] }}';
-	var test1 = '{{ energie[1] }}';
-	var test2 = '{{ transport[1] }}';
-	console.log(test0);
-	console.log(test1);
-	console.log(test2);
-	</script> -->
+	<script type="text/javascript">
+	var test0 = '{{ alimentation }}';
+	var test1 = '{{ energie }}';
+	var test2 = '{{ transport }}';
+	localStorage.setItem('alim', test0);
+	localStorage.setItem('ener', test1);
+	localStorage.setItem('transp', test2);
+
+	// console.log(test0);
+	// console.log(test1);
+	// console.log(test2);
+	</script>
 	</head>
  
 
