@@ -94,7 +94,12 @@ $.when(resultat).done(function() {
   	console.log("I'm done");
   	var button = document.createElement("BUTTON");
 	button.innerHTML = "Ok";
-	//button.class = "sideButton button-simulation";
+	button.setAttribute('type','button');
+	button.setAttribute('id','simuFromBienvenue');
+	button.setAttribute('class','sideButton button-simulation');
+	button.onclick = function() {
+		document.getElementById("volet_bienvenue").style.visibility='hidden'; document.getElementById("page").style.visibility='visible'
+	}
 	document.getElementById("div_button").appendChild(button);  
 });
 

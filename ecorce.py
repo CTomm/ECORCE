@@ -156,21 +156,24 @@ def omni():
             fioul = 0.275*int(request.form['Q9_fioul'])
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
+    energie = elect + bois + fioul + gaz
 
     # #TRANSPORTS
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
-    voiture = int(request.form['Q13'])
+    #voiture = int(request.form['Q13'])
     train = 0.007*int(request.form['Q14'])
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
 
+    transport = tc_s + voit_s + train +train + voit_annee + car + avion
+
     emission = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emission
 
-    return render_template("HTML_FP.html", alimentation = alimentation)
+    return render_template("HTML_FP.html", alimentation = str(alimentation), energie = str(energie), transport = str(transport))
 
 #Récupérer réponse questionnaire et envoyer la requête (dans questionvege.html)
 @app.route('/vege', methods=['POST'])
