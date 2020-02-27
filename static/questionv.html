@@ -81,12 +81,17 @@
 
 
 
-						<div id ="domaines2">
-							<br>    
-							Première nécessité pour l’homme, les denrées alimentaires impactent les émissions de gaz à effet de serre à chaque étape <br> de la chaîne de production, du champ à la fourchette.
-							<br>Les activités agricoles et alimentaires françaises seraient responsables de 24 % des émissions. Les deux tiers sont dues <br> à la production agricole, 19 % au transport et la part restante provient de la grande distribution et la gestion des déchets.
-							<br><br>
-						</div>
+						<div id ="dom2">
+                            <br>
+                            Première nécessité pour l’Homme, les denrées alimentaires impactent les émissions de gaz à effet de serre à chaque étape de la chaîne de production : du champ à la fourchette.
+                            <br>
+                            Les activités agricoles et alimentaires françaises seraient responsables de 24 % des émissions de CO2. Parmis elles : 
+                            <ul>
+                                <li> les deux tiers sont dues à la production agricole,</li>
+                                <li> 19 % au transport, </li>
+                                <li> et la part restante provient de la grande distribution et la gestion des déchets. </li>
+                            </ul>
+                        </div>
 
 						<h5>Quelle quantité de légumes consommez vous par jour ?</h5>
 						
@@ -227,9 +232,9 @@
 							</script>
 						</div>
 
-					<div id ="domaines3">
+					<div id ="dom2">
 						<br>     
-						L'impact de la production de l'énergie sur les émissions de CO² a largement dimininué depuis 40 ans en France,<br> avec le développement des énergies renouvelables et la recherche de l'efficacité énergétique. <br> Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet 1,3 Gigatonne CO² par an.
+						L'impact de la production de l'énergie sur les émissions de CO2 a largement dimininué depuis 40 ans en France, avec le développement des énergies renouvelables et la recherche de l'efficacité énergétique. Cependant, elle reste non-négligeable : en union européenne le secteur de l'énergie émet 1,3 Gigatonne CO2 par an.
 						<br><br>
 					</div>
 
@@ -318,13 +323,35 @@
 
 							</script>
 						</div>  
-
-
 							
 
+						<br>
+						<div id ="dom2">
+						Pour répondre à cette partie du questionnaire, vous pouvez vous aider de ce <a href="https://fr.distance.to/" target="_blank">calculateur kilométrique</a>.
+						</div>
+						<br/>
+
+
+						<h6>Distance parcourue en transports sur des trajets urbains/périurbains journaliers </h6>
+
+						<h5>Combien de kilomètres réalisez-vous par semaine en transports en communs ? </h5>
+						
+							<div>
+								<input type="number" id="Q12-A" name="Q12" step=1 min="0" max="999999999" value="0">
+								<label for="Q12-A">kilomètres par semaine  </label>
+							</div>
+
+						<h5>Combien de kilomètres réalisez-vous en voiture par semaine (trajets quotidien) ? </h5>
+						
+							<div>
+								<input type="number" id="Q13-A" name="Q13" step=1 min="0" max="999999999" value="0">
+								<label for="Q13-A">kilomètres par semaine</label>
+							</div><br/>
+
+						<h6>Distance parcourue en transports sur des trajets nationaux ou internationaux annuels </h6>
 
 						<br><br> 
-						<div id ="titre_graph">Modes de transport principaux des français pour les trajets quotidiens</div>
+						<div id ="titre_graph">Modes de transport principaux des français pour les trajets quotidien (en %) </div>
 						<!-- graph_trajet quotidiens -->
 							<div id ="taille_graph">
 								<canvas id="myChart_TQ" width="10" height="10"></canvas>
@@ -367,31 +394,6 @@
 								</script>
 							</div>
 
-
-						<br>
-						<div id ="domaines4">
-						Pour répondre à cette partie du questionnaire, vous pouvez vous aider de ce <a href="https://fr.distance.to/" target="_blank">calculateur kilométrique</a>.
-						</div>
-						<br/>
-
-
-						<h6>Distance parcourue en transports sur des trajets urbains/périurbains journaliers </h6>
-
-						<h5>Combien de kilomètres réalisez-vous par semaine en transports en communs ? </h5>
-						
-							<div>
-								<input type="number" id="Q12-A" name="Q12" step=1 min="0" max="999999999" value="0">
-								<label for="Q12-A">kilomètres par semaine  </label>
-							</div>
-
-						<h5>Combien de kilomètres réalisez-vous en voiture par semaine (trajets quotidien) ? </h5>
-						
-							<div>
-								<input type="number" id="Q13-A" name="Q13" step=1 min="0" max="999999999" value="0">
-								<label for="Q13-A">kilomètres par semaine</label>
-							</div><br/>
-
-						<h6>Distance parcourue en transports sur des trajets nationaux ou internationaux annuels </h6>
 
 						<h5>Combien de kilomètre réalisez-vous par an, en transport en commun ferroviaire ? </h5>
 						
