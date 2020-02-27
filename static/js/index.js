@@ -75,14 +75,33 @@ let myLayerOptions = {
 
 /*----------- LAYERS ----------------*/
 
-$.post( "/sendresultat", {
+var resultat = $.post( "/sendresultat", {
 	position: localStorage.getItem('position')}, 
 	function(parc) {
-	//console.log(localStorage.getItem('position'));
     var conso_a = L.geoJSON(parc,{style:stylea}).addTo(map);
+    var distmax = parc.features[0].properties.maxdist;
+    var aire = parc.features[0].properties.aire;
+    var conso = parc.features[0].properties.total;
     controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
+
+	//INFOS;
+	document.getElementById("surf").innerHTML = Math.round(aire/ 10000) ;
+	document.getElementById("rayon").innerHTML =  Math.round(distmax/100)/10;
+	document.getElementById("em_tot").innerHTML =  Math.round(conso/1000);
 });
 
+$.when(resultat).done(function() {	
+  	console.log("I'm done");
+  	var button = document.createElement("BUTTON");
+	button.innerHTML = "Ok";
+	button.setAttribute('type','button');
+	button.setAttribute('id','simuFromBienvenue');
+	button.setAttribute('class','sideButton button-simulation');
+	button.onclick = function() {
+		document.getElementById("volet_bienvenue").style.visibility='hidden'; document.getElementById("page").style.visibility='visible'
+	}
+	document.getElementById("div_button").appendChild(button);  
+});
 
 
 function resend(){
@@ -149,17 +168,33 @@ function resend(){
 	    var conso_b = L.geoJSON(newparc,{style:styleb}).addTo(map);
 	    controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
 	});
+	return false;
 };
 
 function moy(){
 	$.post( "/sendmoyenne", {
 	position: localStorage.getItem('position')},
 	function(consomoy) {
-		console.log(localStorage.getItem('position'));
+		var distmax_moy = consomoy.features[0].properties.maxdist;
+		console.log(distmax_moy);
+	    var aire_moy = consomoy.features[0].properties.aire;
+	    console.log(aire_moy);
 	    var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
 	    controlLayers.addOverlay(conso_moy, "<span style='color: black';'font:14px'>Consommation d'un français moyen</span>") 
 	});
 };
+
+function sendideal(){
+	$.post( "/sendideal", {
+	position: localStorage.getItem('position')}, 
+	function(parc) {
+	//console.log(localStorage.getItem('position'));
+	    var conso_ideal = L.geoJSON(parc,{style:stylea}).addTo(map);
+	    var distmax_ideal = parc.features[0].properties.maxdist;
+	    var aire_ideal = parc.features[0].properties.aire;
+	    controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
+});
+}
 /*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
 var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
 var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);*/
@@ -207,27 +242,7 @@ legend.onAdd = function(map) {
 };
 legend.addTo(map);
 
-
-$(window).on("beforeunload", function() {
- 	fetch( "/leaving");
- 	localStorage.clear();
-});
-
 /*----------- INFOS ----------------*/
-
-var surf = 50;
-document.getElementById("surf").innerHTML = surf;
-var rayon = 345;
-document.getElementById("rayon").innerHTML = rayon;
-var em_tot = 6.4;
-document.getElementById("em_tot").innerHTML = em_tot;
-var em_moy = 12;
-document.getElementById("em_moy").innerHTML = em_moy;
-var em_ideal = 72;
-document.getElementById("em_ideal").innerHTML = em_ideal;
-
-
-/*----------- GRAPHIQUE ----------------*/
 
 // Obtenir les valeurs du graphique
 
@@ -235,14 +250,31 @@ $.post( "/getemissionmoy", {
 	position: localStorage.getItem('position')},
 	function(consomoy) {
 		CO2_moy = consomoy;
-		console.log(consomoy);
+		var nom = consomoy.features[0].properties.nom;
+		var hab = consomoy.features[0].properties.hab;
+		var emission_moy = consomoy.features[0].properties.emission;
+		var quartier = L.geoJSON(consomoy,{style:styleusercom}).addTo(map);
+
+		// INFOS
+		document.getElementById("em_moy").innerHTML =  Math.round(emission_moy/1000);
 	});
 
-$.get( "/getemission",
-	function(conso) {
-		CO2_perso = conso;
-		console.log(conso);
-	});
+
+//Déplacé dans les fonctions où ces valeurs sont récupérées (sendresultat / sendmoyenne / sendideal)
+// var surf = aire;
+// document.getElementById("surf").innerHTML = surf;
+// var rayon = distmax;
+// document.getElementById("rayon").innerHTML = rayon;
+// var em_tot = CO2_perso;
+// document.getElementById("em_tot").innerHTML = em_tot;
+// var em_moy = emission_moy;
+// document.getElementById("em_moy").innerHTML = em_moy;
+// var em_ideal = 72;
+// document.getElementById("em_ideal").innerHTML = em_ideal;
+
+
+/*----------- GRAPHIQUE ----------------*/
+
 
 var ctx = document.getElementById('myChart').getContext('2d');
 ctx.canvas.width = 30;
@@ -312,3 +344,9 @@ var myChartConfig = {
 var myChart = new Chart(ctx, myChartConfig);
 
 
+/*----------- CLEARING WHEN USER LEAVING ----------------*/
+
+$(window).on("beforeunload", function() {
+ 	fetch( "/leaving");
+ 	localStorage.clear();
+});

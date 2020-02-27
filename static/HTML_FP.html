@@ -13,6 +13,15 @@
 			<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=1028769577197298&autoLogAppEvents=1"></script>
 			<script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
 			<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+			<script src = "https://code.jquery.com/jquery-3.4.1.js"></script>
+<!-- 	<script type="text/javascript">
+	var test0 = '{{ alimentation[1] }}';
+	var test1 = '{{ energie[1] }}';
+	var test2 = '{{ transport[1] }}';
+	console.log(test0);
+	console.log(test1);
+	console.log(test2);
+	</script> -->
 	</head>
  
 
@@ -53,18 +62,18 @@
 		             </p> 
 		            </div> 
 		            <div id="div_button" class="bouton_volet" align="center"> 
-		              <button id="simuFromBienvenue" class="sideButton button-simulation" type="button">OK</button>  
+		              <!-- <button id="simuFromBienvenue" class="sideButton button-simulation" type="button">OK</button>   -->
 		          </div> 
 		        </div> 
 		      </div> 
 		    </div>
 
-		    <script language="JavaScript">
+<!-- 		    <script language="JavaScript">
 				//fermer la fenêtre Bienvenue
 				document.getElementById("simuFromBienvenue").onclick = function() {
 					document.getElementById("volet_bienvenue").style.visibility='hidden'; document.getElementById("page").style.visibility='visible'
 				}
-			</script>
+			</script> -->
 			</br>
 		<div id="page">
 			<div id ="map"  > </div> </br>
@@ -99,7 +108,7 @@
 						<br>
 						<button class = "button button_next" onclick="moy()">Afficher la consommation moyenne</button>
 						<br>
-						<button class = "button button_next" onclick="ideal()">Afficher la consommation idéale</button>
+						<button class = "button button_next" onclick="sendideal()">Afficher la consommation idéale</button>
 						</div>
 					</div>
 					
@@ -139,7 +148,7 @@
 										
 										<div>
 											<input type="radio" name="Q0" id="Q0-C"required value="A"/>
-											<label for="Q0-C"> Ne pas changer  </label>
+											<label for="Q0-C"> Omnivore (incluant tout produit de provenance animale)  </label>
 										</div>
 
 

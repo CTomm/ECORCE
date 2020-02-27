@@ -36,7 +36,11 @@ def sendresultat():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
-        with parc as (select st_transform(st_union(geom), 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+"""))
+        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), """+str(emission)+""")),
+        dist as (select max(distance) as maxdist, max(total) as total from results),
+        uniongeom as (select st_union(geom) as newgeom from results),
+        areageom as (select st_area(newgeom) as aire from uniongeom),
+        parc as (select maxdist, total, aire, st_transform(newgeom, 4326) from uniongeom, dist, areageom)
         select json_build_object(
         'type', 'FeatureCollection',
         'features', json_agg(ST_AsGeoJSON(parc.*)::json)
@@ -54,7 +58,11 @@ def sendmoyenne():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
-        with parc as (select st_transform(st_union(geom), 4326) from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 3104.67))
+        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 3104.67)),
+        dist as (select max(distance) as maxdist from results),
+        uniongeom as (select st_union(geom) as newgeom from results),
+        areageom as (select st_area(newgeom) as aire from uniongeom),
+        parc as (select maxdist, aire, st_transform(newgeom, 4326) from uniongeom, dist, areageom)
         select json_build_object(
         'type', 'FeatureCollection',
         'features', json_agg(ST_AsGeoJSON(parc.*)::json)
@@ -65,7 +73,27 @@ def sendmoyenne():
     conn.close()
     return jsonify(moyenne)
 
-
+@app.route("/sendideal", methods=['POST'])
+def sendideal():
+    position = request.form['position']
+    conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
+    cursor = conn.cursor()
+    cursor.execute(""" 
+        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 1500),
+        dist as (select max(distance) as maxdist from results),
+        uniongeom as (select st_union(geom) as newgeom from results),
+        areageom as (select st_area(newgeom) as aire from uniongeom),
+        parc as (select maxdist, aire, st_transform(newgeom, 4326) from uniongeom, dist, areageom)
+        select json_build_object(
+        'type', 'FeatureCollection',
+        'features', json_agg(ST_AsGeoJSON(parc.*)::json)
+        ) as geojson
+        from parc;
+        """)
+    moyenne = cursor.fetchone()[0]
+    conn.close()
+    return jsonify(moyenne)
+    
 #Envoyer la position pour trier les parcs (api_adresse.html)
 @app.route('/sendposition', methods=['POST'])
 def sendposition():
@@ -109,7 +137,6 @@ def omni():
     agneau = 1451.32*float(request.form['Q3_agneau'])
     boeuf = 1493.96*float(request.form['Q3_boeuf'])
     poisson = 22.78607013*float(request.form['Q4'])
-    viande = 52*(float(request.form['Q3_poulet'])+float(request.form['Q3_porc'])+float(request.form['Q3_agneau'])+float(request.form['Q3_boeuf'])+float(request.form['Q4']))
     oeufs = 11.10564*int(request.form['Q5'])
     fromage = 356.72*float(request.form['Q6'])
     lait = 52.53948708*int(request.form['Q7'])
@@ -117,74 +144,63 @@ def omni():
     # #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
         leg = 1.834*0.17108
-        #legume = 1.834
     else:
         leg = 1.834*1.02284
-        #legume = 1.834
-
+    alimentation = alimfixe + poulet + porc + agneau + boeuf + poisson + oeufs + fromage + lait + leg
     # #ENERGIE
-    #energie = 0
     if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
-            #energie +=int(request.form['Q9_electrique'])*12
     if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
-            #energie +=int(request.form['Q9_gaz'])
     if request.form['Q9_fioul'] != None:
             fioul = 0.275*int(request.form['Q9_fioul'])
-            #energie +=int(request.form['Q9_fioul'])
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
-            #energie +=int(request.form['Q9_bois'])
+    energie = elect + bois + fioul + gaz
 
     # #TRANSPORTS
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
-    voiture = int(request.form['Q13'])
+    #voiture = int(request.form['Q13'])
     train = 0.007*int(request.form['Q14'])
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
     avion = 0.1446*int(request.form['Q17'])
 
+    transport = tc_s + voit_s + train +train + voit_annee + car + avion
+
     emission = alimfixe+poulet+porc+agneau+boeuf+poisson+oeufs+fromage+lait+leg+elect+fioul+bois+gaz+ tc_s+voit_s+train+voit_annee+car+avion
     session['emissions'] = emission
 
-    return render_template("HTML_FP.html")
+    return render_template("HTML_FP.html", alimentation = str(alimentation), energie = str(energie), transport = str(transport))
 
 #Récupérer réponse questionnaire et envoyer la requête (dans questionvege.html)
 @app.route('/vege', methods=['POST'])
 def vege():
 
-    print('on vege : ' + str(session))
     #Alimentation
     alimfixe = 282.72608
     oeufs = 11.10564*int(request.form['Q5'])
     fromage = 356.72*float(request.form['Q6'])
-    lait = 52.53948708*int(request.form['Q7'])
+    lait = 52.53948708*float(request.form['Q7'])
 
     #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
         leg = 1.834*0.17108
-        #legume = 1.834
     else:
         leg = 1.834*1.02284
-        #legume = 1.834
+
 
     # #ENERGIE
-    #energie = 0
     if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
-            #energie +=int(request.form['Q9_electrique'])*12
     if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
-            #energie +=int(request.form['Q9_gaz'])
     if request.form['Q9_fioul'] != None:
             fioul = 0.275*int(request.form['Q9_fioul'])
-            #energie +=int(request.form['Q9_fioul'])
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
-            #energie +=int(request.form['Q9_bois'])
 
     #TRANSPORTS
     
@@ -204,31 +220,24 @@ def vege():
 @app.route('/vegan', methods=['POST'])
 def vegan():
     #Alimentation
-    legumineuse = 0.24024*int(request.form['Q1b'])
-    cere = 0.58058*int(request.form['Q1c'])
+    legumineuse = 0.24024*float(request.form['Q1b'])
+    cere = 0.58058*float(request.form['Q1c'])
 
     #Légumes de saison ou pas
     if request.form['Q7b'] == 'A':
-        leg = 0.17108*int(request.form['Q1a'])
-        #legume = int(request.form['Q1a'])
+        leg = 0.17108*float(request.form['Q1a'])
     else:
-        leg = 1.02284*int(request.form['Q1a'])
-        #legume = int(request.form['Q1a'])
+        leg = 1.02284*float(request.form['Q1a'])
 
     # #ENERGIE
-    #energie = 0
     if request.form['Q9_electrique'] != None:
             elect = 0.696*int(request.form['Q9_electrique'])
-            #energie +=int(request.form['Q9_electrique'])*12
     if request.form['Q9_gaz'] != None:
             gaz = 0.230*int(request.form['Q9_gaz'])
-            #energie +=int(request.form['Q9_gaz'])
     if request.form['Q9_fioul'] != None:
             fioul = 0.275*int(request.form['Q9_fioul'])
-            #energie +=int(request.form['Q9_fioul'])
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
-            #energie +=int(request.form['Q9_bois'])
 
     #TRANSPORTS
     
@@ -283,9 +292,9 @@ def change():
 
     emission=emission-energie+new_energie-legume+new_legume-viande+new_viande-voiture+new_voiture-avion+new_avion
 
-    # if session.get('regime') == 'Vegan':
-    #     emission +=343.155904
-    #     print('add laitage')
+    if session.get('regime') == 'Vegan':
+        emission +=343.155904
+        print('add laitage')
         
 
     emission=float(emission)
@@ -306,24 +315,23 @@ def change():
     conn.close()
     return jsonify(resultat)
 
-@app.route('/getemission', methods=['GET'])
-def getemission():
-    return str(session.get('emissions', 'not set'))
-
 @app.route('/getemissionmoy', methods=['POST'])
 def getemissionmoy():
     position = request.form['position']
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
-        select hab 
-        from commune 
-        where st_intersects(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), geom)
+        with commune_indiv as (select hab, emission, nom, st_transform(geom, 4326) from commune where st_intersects(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), geom))
+        select json_build_object(
+        'type', 'FeatureCollection',
+        'features', json_agg(ST_AsGeoJSON(commune_indiv.*)::json)
+        ) as geojson
+        from commune_indiv;
         """)
     moyenne = cursor.fetchone()[0]
     conn.close()
-    return str(moyenne)
+    return jsonify(moyenne)
 
 
 
-app.run(host='0.0.0.0', port=8080, debug=True)
+#app.run(host='0.0.0.0', port=8080, debug=True)
