@@ -86,15 +86,18 @@
 			<div id="information" class="slideshow-container">
 				<div class="systeme_onglets">
 			        <div class="onglets">
-			            <span class="onglet_0 onglet" id="onglet_quoi" onclick="javascript:change_onglet('quoi');">Chiffres clés</span>
+			            <span class="onglet_0 onglet" id="onglet_quoi" onclick="javascript:change_onglet('quoi');"> Chiffres clés </span>
 			            <span class="onglet_0 onglet" id="onglet_qui" onclick="javascript:change_onglet('qui');">Répartition des émissions</span>
-			            <span class="onglet_0 onglet" id="onglet_pourquoi" onclick="javascript:change_onglet('pourquoi');">"Et si ... ?"</span>
+			            <span class="onglet_0 onglet" id="onglet_pourquoi" onclick="javascript:change_onglet('pourquoi');">"Et si ... ? "</span>
+			            <a href="#" onClick="twPleinEcran();" id="monBouton">Ouvrir/Fermer le mode « Plein écran » </a>
+
 			        </div>
+			        <br> 
 			        <div class="contenu_onglets">
 			            <div class="contenu_onglet" id="contenu_onglet_quoi">
 			    						
 							<div class = "containera">
-								<h4> Mon mode de vie </h4>
+								<h4> Mon mode de vie </h4>s
 								<p><span id="em_tot" class="h3"></span><span class="h4">  mégatonnes de CO²</span></p><br>
 								<h4> Mode de vie d'un français moyen </h4>
 								<p><span id="em_moy" class="h3"></span><span class="h4">  mégatonnes de CO²</span></p><br>
@@ -123,7 +126,7 @@
 					<div class="contenu_onglets">
 						<div class="contenu_onglet" id="contenu_onglet_qui">
 								<div>
-								<br> 
+								
 								<h1>
 								Pour obtenir cette carte d'émission, nous multiplions votre émission par le nombre d'habitants de votre commune ou quartier.Vous pouvez ainsi vous rendre compte de l'impact carbone collectif de votre environnement.
 								<br><br><br>
@@ -142,7 +145,6 @@
 					<div class="contenu_onglets">
 						<div class="contenu_onglet" id="contenu_onglet_pourquoi">
 								<form onsubmit ="return resend()" >
-								<br>
 
 									<div>
 										<h2>
@@ -244,6 +246,43 @@
 	<script src= "js/donnee_test/location.js" ></script>
 	<script src= "js/index.js" ></script>
 	
+
+
+
+<script>
+    function twPleinEcran(_element) {
+      var monElement = _element||document.documentElement;
+      if (document.mozFullScreenEnabled) {
+	if (!document.mozFullScreenElement) {
+          monElement.mozRequestFullScreen();
+        } else {
+          document.mozCancelFullScreen();
+        }
+      }
+      if (document.fullscreenElement) {
+	if (!document.fullscreenElement) {
+          monElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
+      }
+      if (document.webkitFullscreenEnabled) {
+	if (!document.webkitFullscreenElement) {
+          monElement.webkitRequestFullscreen();
+        } else {
+          document.webkitExitFullscreen();
+        }
+      }
+      if (document.msFullscreenEnabled) {
+	if (!document.msFullscreenElement) {
+          monElement.msRequestFullscreen();
+        } else {
+          document.msExitFullscreen();
+        }
+      }
+    }
+  </script>
+
 </html>
 
 

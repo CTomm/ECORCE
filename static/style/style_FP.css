@@ -140,7 +140,7 @@ button {
 		  background-color: #4CAF50; /* Green */
 		  border: none;
 		  color: white;
-		  padding: 8px 25px;
+		  padding: 5px 25px;
 		  text-align: center;
 		  text-decoration: none;
 		  display: inline-block;
@@ -188,7 +188,9 @@ button {
 
 .legend {
   padding: 6px 8px;
-  font: 14px Arial, Helvetica, sans-serif;
+  font-family:"Gill Sans", sans-serif;
+  font-size: 14px;
+/*  font: 14px Arial, Helvetica, sans-serif;*/
   background: white;
   background: rgba(255, 255, 255, 0.8);
   top: -50px;
@@ -283,30 +285,33 @@ button {
 /* Onglet */
 .systeme_onglets {
 	margin-top : 10px;
-	height : 30px;
-	margin-left:18px;
+	height : 20px;
+	margin-left:25px;
     margin-right:2px;
+    color: #FFF;
 }
 	
 .onglet {
-	background-color: #cbd8c1;
+	background-color: #FFF;
     display:inline-block;
-	height : 35px;
+	height : 30px;
     border:1px solid black;
     cursor:pointer;
 }
 .onglet_0 {
-	background:#738688;
+	background:#333;
 	text-align: center;
+
 }
 .onglet_1 {
-    background:#cbd8c1; 
+    background:#738688; 
 	text-align: center;
+
 }
 .contenu_onglet {
     border:1px solid black;
-	margin-left:5px;
-    margin-right:5px;
+		margin-left:5px;
+    margin-right:30px;
     display:none;
 }
 ul {
@@ -315,5 +320,12 @@ ul {
 /*    margin-left:-10px*/
 }
 
+
+#monBouton{
+	text-align: center;
+	color: #888;
+	font-size: 10px;
+
+}
 
 
