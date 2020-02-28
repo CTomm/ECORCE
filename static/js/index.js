@@ -190,14 +190,16 @@ function resend(){
       voiture: localStorage.getItem('voiture'),
       avion: localStorage.getItem('avion'),
       viande: viande,
-      energie: localStorage.getItem('energie')
+      energie: localStorage.getItem('energie'),
+      alim: localStorage.getItem('alim'),
+      transport: localStorage.getItem('transp')
       },
       function(results) {
 		var emissionindiv = results.emission;
 		console.log(results);
-		myChart.config.data.datasets[0].data[1] = results.alim;
-		myChart.config.data.datasets[1].data[1] = results.energie;
-		myChart.config.data.datasets[2].data[1] = results.transport;
+		myChart.config.data.datasets[0].data[1] = results.alim*localStorage.getItem("population");
+		myChart.config.data.datasets[1].data[1] = results.energie*localStorage.getItem("population");
+		myChart.config.data.datasets[2].data[1] = results.transport*localStorage.getItem("population");
 		$.post( "/getchangeresults", {
 			position:localStorage.getItem('position'),
 			emission:results.emission
@@ -374,7 +376,6 @@ var myChartConfig = {
     }
 }
 var myChart = new Chart(ctx, myChartConfig);
-console.log(myChart.config.data.datasets[0].data[0]);
 
 /*----------- CLEARING WHEN USER LEAVING ----------------*/
 
