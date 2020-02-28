@@ -12,18 +12,13 @@ function change_onglet(name){
 }
 
 /*----------- MAP et position----------------*/
-function createCustomIcon (feature, latlng) {
-  let locIcon = L.icon({
+
+var locIcon = L.icon({
   iconUrl: 'image/marker.png',
   iconSize: [38, 38],
   iconAnchor: [19, 38]
   })
-  return L.marker(latlng, { icon: locIcon })
-};
 
-let myLayerOptions = {
-  pointToLayer: createCustomIcon
-}; //icon position voir si cest bon
 
 var positionsplit = localStorage.getItem("position").split(/ /);
 var positioncenter = '[' +String(positionsplit[1]) + ', ' + String(positionsplit[0]) +']';
@@ -36,7 +31,11 @@ var map = L.map('map', {
     zoom: 12
 });
 
-positioncenter(myLayerOptions).addTo(map);
+//positionjs = L.geoJSON(JSON.parse(positioncenter)).addTo(map);
+//console.log(JSON.parse(positioncenter));
+L.marker(JSON.parse(positioncenter), {icon: locIcon}).addTo(map);;
+
+//positioncenter(myLayerOptions
 
 var StadiaAttib='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 var Stadia_AlidadeSmooth = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {attribution: StadiaAttib}).addTo(map);
@@ -98,17 +97,17 @@ var requetemoyenne = $.post( "/getemissionmoy", {
 		var quartier = L.geoJSON(consomoy,{  // voir si c'est bon
 											style:styleusercom,
 											onEachFeature: function (feature,layer) {
-											layer.bindPopup('<h5>'+feature.properties.Lieux+'</h5><p>Votre consommation a été multipliée par la population: '+feature.properties.pop+' habitants.</p>');
+											layer.bindPopup('<h5>'+nom+'</h5><p>Votre consommation a été multipliée par la population: '+hab+' habitants.</p>');
 											}}).addTo(map);
 		controlLayers.addOverlay(quartier, "<span style='color: black';'font:14px'>Votre quartier ou commune</span>") 
 
 		// INFOS
-		document.getElementById("em_moy").innerHTML =  Math.round(emission_moy/1000);
+		document.getElementById("em_moy").innerHTML =  Math.round(emission_moy/10000)/100;
 
 		//GRAPHIQUE:
-		myChart.config.data.datasets[0].data[2] = emission_moy*0.4569;
-		myChart.config.data.datasets[1].data[2] = emission_moy*0.2946;
-		myChart.config.data.datasets[2].data[2] = emission_moy*0.2485;
+		myChart.config.data.datasets[0].data[2] = emission_moy*0.4569/1000;
+		myChart.config.data.datasets[1].data[2] = emission_moy*0.2946/1000;
+		myChart.config.data.datasets[2].data[2] = emission_moy*0.2485/1000;
 	});
 
 var resultat = $.when(requetemoyenne).done(function() {
@@ -124,12 +123,12 @@ var resultat = $.when(requetemoyenne).done(function() {
 		//INFOS;
 		document.getElementById("surf").innerHTML = Math.round(aire/ 10000) ;
 		document.getElementById("rayon").innerHTML =  Math.round(distmax/100)/10;
-		document.getElementById("em_tot").innerHTML =  Math.round(conso/1000);
+		document.getElementById("em_tot").innerHTML =  Math.round(conso/10000)/100;
 
 		//GRAPHIQUE:
-		myChart.config.data.datasets[0].data[0] = localStorage.getItem('alim')*localStorage.getItem("population");
-		myChart.config.data.datasets[1].data[0] = localStorage.getItem('ener')*localStorage.getItem("population");
-		myChart.config.data.datasets[2].data[0] = localStorage.getItem('transp')*localStorage.getItem("population");
+		myChart.config.data.datasets[0].data[0] = localStorage.getItem('alim')*localStorage.getItem("population")/1000;
+		myChart.config.data.datasets[1].data[0] = localStorage.getItem('ener')*localStorage.getItem("population")/1000;
+		myChart.config.data.datasets[2].data[0] = localStorage.getItem('transp')*localStorage.getItem("population")/1000;
 	});
 })	
 
@@ -209,9 +208,11 @@ function resend(){
       function(results) {
 		var emissionindiv = results.emission;
 		console.log(results);
-		myChart.config.data.datasets[0].data[1] = results.alim*localStorage.getItem("population");
-		myChart.config.data.datasets[1].data[1] = results.energie*localStorage.getItem("population");
-		myChart.config.data.datasets[2].data[1] = results.transport*localStorage.getItem("population");
+		console.log(results.alim*localStorage.getItem("population"));
+		myChart.config.data.datasets[0].data[1] = results.alim*localStorage.getItem("population")/1000;
+		console.log(myChart.config.data.datasets[0].data[1]);
+		myChart.config.data.datasets[1].data[1] = results.energie*localStorage.getItem("population")/1000;
+		myChart.config.data.datasets[2].data[1] = results.transport*localStorage.getItem("population")/1000;
 		$.post( "/getchangeresults", {
 			position:localStorage.getItem('position'),
 			emission:results.emission
@@ -222,7 +223,7 @@ function resend(){
 				controlLayers.removeLayer(test);
 			}
 			test = conso_b.addTo(map);
-			controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
+			controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>");
 			isFirst = false;
 			});
 		}
@@ -247,12 +248,11 @@ function sendideal(){
 	$.post( "/sendideal", {
 	position: localStorage.getItem('position')}, 
 	function(parc) {
-	//console.log(localStorage.getItem('position'));
-	    var conso_ideal = L.geoJSON(parc,{style:styleideal}).addTo(map);
-	    var distmax_ideal = parc.features[0].properties.maxdist;
+		console.log(parc);
 	    var aire_ideal = parc.features[0].properties.aire;
-	    var conso_ideal = L.geoJSON(parc,{style:styleideal}).addTo(map);// 2 fois la variable 
-	    controlLayers.addOverlay(conso_ideal, "<span style='color: black';'font:14px'>Consommation optimale*</span>") 
+	    var conso_ideal =  parc.features[0].properties.total;// 2 fois la variable 
+	    controlLayers.addOverlay(parc, "<span style='color: black';'font:14px'>Consommation optimale*</span>");
+	    document.getElementById("em_ideal").innerHTML =  Math.round(conso_ideal/10000)/100;
 });
 }
 /*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);

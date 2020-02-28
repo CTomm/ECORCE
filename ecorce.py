@@ -61,10 +61,10 @@ def sendmoyenne():
     cursor = conn.cursor()
     cursor.execute(""" 
         with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 5711.633)),
-        dist as (select max(distance) as maxdist from results),
+        dist as (select  max(total) as total from results),
         uniongeom as (select st_union(geom) as newgeom from results),
         areageom as (select st_area(newgeom) as aire from uniongeom),
-        parc as (select maxdist, aire, st_transform(newgeom, 4326) from uniongeom, dist, areageom)
+        parc as (select total, aire, st_transform(newgeom, 4326) from uniongeom, dist, areageom)
         select json_build_object(
         'type', 'FeatureCollection',
         'features', json_agg(ST_AsGeoJSON(parc.*)::json)
@@ -82,10 +82,10 @@ def sendideal():
     cursor = conn.cursor()
     cursor.execute(""" 
         with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 1500)),
-        dist as (select max(distance) as maxdist from results),
+        dist as (select max(total) as total from results),
         uniongeom as (select st_union(geom) as newgeom from results),
         areageom as (select st_area(newgeom) as aire from uniongeom),
-        parc as (select maxdist, aire, st_transform(newgeom, 4326) from uniongeom, dist, areageom)
+        parc as (select total, aire, st_transform(newgeom, 4326) from uniongeom, dist, areageom)
         select json_build_object(
         'type', 'FeatureCollection',
         'features', json_agg(ST_AsGeoJSON(parc.*)::json)
@@ -351,4 +351,4 @@ def getemissionmoy():
 
 
 
-app.run(host='0.0.0.0', port=8080, debug=True)
+#app.run(host='0.0.0.0', port=8080, debug=True)
