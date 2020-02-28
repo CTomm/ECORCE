@@ -21,6 +21,7 @@
 	localStorage.setItem('alim', test0);
 	localStorage.setItem('ener', test1);
 	localStorage.setItem('transp', test2);
+	console.log(localStorage.getItem('alim'))
 
 	// console.log(test0);
 	// console.log(test1);
@@ -97,25 +98,30 @@
 			    						
 							<div class = "containera">
 								<h4> Mon mode de vie </h4>
+<<<<<<< HEAD
 								<p><span id="em_tot" class="h3">6.4</span><span class="h4">  tonnes de CO²</span></p><br>
+=======
+								<p><span id="em_tot" class="h3"></span><span class="h4">  mégatonnes de CO²</span></p><br>
+>>>>>>> 6e8ad0321e5cb695f02f57bd22d0026700aaeb83
 								<h4> Mode de vie d'un français moyen </h4>
-								<p><span id="em_moy" class="h3">3.1</span><span class="h4">  tonnes de CO²</span></p><br>
-								<h4> Mode de vie idéal </h4>
-								<p><span id="em_ideal" class="h3">1.5</span><span class="h4">  tonnes de CO²</span></p>
+								<p><span id="em_moy" class="h3"></span><span class="h4">  mégatonnes de CO²</span></p><br>
+								<h4> Mode de vie optimal* </h4>
+								<p><span id="em_ideal" class="h3"></span><span class="h4">  mégatonnes de CO²</span></p>
 								
 							</div>
 							<br>
 							<div class = "containerb">
 								<h4> Surface nécessaire </h4>
-								<p><span id="surf" class="h5">812</span><span class="h4">  hectares</span></p><br>
+								<p><span id="surf" class="h5"></span><span class="h4">  hectares</span></p><br>
 								<h4> Distance nécéssaire </h4>
-								<p><span id="rayon" class="h5">678</span><span class="h4">  kilomètres</span></p>
-							</div>						  						
-						
-						<br>
+								<p><span id="rayon" class="h5"></span><span class="h4">  kilomètres</span></p>
+							</div>
+							
+						<h8> *il s'agit de la consommation préconisée par le GIEC pour rester sous la barre des 1,5°C de réchauffement : 1,8 tonnes de CO2 par habitant</h8>
+						<br><br>
 						<button class = "button button_next" onclick="moy()">Afficher la consommation moyenne</button>
 						<br>
-						<button class = "button button_next" onclick="sendideal()">Afficher la consommation idéale</button>
+						<button class = "button button_next" onclick="sendideal()">Afficher la consommation optimale*</button>
 						</div>
 					</div>
 					
@@ -198,19 +204,22 @@
 										Vous changez votre type de d'énergie domestique ?</h2>
 
 										<div>
-											<input type="radio" name="Q19" id="Q19-A" value="1" required/>
+											<input type="radio" name="Q19" id="Q19-A" value="0.058" required/>
 											<label for="Q19-A">Consommation électrique </label>
 										</div>
 										<div>
-											<input type="radio" name="Q19" id="Q19-B" value="1" required/>
+											<input type="radio" name="Q19" id="Q19-B" value="0.0564" required/>
+											<!-- 0.2453 -->
 											<label for="Q19-B">Consommation de gaz / propane </label>
 										</div> 
 										<div>
-											<input type="radio" name="Q19" id="Q19-C" value="1" required/>
+											<input type="radio" name="Q19" id="Q19-C" value="0.4125" required/>
+											<!-- 1.5 -->
 											<label for="Q19-C">Consommation de fioul</label>
 										</div>
 										<div>
-											<input type="radio" name="Q19" id="Q19-D" value="1/4.5" required/>
+											<input type="radio" name="Q19" id="Q19-D" value="0.00865" required/> 
+											<!-- 0.666 -->
 											<label for="Q19-D">Consommation de bois</label>
 										</div>
 										<br>

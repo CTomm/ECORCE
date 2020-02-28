@@ -26,7 +26,7 @@ def clear():
 #Page d'accueil
 @app.route("/")
 def welcome():
-    return redirect("http://localhost:8080/cover.html")
+    return redirect("http://localhost:8080/cover2.html")
 
 #Envoyer les résultats finaux dans la requête Postgres (dans HTML_FP.html)
 @app.route("/sendresultat", methods=['POST'])
@@ -108,7 +108,7 @@ def sendposition():
             """)
     conn.commit()
     conn.close()
-    return 'ok'
+    return position
 
 
 #Choisir son type d'alimentation (bouton "Suite du questionnaire" de questionchoix.html)
@@ -159,12 +159,12 @@ def omni():
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
     energie = elect + bois + fioul + gaz
+    session['energie'] = energie
 
     # #TRANSPORTS
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
-    #voiture = int(request.form['Q13'])
     train = 0.007*int(request.form['Q14'])
     voit_annee = 0.0855*int(request.form['Q15'])
     car = 0.0585*int(request.form['Q16'])
@@ -206,11 +206,13 @@ def vege():
     if request.form['Q9_bois'] != None:
             bois = 0.013*int(request.form['Q9_bois'])
     energie = elect + bois + fioul + gaz
+    session['energie'] = energie
 
     #TRANSPORTS
     
     tc_s = 0.1846*int(request.form['Q12'])
     voit_s = 9.5602*int(request.form['Q13'])
+    print(voit_s)
     voiture = int(request.form['Q13'])
     train = 0.007*int(request.form['Q14'])
     voit_annee = 0.0855*int(request.form['Q15'])
@@ -268,10 +270,8 @@ def vegan():
 #Changer ses résultats (bouton "nouvelles valeurs" de HTML_FP.html)
 @app.route('/change', methods=['POST'])
 def change():
-    energie = int(request.form['energie'])
+    energie = float(request.form['energie'])
     new_energie = energie*float(request.form['new_energie'])
-    print(energie)
-    print(new_energie)
 
     legume = float(request.form['legume'])
     new_legume=legume*float(request.form['new_legume'])
@@ -291,25 +291,25 @@ def change():
         else:
             new_viande=viande
 
-    voiture= int(request.form['voiture'])
-    if request.form['voiture']== 'A' :
+    voiture= int(request.form['voiture'])*9.5602
+    if request.form['new_voiture']== 'A' :
         new_voiture= int(request.form['voiture'])*0.1846
     else:
         new_voiture=int(request.form['voiture'])*9.5602
 
     emission = session.get('emissions', 'not set')
 
-    alimentation = -legume+new_legume-viande+new_viande
-    energie = -energie+new_energie
-    transport = -voiture+new_voiture-avion+new_avion
+    alimentation = float(request.form['alim'])-legume+new_legume-viande+new_viande
+    energie = session.get('energie')+new_energie
+    transport = float(request.form['transport'])-voiture+new_voiture-avion+new_avion
 
-    emission=emission-energie+new_energie-legume+new_legume-viande+new_viande-voiture+new_voiture-avion+new_avion
+    emission=emission-session.get('energie')+new_energie-legume+new_legume-viande+new_viande-voiture+new_voiture-avion+new_avion
 
     if session.get('regime') == 'Vegan':
         emission +=343.155904
-        print('add laitage')
+        #print('add laitage')
         
-
+    #print(emission)
     emission=float(emission)
     mydict = {'alim' :alimentation, 'transport' :transport, 'energie' :energie, 'emission': emission}
     return jsonify(mydict)
@@ -351,4 +351,4 @@ def getemissionmoy():
 
 
 
-#app.run(host='0.0.0.0', port=8080, debug=True)
+app.run(host='0.0.0.0', port=8080, debug=True)

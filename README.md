@@ -16,4 +16,4 @@ Et oui ! Pour cela ECORCE, rapporte l'estimation de vos émissions à l'ensemble
 
 ## Une application Flask servie par Nginx, avec une carto portée par Leaflet, et des données structurées par PostgreSQL et PostGIS
 
-Insert une description du fonctionnement.
+Insert une description du fonctionnement (coté back/front et expérience utilisateur) avec des captures d'écran

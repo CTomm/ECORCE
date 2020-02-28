@@ -11,20 +11,45 @@ function change_onglet(name){
     anc_onglet = name;
 }
 
-/*----------- MAP ----------------*/
+/*----------- MAP et position----------------*/
+function createCustomIcon (feature, latlng) {
+  let locIcon = L.icon({
+  iconUrl: 'image/marker.png',
+  iconSize: [38, 38],
+  iconAnchor: [19, 38]
+  })
+  return L.marker(latlng, { icon: locIcon })
+};
+
+let myLayerOptions = {
+  pointToLayer: createCustomIcon
+}; //icon position voir si cest bon
+
+var positionsplit = localStorage.getItem("position").split(/ /);
+var positioncenter = '[' +String(positionsplit[1]) + ', ' + String(positionsplit[0]) +']';
 
 var map = L.map('map', {
-    center: [45.75, 4.8],
+    center: JSON.parse(positioncenter),
 	zoomControl: false,
 	minZoom: 0,
     maxZoom: 20,
     zoom: 12
 });
 
+positioncenter(myLayerOptions).addTo(map);
+
 var StadiaAttib='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 var Stadia_AlidadeSmooth = new L.TileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png', {attribution: StadiaAttib}).addTo(map);
 
 /*----------- STYLE ----------------*/
+
+var styleideal = {
+	"color": "#886176",
+	"weight": 0.8, 
+	"opacity": 0,
+	"fillOpacity": 1
+};  
+
 var stylemoy = {
 	"color": "#D7833A",
 	"weight": 0.8, 
@@ -60,19 +85,6 @@ var styleusercom = {
     fillOpacity: 0.1
 };
 
-function createCustomIcon (feature, latlng) {
-  let locIcon = L.icon({
-  iconUrl: 'image/marker.png',
-  iconSize: [38, 38],
-  iconAnchor: [19, 38]
-  })
-  return L.marker(latlng, { icon: locIcon })
-};
-
-let myLayerOptions = {
-  pointToLayer: createCustomIcon
-};
-
 /*----------- LAYERS ----------------*/
 
 var requetemoyenne = $.post( "/getemissionmoy", {
@@ -83,7 +95,12 @@ var requetemoyenne = $.post( "/getemissionmoy", {
 		var hab = consomoy.features[0].properties.hab;
 		localStorage.setItem("population", hab);
 		var emission_moy = consomoy.features[0].properties.emission;
-		var quartier = L.geoJSON(consomoy,{style:styleusercom}).addTo(map);
+		var quartier = L.geoJSON(consomoy,{  // voir si c'est bon
+											style:styleusercom,
+											onEachFeature: function (feature,layer) {
+											layer.bindPopup('<h5>'+feature.properties.Lieux+'</h5><p>Votre consommation a été multipliée par la population: '+feature.properties.pop+' habitants.</p>');
+											}}).addTo(map);
+		controlLayers.addOverlay(quartier, "<span style='color: black';'font:14px'>Votre quartier ou commune</span>") 
 
 		// INFOS
 		document.getElementById("em_moy").innerHTML =  Math.round(emission_moy/1000);
@@ -185,29 +202,28 @@ function resend(){
       voiture: localStorage.getItem('voiture'),
       avion: localStorage.getItem('avion'),
       viande: viande,
-      energie: localStorage.getItem('energie')
+      energie: localStorage.getItem('energie'),
+      alim: localStorage.getItem('alim'),
+      transport: localStorage.getItem('transp')
       },
       function(results) {
 		var emissionindiv = results.emission;
-		myChart.config.data.datasets[0].data[1] = results.alim;
-		myChart.config.data.datasets[1].data[1] = results.energie;
-		myChart.config.data.datasets[2].data[1] = results.transport;
+		console.log(results);
+		myChart.config.data.datasets[0].data[1] = results.alim*localStorage.getItem("population");
+		myChart.config.data.datasets[1].data[1] = results.energie*localStorage.getItem("population");
+		myChart.config.data.datasets[2].data[1] = results.transport*localStorage.getItem("population");
 		$.post( "/getchangeresults", {
 			position:localStorage.getItem('position'),
 			emission:results.emission
 		}, function(e) {
-			console.log(e);
 			var conso_b =L.geoJSON(e,{style:styleb})
 			if (isFirst == false){
-				console.log("coucou");
-				console.log(conso_b);
 				test.remove();
 				controlLayers.removeLayer(test);
 			}
 			test = conso_b.addTo(map);
 			controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>") 
 			isFirst = false;
-			//console.log(conso_b)
 			});
 		}
 	);
@@ -232,11 +248,11 @@ function sendideal(){
 	position: localStorage.getItem('position')}, 
 	function(parc) {
 	//console.log(localStorage.getItem('position'));
-	    var conso_ideal = L.geoJSON(parc,{style:stylea}).addTo(map);
+	    var conso_ideal = L.geoJSON(parc,{style:styleideal}).addTo(map);
 	    var distmax_ideal = parc.features[0].properties.maxdist;
 	    var aire_ideal = parc.features[0].properties.aire;
-	    var conso_ideal = L.geoJSON(parc,{color:'red'}).addTo(map);
-	    controlLayers.addOverlay(conso_a, "<span style='color: black';'font:14px'>Consommation actuelle</span>") 
+	    var conso_ideal = L.geoJSON(parc,{style:styleideal}).addTo(map);// 2 fois la variable 
+	    controlLayers.addOverlay(conso_ideal, "<span style='color: black';'font:14px'>Consommation optimale*</span>") 
 });
 }
 /*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
@@ -245,13 +261,13 @@ var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);*/
 
 var commune = L.geoJSON(commune,
 	{style:stylecom}).addTo(map);
-var loc = L.geoJSON(loc, myLayerOptions).addTo(map);
-var usercom = L.geoJSON(usercom,
+//var positioncenter = L.geoJSON(loc, myLayerOptions).addTo(map);
+/*var usercom = L.geoJSON(usercom,
 	{style:styleusercom,
 	onEachFeature: function (feature,layer) {
 		layer.bindPopup('<h5>'+feature.properties.Lieux+'</h5><p>Votre consommation a été multipliée par la population: '+feature.properties.pop+' habitants.</p>');
 }});
-usercom.addTo(map);
+usercom.addTo(map);*/
 
 //map.flyTo(loc.getBounds().getCenter(),13.5);
 
@@ -277,9 +293,10 @@ var legend = L.control({ position: "bottomright" });
 
 legend.onAdd = function(map) {
   var div = L.DomUtil.create("div", "legend");
-  div.innerHTML += '<i style="background: #93A285"></i><span>Votre résultat</span><br>';
-  div.innerHTML += '<i style="background: #004E2B"></i><span>Votre résultat modifié</span><br>';
-  div.innerHTML += '<i style="background: #D7833A"></i><span>Résultat si vous consommiez<br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspcomme un français "moyen"</span><br>';
+  div.innerHTML += '<i style="background: #93A285"></i><span>Votre consommation</span><br>';
+  div.innerHTML += '<i style="background: #004E2B"></i><span>Votre consommation</span><br>';
+  div.innerHTML += '<i style="background: #D7833A"></i><span>Consommation comme un français "moyen"</span><br>';
+  div.innerHTML += '<i style="background: #886176"></i><span>Consommation optimale*</span><br>';
   div.innerHTML += '<i class="icon" ></i><span>Votre adresse</span><br>';
   div.innerHTML += '<i style="color: #666" ></i><span>Votre commune</span><br>';
   return div;
@@ -372,7 +389,6 @@ var myChartConfig = {
     }
 }
 var myChart = new Chart(ctx, myChartConfig);
-console.log(myChart.config.data.datasets[0].data[0]);
 
 /*----------- CLEARING WHEN USER LEAVING ----------------*/
 

@@ -12,7 +12,7 @@ var osmAttrib='Map data © OpenStreetMap contributors';
 //var osm = new L.TileLayer(osmUrl,{attribution:osmAttrib}).addTo(map);
 
 var CartoDB_Voyager = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a> &copy; <a href="https://www.flaticon.com/free-icon/marker_1119071?fbclid=IwAR1uUVJ-5rLL4EQ4-kWRcv0pR_cfdP8CMrzAAfLGNl2bi6qSSdaYwX4kAKA"/>Icon made by Eucalyp from www.flaticon.com</a>',
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a> &copy; <a href="https://www.flaticon.com/free-icon/marker_1119071?fbclid=IwAR1uUVJ-5rLL4EQ4-kWRcv0pR_cfdP8CMrzAAfLGNl2bi6qSSdaYwX4kAKA" target="_blank"/>Icon made by Eucalyp from www.flaticon.com</a>',
   subdomains: 'abcd'
 }).addTo(map);
 

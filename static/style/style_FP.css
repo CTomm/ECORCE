@@ -19,6 +19,12 @@ h2{
 	color : #FFFFFF;
 }
 
+h8{
+	font-size:11px;
+	color : #FFFFFF;
+	font-family:"Gill Sans", sans-serif;
+}
+
 .h5{
 	font-size:35px;
 	color : #004E2B;
@@ -160,6 +166,7 @@ button {
 
 /*comparaision in the slide*/
 .containera{
+		  margin-top:5px;
 		  position: relative;
 		  width: 95%;
 		  background-color: #FFDFB4;
@@ -168,6 +175,7 @@ button {
 		  
 }
 .containerb {
+		  margin-top:5px;
 		  position: relative;
 		  width: 95%;
 		  background-color: #99B4B2;
