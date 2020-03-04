@@ -1,3 +1,9 @@
+/*----------BOUTTONS ATTENTE---------------*/
+
+document.getElementById("attente_moy").style.visibility='hidden'
+document.getElementById("attente_id").style.visibility='hidden'
+document.getElementById("attente_resend").style.visibility='hidden'
+
 /*----------ONGLETS---------------*/
 
 var anc_onglet = 'quoi';
@@ -110,8 +116,7 @@ var requetemoyenne = $.post( "/getemissionmoy", {
 		myChart.config.data.datasets[2].data[2] = emission_moy*0.2485/1000;
 	});
 
-var resultat = $.when(requetemoyenne).done(function() {
-	$.post( "/sendresultat", {
+var resultat = $.post( "/sendresultat", {
 	position: localStorage.getItem('position')}, 
 	function(parc) {
 	    var conso_a = L.geoJSON(parc,{style:stylea}).addTo(map);
@@ -130,7 +135,6 @@ var resultat = $.when(requetemoyenne).done(function() {
 		myChart.config.data.datasets[1].data[0] = localStorage.getItem('ener')*localStorage.getItem("population")/1000;
 		myChart.config.data.datasets[2].data[0] = localStorage.getItem('transp')*localStorage.getItem("population")/1000;
 	});
-})	
 
 $.when(resultat).done(function() {	
   	//console.log("I'm done");
@@ -147,6 +151,7 @@ $.when(resultat).done(function() {
 
 var isFirst = true;
 function resend(){
+	document.getElementById("attente_resend").style.visibility='visible'
 	//Vegetarien ou non
 	if (document.getElementsByName("Q0")[0].checked == true){
 		regime = document.getElementsByName("Q0")[0].value;
@@ -190,7 +195,6 @@ function resend(){
 	} else{
 		viande = localStorage.getItem('viande')
 	}
-
     $.post( "/change", {
       regime: regime,
       new_legume: legume,
@@ -208,12 +212,11 @@ function resend(){
       function(results) {
 		var emissionindiv = results.emission;
 		console.log(results);
-		console.log(results.alim*localStorage.getItem("population"));
 		myChart.config.data.datasets[0].data[1] = results.alim*localStorage.getItem("population")/1000;
-		console.log(myChart.config.data.datasets[0].data[1]);
 		myChart.config.data.datasets[1].data[1] = results.energie*localStorage.getItem("population")/1000;
 		myChart.config.data.datasets[2].data[1] = results.transport*localStorage.getItem("population")/1000;
-		$.post( "/getchangeresults", {
+		myChart.update();
+		var change = $.post( "/getchangeresults", {
 			position:localStorage.getItem('position'),
 			emission:results.emission
 		}, function(e) {
@@ -225,51 +228,50 @@ function resend(){
 			test = conso_b.addTo(map);
 			controlLayers.addOverlay(conso_b, "<span style='color: black';'font:14px'>Consommation modifiée</span>");
 			isFirst = false;
-			});
+		});
+		$.when(change).done(function() {
+			document.getElementById("attente_resend").style.visibility='hidden'
+		});
 		}
 	);
 	return false;
 };
 
 function moy(){
-	$.post( "/sendmoyenne", {
+	document.getElementById("attente_moy").style.visibility='visible';
+	var getmoyenne = $.post( "/sendmoyenne", {
 	position: localStorage.getItem('position')},
 	function(consomoy) {
 		var distmax_moy = consomoy.features[0].properties.maxdist;
-		console.log(distmax_moy);
 	    var aire_moy = consomoy.features[0].properties.aire;
-	    console.log(aire_moy);
 	    var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
 	    controlLayers.addOverlay(conso_moy, "<span style='color: black';'font:14px'>Consommation d'un français moyen</span>") 
+	});
+	$.when(getmoyenne).done(function() {
+		document.getElementById("attente_moy").style.visibility='hidden';
 	});
 };
 
 function sendideal(){
-	$.post( "/sendideal", {
+	document.getElementById("attente_id").style.visibility='visible';
+	var getideal = $.post( "/sendideal", {
 	position: localStorage.getItem('position')}, 
 	function(parc) {
 		console.log(parc);
 	    var aire_ideal = parc.features[0].properties.aire;
 	    var conso_ideal =  parc.features[0].properties.total;// 2 fois la variable 
-	    controlLayers.addOverlay(parc, "<span style='color: black';'font:14px'>Consommation optimale*</span>");
+	    var idealmap = L.geoJSON(parc,{style:styleideal}).addTo(map);
+	    controlLayers.addOverlay(idealmap, "<span style='color: black';'font:14px'>Consommation optimale*</span>");
+	    console.log("coucou");
 	    document.getElementById("em_ideal").innerHTML =  Math.round(conso_ideal/10000)/100;
+	$.when(getideal).done(function() {
+		document.getElementById("attente_id").style.visibility='hidden';
+	});
 });
 }
-/*var conso_a = L.geoJSON(consoa,{style:stylea}).addTo(map);
-var conso_moy = L.geoJSON(consomoy,{style:stylemoy}).addTo(map);
-var conso_b = L.geoJSON(consob,{style:styleb}).addTo(map);*/
 
 var commune = L.geoJSON(commune,
 	{style:stylecom}).addTo(map);
-//var positioncenter = L.geoJSON(loc, myLayerOptions).addTo(map);
-/*var usercom = L.geoJSON(usercom,
-	{style:styleusercom,
-	onEachFeature: function (feature,layer) {
-		layer.bindPopup('<h5>'+feature.properties.Lieux+'</h5><p>Votre consommation a été multipliée par la population: '+feature.properties.pop+' habitants.</p>');
-}});
-usercom.addTo(map);*/
-
-//map.flyTo(loc.getBounds().getCenter(),13.5);
 
 
 /*----------- GESTION DES LAYERS-LEGENDE----------------*/
@@ -280,10 +282,6 @@ L.control.zoom({
 
 
 var overlays = {
-	//"<span style='color: black';'font:14px'>Consommation modifiée</span>": conso_b,
-	//"<span style='color: black';'font:14px'>Consommation actuelle</span>": conso_a,
-	//"<span style='color: black';'font:14px'>Consommation d'un français moyen</span>": conso_moy,
-	//"<span style='color: black';'font:14px'>Votre adresse</span>": loc,
 	"<span style='color: black';'font:14px'>Communes, quartiers</span>": commune
 }
 var controlLayers = L.control.layers(null, overlays, {collapsed:false}).addTo(map);

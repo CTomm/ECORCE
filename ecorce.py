@@ -300,7 +300,7 @@ def change():
     emission = session.get('emissions', 'not set')
 
     alimentation = float(request.form['alim'])-legume+new_legume-viande+new_viande
-    energie = session.get('energie')+new_energie
+    energie = -session.get('energie')+new_energie
     transport = float(request.form['transport'])-voiture+new_voiture-avion+new_avion
 
     emission=emission-session.get('energie')+new_energie-legume+new_legume-viande+new_viande-voiture+new_voiture-avion+new_avion

@@ -44,7 +44,7 @@
 		          <div class="modal-body"> 
 		            <div class="row no-margin text-center">
 						<img id="attente" src="image/attente.gif" height="40%">
-		                <p class="presentation_cumulo">					  
+		                <p class="waiting">					  
 		              	<script type="text/javascript">
 						function aleatoire(phrases) {
 						var length = phrases.length;
@@ -116,8 +116,10 @@
 						<h8> *il s'agit de la consommation préconisée par le GIEC pour rester sous la barre des 1,5°C de réchauffement : 1,8 tonnes de CO2 par habitant</h8>
 						<br><br>
 						<button class = "button button_next" onclick="moy()">Afficher la consommation moyenne</button>
+						<img id="attente_moy" src="image/attente.gif" height="150%">
 						<br>
 						<button class = "button button_next" onclick="sendideal()">Afficher la consommation optimale*</button>
+						<img id="attente_id" src="image/attente.gif" height="150%">
 						</div>
 					</div>
 					
@@ -222,6 +224,7 @@
 										<br> 
 									
 										<input type="submit" value="Modifier ma carte d'émission" class = "button button_next" >
+										<img id="attente_resend" src="image/attente.gif" height="150%">
 									</div>
 								</form>		    						
 						</div>
@@ -239,11 +242,11 @@
 	</body>
 
 	<script src="js/communes.js"></script>
-	<script src= "js/donnee_test/conso_a.js" ></script>
+<!-- 	<script src= "js/donnee_test/conso_a.js" ></script>
 	<script src= "js/donnee_test/conso_b.js" ></script>
 	<script src= "js/donnee_test/consook.js" ></script>
 	<script src= "js/donnee_test/usercom.js" ></script>
-	<script src= "js/donnee_test/location.js" ></script>
+	<script src= "js/donnee_test/location.js" ></script> -->
 	<script src= "js/index.js" ></script>
 	
 
