@@ -109,6 +109,7 @@ var requetemoyenne = $.post( "/getemissionmoy", {
 
 		// INFOS
 		document.getElementById("em_moy").innerHTML =  Math.round(emission_moy/10000)/100;
+		document.getElementById("em_ideal").innerHTML =  Math.round(hab*1800/10000)/100;
 
 		//GRAPHIQUE:
 		myChart.config.data.datasets[0].data[2] = emission_moy*0.4569/1000;

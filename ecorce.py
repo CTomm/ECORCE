@@ -81,7 +81,7 @@ def sendideal():
     conn = psycopg2.connect(host="localhost",database="ecorce", user="postgres", password="geonum2020")
     cursor = conn.cursor()
     cursor.execute(""" 
-        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 1500)),
+        with results as (select * from get_parcproche(st_transform(st_geomfromtext('POINT("""+str(position)+""")', 4326), 2154), 1800)),
         dist as (select max(total) as total from results),
         uniongeom as (select st_union(geom) as newgeom from results),
         areageom as (select st_area(newgeom) as aire from uniongeom),
