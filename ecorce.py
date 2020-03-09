@@ -276,8 +276,8 @@ def change():
     legume = float(request.form['legume'])
     new_legume=legume*float(request.form['new_legume'])
 
-    new_avion = int(request.form['new_avion'])
-    avion = int(request.form['avion'])
+    new_avion = 0.1446*int(request.form['new_avion'])
+    avion = 0.1446*int(request.form['avion'])
 
     # print(request.form['viande'])
     viande = float(request.form['viande'])

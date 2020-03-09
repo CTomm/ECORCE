@@ -112,9 +112,9 @@ var requetemoyenne = $.post( "/getemissionmoy", {
 		document.getElementById("em_ideal").innerHTML =  Math.round(hab*1800/10000)/100;
 
 		//GRAPHIQUE:
-		myChart.config.data.datasets[0].data[2] = emission_moy*0.4569/1000;
-		myChart.config.data.datasets[1].data[2] = emission_moy*0.2946/1000;
-		myChart.config.data.datasets[2].data[2] = emission_moy*0.2485/1000;
+		myChart.config.data.datasets[0].data[2] = Math.round(emission_moy*0.4569/1000);
+		myChart.config.data.datasets[1].data[2] = Math.round(emission_moy*0.2946/1000);
+		myChart.config.data.datasets[2].data[2] = Math.round(emission_moy*0.2485/1000);
 	});
 
 var resultat = $.post( "/sendresultat", {
@@ -132,9 +132,9 @@ var resultat = $.post( "/sendresultat", {
 		document.getElementById("em_tot").innerHTML =  Math.round(conso/10000)/100;
 
 		//GRAPHIQUE:
-		myChart.config.data.datasets[0].data[0] = localStorage.getItem('alim')*localStorage.getItem("population")/1000;
-		myChart.config.data.datasets[1].data[0] = localStorage.getItem('ener')*localStorage.getItem("population")/1000;
-		myChart.config.data.datasets[2].data[0] = localStorage.getItem('transp')*localStorage.getItem("population")/1000;
+		myChart.config.data.datasets[0].data[0] = Math.round(localStorage.getItem('alim')*localStorage.getItem("population")/1000);
+		myChart.config.data.datasets[1].data[0] = Math.round(localStorage.getItem('ener')*localStorage.getItem("population")/1000);
+		myChart.config.data.datasets[2].data[0] = Math.round(localStorage.getItem('transp')*localStorage.getItem("population")/1000);
 	});
 
 $.when(resultat).done(function() {	
@@ -213,9 +213,9 @@ function resend(){
       function(results) {
 		var emissionindiv = results.emission;
 		console.log(results);
-		myChart.config.data.datasets[0].data[1] = results.alim*localStorage.getItem("population")/1000;
-		myChart.config.data.datasets[1].data[1] = results.energie*localStorage.getItem("population")/1000;
-		myChart.config.data.datasets[2].data[1] = results.transport*localStorage.getItem("population")/1000;
+		myChart.config.data.datasets[0].data[1] = Math.round(results.alim*localStorage.getItem("population")/1000);
+		myChart.config.data.datasets[1].data[1] = Math.round(results.energie*localStorage.getItem("population")/1000);
+		myChart.config.data.datasets[2].data[1] = Math.round(results.transport*localStorage.getItem("population")/1000);
 		myChart.update();
 		var change = $.post( "/getchangeresults", {
 			position:localStorage.getItem('position'),
@@ -370,7 +370,7 @@ var myChartConfig = {
                     maxRotation: 0,
                     minRotation: 0
                 },
-				labels: [["Vos", "émmions"], 
+				labels: [["Vos", "émissions"], 
 						["Vos", "émissions", "modifiées"],
 						["Emissions", "d'un français", "moyen"]]
             }],
