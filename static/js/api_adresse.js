@@ -123,7 +123,7 @@ var adress = L.Control.geocoder({
     var monmark = L.marker([x, y], {icon:greenIcon})
     marqueur.addLayer(monmark);
     zoomTo(monmark);
-    position_user = String(x) + ' ' + String(y);
+    position_user = String(y) + ' ' + String(x);
     var input = e.geocode.name;
     console.log(input);
     var fields = input.split(/,/);
