@@ -108,7 +108,7 @@ var requetemoyenne = $.post( "/getemissionmoy", {
 		controlLayers.addOverlay(quartier, "<span style='color: black';'font:14px'>Votre quartier ou commune</span>") 
 
 		// INFOS
-		document.getElementById("em_moy").innerHTML =  Math.round(emission_moy/10000)/100;
+		document.getElementById("em_moy").innerHTML =  Math.round(hab*5711.632476/10000)/100;
 		document.getElementById("em_ideal").innerHTML =  Math.round(hab*1800/10000)/100;
 
 		//GRAPHIQUE:
