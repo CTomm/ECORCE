@@ -52,16 +52,16 @@
 						document.write(phrases[rand]);
 						}
 						aleatoire([
-						"Passer d'un régime riche en viande à un régime végétarien permet de réduire son empreinte carbone de 1.198 kilogrammes CO2/an, soit plus de 10.300 kilomètres en voiture.(<i> Le Parisien </i>)",
-						"Les ménages qui habitent une maison individuelle consomment en moyenne 2,2 fois plus d’énergie domestique que ceux habitant en immeuble.(<i> Le Parisien </i>)",
-						"Un message avec une photo représente l'équivalent de 500 mètres en voiture.(<i> Le Parisien </i>)",
-						"A taux de remplissage égal, un trajet Paris-Marseille produit 10 fois moins de CO2 s'il est fait en train plutôt qu'en avion.(<i> Le Parisien </i>)",
-						"Les fraises achetées en hiver nécessitent 25 fois plus de pétrole (pour le transport) que celles de saison (printemps) produites localement.(<i> Le Parisien </i>)",
-						"Une chaudière entretenue, c'est de 8 à 12 % d'énergie économisée.(<i> Le Parisien </i>)",
-						"Avec 27 bouteilles en plastique de 1,5 litre, on produit un pull en polaire. Avec 2 kilos de canettes en aluminium, on fabrique une trottinette.(<i> Le Parisien </i>)",
-						"En 2018, les usagers du site de covoiturage Blablacar ont permis d'économiser 1,6 million de tonnes de CO2(<i> Le Parisien </i>)",
-						"Le vélo ne pollue pas, et, en ville, il permet de se déplacer plus vite qu'en voiture sur une distance de moins de cinq kilomètres.(<i> Le Parisien </i>)",
-						"Aujourd'hui, 93 % des poissons recensés en Méditerranée sont surexploités.(<i> Le Parisien </i>)" 
+						"Passer d'un régime riche en viande à un régime végétarien permet de réduire son empreinte carbone de 1.198 kilogrammes CO2/an, soit plus de 10.300 kilomètres en voiture. (<i> Le Parisien </i>)",
+						"Les ménages qui habitent une maison individuelle consomment en moyenne 2,2 fois plus d’énergie domestique que ceux habitant en immeuble. (<i> Le Parisien </i>)",
+						"Un message avec une photo représente l'équivalent de 500 mètres en voiture. (<i> Le Parisien </i>)",
+						"A taux de remplissage égal, un trajet Paris-Marseille produit 10 fois moins de CO2 s'il est fait en train plutôt qu'en avion. (<i> Le Parisien </i>)",
+						"Les fraises achetées en hiver nécessitent 25 fois plus de pétrole (pour le transport) que celles de saison (printemps) produites localement. (<i> Le Parisien </i>)",
+						"Une chaudière entretenue, c'est de 8 à 12 % d'énergie économisée. (<i> Le Parisien </i>)",
+						"Avec 27 bouteilles en plastique de 1,5 litre, on produit un pull en polaire. Avec 2 kilos de canettes en aluminium, on fabrique une trottinette. (<i> Le Parisien </i>)",
+						"En 2018, les usagers du site de covoiturage Blablacar ont permis d'économiser 1,6 million de tonnes de CO2. (<i> Le Parisien </i>)",
+						"Le vélo ne pollue pas, et, en ville, il permet de se déplacer plus vite qu'en voiture sur une distance de moins de cinq kilomètres. (<i> Le Parisien </i>)",
+						"Aujourd'hui, 93 % des poissons recensés en Méditerranée sont surexploités. (<i> Le Parisien </i>)" 
 						]);
 						</script>  
 		             </p> 
@@ -95,14 +95,16 @@
 			        <br> 
 			        <div class="contenu_onglets">
 			            <div class="contenu_onglet" id="contenu_onglet_quoi">
+						<h8> Les chiffres présentés ici sont rapportés à la population de votre commune ou quartier.</h8>
+
 			    						
 							<div class = "containera">
-								<h4> Mon mode de vie </h4>s
-								<p><span id="em_tot" class="h3"></span><span class="h4">  mégatonnes de CO²</span></p><br>
+								<h4> Mon mode de vie </h4>
+								<p><span id="em_tot" class="h3"></span><span class="h4">  kilotonnes de CO₂</span></p><br>
 								<h4> Mode de vie d'un français moyen </h4>
-								<p><span id="em_moy" class="h3"></span><span class="h4">  mégatonnes de CO²</span></p><br>
+								<p><span id="em_moy" class="h3"></span><span class="h4">  kilotonnes de CO₂</span></p><br>
 								<h4> Mode de vie optimal* </h4>
-								<p><span id="em_ideal" class="h3"></span><span class="h4">  mégatonnes de CO²</span></p>
+								<p><span id="em_ideal" class="h3"></span><span class="h4">  kilotonnes de CO₂</span></p>
 								
 							</div>
 							<br>
@@ -113,7 +115,7 @@
 								<p><span id="rayon" class="h5"></span><span class="h4">  kilomètres</span></p>
 							</div>
 							
-						<h8> *il s'agit de la consommation préconisée par le GIEC pour rester sous la barre des 1,5°C de réchauffement : 1,8 tonnes de CO2 par habitant</h8>
+						<h8> *il s'agit de la consommation préconisée par le GIEC pour rester sous la barre des 1,5°C de réchauffement : 1,8 tonnes de CO₂ par habitant</h8>
 						<br><br>
 						<button class = "button button_next" onclick="moy()">Afficher la consommation moyenne</button>
 						<img id="attente_moy" src="image/attente.gif" height="150%">
@@ -132,7 +134,7 @@
 								<h1>
 								Pour obtenir cette carte d'émission, nous multiplions votre émission par le nombre d'habitants de votre commune ou quartier.Vous pouvez ainsi vous rendre compte de l'impact carbone collectif de votre environnement.
 								<br><br><br>
-								Les surfaces végétalisées ont un taux d'absorption différent en fonction de leur type: la forêt absorbe environ 10 fois plus qu'un parc. Si vous habitez près d'une forêt la surface totale sera largement amoindrie. 
+								Les surfaces végétalisées ont un taux d'absorption différent en fonction de leur type: la forêt absorbe environ 10 fois plus qu'un parc. Si vous habitez près d'une forêt, l'étendue et la surface totale seront largement amoindries. 
 								</h1> 
 								<br>
 								<br>

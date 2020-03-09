@@ -292,11 +292,10 @@ var legend = L.control({ position: "bottomright" });
 legend.onAdd = function(map) {
   var div = L.DomUtil.create("div", "legend");
   div.innerHTML += '<i style="background: #93A285"></i><span>Votre consommation</span><br>';
-  div.innerHTML += '<i style="background: #004E2B"></i><span>Votre consommation</span><br>';
+  div.innerHTML += '<i style="background: #004E2B"></i><span>Votre consommation modifiée</span><br>';
   div.innerHTML += '<i style="background: #D7833A"></i><span>Consommation comme un français "moyen"</span><br>';
   div.innerHTML += '<i style="background: #886176"></i><span>Consommation optimale*</span><br>';
   div.innerHTML += '<i class="icon" ></i><span>Votre adresse</span><br>';
-  div.innerHTML += '<i style="color: #666" ></i><span>Votre commune</span><br>';
   return div;
 };
 legend.addTo(map);
